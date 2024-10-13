@@ -1,5 +1,8 @@
 const hre = require("hardhat");
 
+// Ejecutar -> npx hardhat node
+//          -> npx hardhat run scripts/deploy.js --network localhost
+
 async function main() {
     
     console.log("Ethers version:", require("ethers").version);

@@ -14,8 +14,8 @@ async function main() {
     const UPCoin = await ethers.getContractFactory("UPCoin");
 
     // attach para conectar con la instancia del contrato desplegado
-    const upcoin = await UPCoin.attach("0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"); 
-    // 0x5FC.. Cuenta que desplego el contrato
+    const upcoin = await UPCoin.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3"); 
+    // 0x5FC.. <- UPCoin deployed to:... despues de haber ejecutado deploy.js
 
     // Consultar el balance del propietario
     const balance = await upcoin.balanceOf(owner.address);
