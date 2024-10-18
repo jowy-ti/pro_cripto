@@ -1,0 +1,57 @@
+/* Estilo general para el contenedor del pago en blockchain */
+.blockchain-payment {
+    padding: 20px; /* Espaciado interno */
+    background-color: #1e1e1e; /* Fondo oscuro */
+    color: #ffffff; /* Color del texto blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+/* Estilo para el título del pago */
+.blockchain-payment h2 {
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+/* Estilo para los párrafos dentro del formulario */
+.blockchain-payment p {
+    margin: 10px 0; /* Espacio entre los párrafos */
+}
+
+/* Estilo para el botón de firma de pago */
+.blockchain-payment button[type='submit'] {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #ffffff; /* Texto blanco */
+    background-color: #007bff; /* Color azul del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.blockchain-payment button[type='submit']:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de cancelar */
+.blockchain-payment button[type='button'] {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #ffffff; /* Texto blanco */
+    background-color: #d9534f; /* Color rojo para el botón de cancelar */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.blockchain-payment button[type='button']:hover {
+    background-color: #c9302c; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilo para los mensajes de error y éxito */
+.errorMessage {
+    color: red; /* Color rojo para mensajes de error */
+}
+
+.successMessage {
+    color: green; /* Color verde para mensajes de éxito */
+}

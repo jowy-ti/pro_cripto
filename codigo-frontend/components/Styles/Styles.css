@@ -1,0 +1,121 @@
+/* Estilos generales para la página de compras */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Color de fondo claro */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.shop-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco para el contenedor */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Estilo para el botón */
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff; /* Color azul */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Color azul más oscuro al pasar el mouse */
+}
+
+/* Notificación */
+.notification {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #dff0d8; /* Color verde claro */
+    color: #3c763d; /* Color del texto */
+    border: 1px solid #d6e9c6; /* Borde verde */
+    border-radius: 5px;
+}
+
+/* Estilos para los contenedores de productos y carrito */
+.products-container, .carrito-container {
+    margin-top: 20px;
+}
+
+/* Estilos para los elementos del carrito */
+.items-carrito {
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea; /* Línea divisoria entre items */
+}
+
+.item:last-child {
+    border-bottom: none; /* Sin borde en el último item */
+}
+
+/* Títulos de secciones */
+h2, h3 {
+    color: #333; /* Color del texto más oscuro para mejor contraste */
+}
+
+h2 {
+    margin-top: 20px; /* Espaciado superior para títulos principales */
+}
+
+h3 {
+    margin-top: 10px; /* Espaciado superior para subtítulos */
+}
+
+/* Contenedor principal */
+.shop-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative; /* Para posicionar el botón */
+}
+
+/* Botón para cambiar al carrito */
+.toggle-cart-button {
+    position: absolute; /* Posición absoluta */
+    top: 20px; /* Espacio desde la parte superior */
+    right: 20px; /* Espacio desde el lado derecho */
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff; /* Color azul */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Contenedor de productos */
+.products-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los ítems se envuelvan */
+    justify-content: center; /* Centra los ítems horizontalmente */
+}
+
+/* Estilos para los ítems individuales (puedes ajustar según tu diseño) */
+.product-item {
+    margin: 10px; /* Espaciado entre ítems */
+}
+
+/* Estilo para el carrito (si es necesario) */
+.carrito-container {
+    margin-top: 20px; /* Espacio superior para el carrito */
+}
