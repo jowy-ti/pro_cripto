@@ -28,6 +28,10 @@
     color: #ffffff;
 }
 
+.product-add-form input, button {
+    box-sizing: border-box;
+}
+
 .product-add-form input:focus {
     outline: none;
     box-shadow: 0 0 0 2px #61dafb;
@@ -53,10 +57,12 @@
     color: #ff6b6b;
     margin-top: 10px;
     font-size: 14px;
+    text-align: center;
 }
 
 .product-add-form .successMessage {
     color: #4caf50;
     margin-top: 10px;
     font-size: 14px;
+    text-align: center;
 }

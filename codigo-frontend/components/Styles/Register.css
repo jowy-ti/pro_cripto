@@ -1,13 +1,3 @@
-.register-container {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
 
 .register-form {
     background-color: #3a3f4b;
@@ -19,6 +9,7 @@
 .register-form h2 {
     margin-bottom: 20px;
     color: #61dafb;
+    text-align: center;
 }
 
 .register-form div {
@@ -28,6 +19,7 @@
 .register-form label {
     display: block;
     margin-bottom: 5px;
+    color: #ffffff;
 }
 
 .register-form input {
@@ -40,12 +32,17 @@
     color: white;
 }
 
+.register-form input, button {
+    box-sizing: border-box;
+}
+
 .register-form input:focus {
     outline: none;
     box-shadow: 0 0 0 2px #61dafb;
 }
 
 .register-form button {
+    margin-top: 30px;
     width: 100%;
     padding: 10px 15px;
     font-size: 18px;
@@ -54,7 +51,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    display: block;
 }
 
 .register-form button:hover {
@@ -65,10 +62,12 @@
     color: #ff6b6b;
     margin-top: 10px;
     font-size: 14px;
+    text-align: center;
 }
 
 .register-form .success-message {
     color: #4caf50;
     margin-top: 10px;
     font-size: 14px;
+    text-align: center;
 }

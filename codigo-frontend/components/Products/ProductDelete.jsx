@@ -6,8 +6,8 @@ const ProductDelete = ({productsList, onProductDeleted}) => {
     const [products, setProducts] = useState(productsList);
     const [loading, setLoading] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-
+    //const [successMessage, setSuccessMessage] = useState(''); ELIMINAR
+    
     useEffect(() => {
         const getProducts = async () => {
             try {
@@ -21,6 +21,7 @@ const ProductDelete = ({productsList, onProductDeleted}) => {
         };
 
         getProducts();
+
     }, []);
 
     const handleDelete = async (productName) => {
@@ -28,24 +29,29 @@ const ProductDelete = ({productsList, onProductDeleted}) => {
             //await deleteProduct(productName);
             //onProductDeleted(productName);
             setProducts(products.filter(product => product.productName !== productName));
-            setSuccessMessage("Producto borrado");
+            //setSuccessMessage("Producto borrado");
             setErrorMessage('');
-            setTimeout(() => {setSuccessMessage('');}, 1000);
+            //setTimeout(() => {setSuccessMessage('');}, 1000);
+
         } catch (error) {
             console.error(error);
             setErrorMessage(error.message || "Error al borrar el producto");
-            setSuccessMessage('');
+            //setSuccessMessage('');
             setTimeout(() => {setErrorMessage('');}, 1000);
         }
     };
 
     if (loading) return <p>Cargando productos...</p>
-    if (errorMessage) return <p className='errorMessage'>{errorMessage}</p>
+    if (errorMessage) return <p className='error-message'>{errorMessage}</p>
+    if (products.length === 0) {
+        return <p className='white-txt'>No existe ningun producto</p>;
+    }
 
     return (
         <div className='product-delete-container'>
             <div className='product-delete-form'>
-                {successMessage && <p className='successMessage'>{successMessage}</p>}
+                {/*{successMessage && <p className='success-message'>{success-message}</p>}*/}
+                {errorMessage && <p className='error-message'>{errorMessage}</p>}
                 <ul className='products-list'>
                     {products.map((product) => (
                         <li key={product.productName} className='product-item'>

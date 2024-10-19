@@ -17,17 +17,17 @@
 .product-add-section h2, .product-delete-section h2 {
     margin-bottom: 20px;
     color: #61dafb;
-    text-align: center; /* Center the section titles */
+    text-align: center;
 }
 
 .management-button {
-    position: absolute; /* Posicionamiento absoluto */
-    top: 20px; /* Espacio desde la parte superior */
-    right: 20px; /* Espacio desde la derecha */
+    position: absolute;
+    top: 20px;
+    right: 20px;
     padding: 10px 15px;
     font-size: 16px;
-    color: #ffffff; /* Texto blanco */
-    background-color: #007bff; /* Color azul del botón */
+    color: #ffffff;
+    background-color: #007bff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -39,8 +39,8 @@
 }
 
 .line {
-    display: flex; /* Usar Flexbox para alinear horizontalmente */
-    justify-content: space-between; /* Espacio entre los elementos */
-    align-items: center; /* Alinea verticalmente al centro */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 100%;
 }

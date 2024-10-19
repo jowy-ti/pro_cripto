@@ -69,16 +69,16 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
     return (
         <div className='blockchain-payment'>
             <h2>Blockchain Payment</h2>
-            {account ? (<p>Cuenta conectada: {account}</p>) : (<p>Porfavor conecta tu cuenta de MetaMask wallet</p>)}
+            {account ? (<p className='txt'>Cuenta conectada: {account}</p>) : (<p>Porfavor conecta tu cuenta de MetaMask wallet</p>)}
             <form onSubmit={handlePayment}>
                 <div>
-                    <p>Total a pagar: {amount} UPCoin</p>
-                    <p>Destinatario del pago: {recipient}</p>
+                    <p className='txt'>Total a pagar: {amount} UPCoin</p>
+                    <p className='txt'>Destinatario del pago: {recipient}</p>
                 </div>
-                <button type='submit' disabled={!account || loading}>
+                <button className='pay' type='submit' disabled={!account || loading}>
                     {loading ? 'Procesando...' : 'Firma el Pago'}
                 </button>
-                <button type="button" onClick={() => {onClose(); onCancelPayment();}}>Cancelar</button>
+                <button className='cancel' type="button" onClick={() => {onClose(); onCancelPayment();}}>Cancelar</button>
             </form>
             {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
             {successMessage && <p className='successMessage'>{successMessage}</p>}
