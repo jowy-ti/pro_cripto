@@ -14,7 +14,7 @@ async function main() {
 
     // Crear instancia del contrato usando la ABI y la dirección del contrato
     const UPCoin = require("../artifacts/contracts/UPCoin.sol/UPCoin.json");
-    const upcoin = new web3.eth.Contract(UPCoin.abi, "0x5FbDB2315678afecb367f032d93F642f64180aa3"); // Reemplaza con la dirección de tu contrato
+    const upcoin = new web3.eth.Contract(UPCoin.abi, "0x5FbDB2315678afecb367f032d93F642f64180aa3"); // Dirección del contrato
 
     // Consultar el balance del propietario
     const balance = await upcoin.methods.balanceOf(owner).call();
