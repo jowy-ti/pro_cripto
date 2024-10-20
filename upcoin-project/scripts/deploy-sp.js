@@ -13,7 +13,7 @@ async function main() {
     const UPCoin = await hre.ethers.getContractFactory("UPCoin");
 
     // Desplegar el contrato con el suministro inicial (por ejemplo, 1,000,000 UPC)
-    const initialSupply = ethers.parseUnits("1000000", 18); // Asegúrate de usar los decimales
+    const initialSupply = ethers.parseUnits("1000000", 18);
     const upcoin = await UPCoin.deploy(initialSupply);
 
     // Esperar a que el contrato sea desplegado
