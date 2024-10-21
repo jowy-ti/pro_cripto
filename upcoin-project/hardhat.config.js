@@ -7,7 +7,7 @@ module.exports = {
   networks: {
     sepolia: {
       url: process.env.INFURA_API_URL, // URL del proyecto Infura desde .env
-      accounts: [`0x${process.env.PRIVATE_KEY}`], // Tu clave privada desde .env
+      accounts: [`0x${process.env.PRIVATE_KEY}`], // clave privada desde .env
     },
     localhost: {
       url: "http://127.0.0.1:8545",
