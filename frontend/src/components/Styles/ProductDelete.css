@@ -1,0 +1,75 @@
+
+.product-delete-form {
+    margin: 20px 80px;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+/*.product-delete-form {
+    width: 100%;
+}*/
+
+.products-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.products-list .product-item {
+    align-items: center;
+}
+
+.product-item span{
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.product-item .imagen {
+    max-width: 150px;
+    max-height: 150px;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-delete-form button {
+    margin-top: 40px;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #d9534f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-delete-form button:hover {
+    background-color: #c9302c;
+}
+
+.product-add-form .error-message {
+    color: #ff6b6b;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.product-delete-form .success-message {
+    color: #4caf50;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.white-txt {
+    color: white;
+}

@@ -1,0 +1,18 @@
+/* Lista */
+.product-list {
+    background-color: #1e1e1e; /* Fondo oscuro para el contenedor */
+}
+
+/* Titulo alineado y no pegado a los elementos*/
+.product-list h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px; 
+}
+
+/* Grid */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

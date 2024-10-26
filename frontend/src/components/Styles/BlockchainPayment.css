@@ -1,0 +1,62 @@
+
+.blockchain-payment {
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.blockchain-payment h2 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.txt {
+    margin: 10px 0;
+    color: #ffffff;
+    text-align: center;
+}
+
+.blockchain-payment .pay {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.blockchain-payment .pay:hover {
+    background-color: #0056b3;
+}
+
+.blockchain-payment .cancel {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #d9534f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.blockchain-payment .cancel:hover {
+    background-color: #c9302c;
+}
+
+
+.errorMessage {
+    color: #ff6b6b;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.successMessage {
+    color: #4caf50;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
