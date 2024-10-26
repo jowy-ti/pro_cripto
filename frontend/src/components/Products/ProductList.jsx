@@ -10,6 +10,29 @@ const ProductList = ({onAddToCarrito, itemsCarrito}) => {
 
     useEffect(() => {
         const getProducts = async () => {
+            /* LLAMADA CORRECTA
+            try {
+                const resp = await getAllProducts();
+                console.log(resp.data);
+                if (resp.status === 200) {
+                    setErrorMessage('');
+                    console.log(resp.status  + ": " + resp.data);
+    
+                    setProducts(resp.data);
+                }
+            } catch (error) {
+                if (!error.response) {
+                    setErrorMessage('No se ha podido conectar con el backend');
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                else if (error.response.status === 400) {
+                    console.log(error.response.status + ": " + error.response.data);
+                    setErrorMessage(error.response.status + ": " + error.response.data);
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                
+            }
+            */
             try {
                 const productsData = await getAllProducts();
                 setProducts(productsData);

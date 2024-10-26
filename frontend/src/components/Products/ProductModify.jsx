@@ -16,6 +16,29 @@ const ProductModify = () => {
     }, []);
 
     const getProducts = async () => {
+        /* LLAMADA CORRECTA
+        try {
+            const resp = await getAllProducts();
+            console.log(resp.data);
+            if (resp.status === 200) {
+                setErrorMessage('');
+                console.log(resp.status  + ": " + resp.data);
+
+                setProducts(resp.data);
+            }
+        } catch (error) {
+            if (!error.response) {
+                setErrorMessage('No se ha podido conectar con el backend');
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            else if (error.response.status === 400) {
+                console.log(error.response.status + ": " + error.response.data);
+                setErrorMessage(error.response.status + ": " + error.response.data);
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            
+        }
+        */
         try {
             const productsData = await getAllProducts();
             setProducts(productsData);
@@ -37,21 +60,34 @@ const ProductModify = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+            
         try {
-            await updateProduct(selectedProduct.productName, modifiedProduct);
-            await getProducts();
-            setSelectedProduct(null);
-            setModifiedProduct({ productName: '', price: '', image: '' });
-            setSuccessMessage('Producto modificado correctamente');
-            setTimeout(() => {setSuccessMessage('');}, 1000);
+            const resp = await updateProduct(selectedProduct.productName, modifiedProduct);
+            console.log(resp.data);
+            if (resp.status === 200) {
+                setErrorMessage('');
+                console.log(resp.status  + ": " + resp.data);
+                await getProducts();
+                setSelectedProduct(null);
+                setModifiedProduct({ productName: '', price: '', image: '' });
+                setSuccessMessage('Producto modificado correctamente');
+                setTimeout(() => {setSuccessMessage('');}, 1000);
+            }
         } catch (error) {
-            setErrorMessage('Error al modificar el producto');
-            setTimeout(() => {setErrorMessage('');}, 1000);
+            if (!error.response) {
+                setErrorMessage('No se ha podido conectar con el backend');
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            else if (error.response.status === 400) {
+                console.log(error.response.status + ": " + error.response.data);
+                setErrorMessage(error.response.status + ": " + error.response.data);
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            
         }
     };
 
     if (loading) return <p>Cargando productos...</p>;
-    //if (errorMessage) return <p className="error-message">{errorMessage}</p>;
 
     return (
         <div className="modify-product-container">
