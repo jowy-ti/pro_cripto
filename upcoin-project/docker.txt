@@ -1,5 +1,0 @@
-Construir imagen:
-docker build -t hardhat .
-
-Correr contenedor:
-docker run --name "coin" -d -p 8082:4000 hardhat
