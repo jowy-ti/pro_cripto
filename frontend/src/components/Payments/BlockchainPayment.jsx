@@ -54,9 +54,28 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
                 sender: account
             };
 
-            const response = await sendPayment(paymentData);
-
-            setSuccessMessage(response.message);
+            try {
+                const resp = await sendPayment(paymentData);
+                console.log(resp.data);
+                if (resp.status === 200) {
+                    setErrorMessage('');
+                    console.log(resp.status  + ": " + resp.data);
+    
+                    setSuccessMessage('Pago realizado');
+                    setTimeout(() => {setSuccessMessage('');}, 1000);
+                }
+            } catch (error) {
+                if (!error.response) {
+                    setErrorMessage('No se ha podido conectar con el backend');
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                else if (error.response.status === 400) {
+                    console.log(error.response.status + ": " + error.response.data);
+                    setErrorMessage(error.response.status + ": " + error.response.data);
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                
+            }
 
         } catch (error) {
             console.error(error);

@@ -38,3 +38,10 @@
 .dashboard-content button:hover {
     background-color: #0056b3;
 }
+
+.register-form .error-message {
+    color: #ff6b6b;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}

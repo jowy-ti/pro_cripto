@@ -6,10 +6,32 @@ const ProductDelete = () => {
     const [products, setProducts] = useState('');
     const [loading, setLoading] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    //const [successMessage, setSuccessMessage] = useState(''); ELIMINAR
     
     useEffect(() => {
         const getProducts = async () => {
+            /* LLAMADA CORRECTA
+            try {
+                const resp = await getAllProducts();
+                console.log(resp.data);
+                if (resp.status === 200) {
+                    setErrorMessage('');
+                    console.log(resp.status  + ": " + resp.data);
+    
+                    setProducts(resp.data);
+                }
+            } catch (error) {
+                if (!error.response) {
+                    setErrorMessage('No se ha podido conectar con el backend');
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                else if (error.response.status === 400) {
+                    console.log(error.response.status + ": " + error.response.data);
+                    setErrorMessage(error.response.status + ": " + error.response.data);
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                
+            }
+            */
             try {
                 const productsData = await getAllProducts();
                 setProducts(productsData);
@@ -26,23 +48,30 @@ const ProductDelete = () => {
 
     const handleDelete = async (productName) => {
         try {
-            //await deleteProduct(productName);
-            //onProductDeleted(productName);
-            setProducts(products.filter(product => product.productName !== productName));
-            //setSuccessMessage("Producto borrado");
-            setErrorMessage('');
-            //setTimeout(() => {setSuccessMessage('');}, 1000);
+            const resp = await deleteProduct(productName);
+            console.log(resp.data);
+            if (resp.status === 200) {
+                setErrorMessage('');
+                console.log(resp.status  + ": " + resp.data);
 
+                setProducts(products.filter(product => product.productName !== productName));
+                setErrorMessage('');
+            }
         } catch (error) {
-            console.error(error);
-            setErrorMessage(error.message || "Error al borrar el producto");
-            //setSuccessMessage('');
-            setTimeout(() => {setErrorMessage('');}, 1000);
+            if (!error.response) {
+                setErrorMessage('No se ha podido conectar con el backend');
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            else if (error.response.status === 400) {
+                console.log(error.response.status + ": " + error.response.data);
+                setErrorMessage(error.response.status + ": " + error.response.data);
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            
         }
     };
 
     if (loading) return <p>Cargando productos...</p>
-    //if (errorMessage) return <p className='error-message'>{errorMessage}</p>
     if (products.length === 0) {
         return <p className='white-txt'>No existe ningun producto</p>;
     }
@@ -50,7 +79,6 @@ const ProductDelete = () => {
     return (
         <div className='product-delete-container'>
             <div className='product-delete-form'>
-                {/*{successMessage && <p className='success-message'>{success-message}</p>}*/}
                 {errorMessage && <p className='error-message'>{errorMessage}</p>}
                 <ul className='products-list'>
                     {products.map((product) => (

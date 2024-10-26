@@ -36,42 +36,11 @@ export const isAuthenticated = async (page) => {
     }
 };
 
-export const logout = () =>{
-    //localStorage.removeItem('token');
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const getCurrentUser = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        const user = JSON.parse(atob(token.split('.')[1]));
-        return user;
-    }
-    return null;
-};
-
-
-export const getAuthToken = () => {
-    return localStorage.getItem('token');
-};
-
-export const setAuthToken = () => {
-    const token = getAuthToken();
-    if (token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    } else {
-        delete axios.defaults.headers.common['Authorization'];
+export const logout = async () =>{
+    try {
+        const response = await axios.post('/logout', {}, {withCredentials: true});
+        return response;
+    } catch (error) {
+        throw error;
     }
 };
