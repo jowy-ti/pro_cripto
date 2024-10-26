@@ -1,0 +1,11 @@
+Construir imagen:
+docker build -t backend .
+
+Correr contenedor:
+docker run --name "back" -d -p 8081:5000 backend
+
+Probar register:
+curl -i -H "Content-Type: application/json" -d '{"userName": "Fatima", "password": "234123412f"}' http://localhost:8081/register
+
+Probar login:
+curl -i -H "Content-Type: application/json" -d '{"userName": "Fatima", "password": "234123412f"}' http://localhost:8081/login
