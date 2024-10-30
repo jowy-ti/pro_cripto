@@ -9,7 +9,7 @@ const ProductDelete = () => {
     
     useEffect(() => {
         const getProducts = async () => {
-            /* LLAMADA CORRECTA
+            
             try {
                 const resp = await getAllProducts();
                 console.log(resp.data);
@@ -30,8 +30,10 @@ const ProductDelete = () => {
                     setTimeout(() => {setErrorMessage('');}, 1000);
                 }
                 
+            } finally {
+                setLoading(false);
             }
-            */
+            /*
             try {
                 const productsData = await getAllProducts();
                 setProducts(productsData);
@@ -39,7 +41,7 @@ const ProductDelete = () => {
                 setErrorMessage(error.message);
             } finally {
                 setLoading(false);
-            }
+            }*/
         };
 
         getProducts();
@@ -85,7 +87,7 @@ const ProductDelete = () => {
                         <li key={product.productName} className='product-item'>
                                 <span>{product.productName}</span>
                                 <span>{product.price.toFixed(2)} UPCoin</span>
-                                <img className='imagen' src={product.image} alt='' /><button onClick={() => handleDelete(product.productName)}>Borrar</button>
+                                <img className='imagen' src={product.imageURL} alt='' /><button onClick={() => handleDelete(product.productName)}>Borrar</button>
                         </li>
                     ))}
                 </ul>

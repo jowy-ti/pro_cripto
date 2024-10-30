@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Styles/ProductItem.css';
 
 const ProductItem = ({product, onAddToCarrito, showAddButton}) => {
-    const {productName, price, image} = product;
+    const {productName, price, imageURL} = product;
     const [amount, setAmount] = useState(product.quantity || 1);
     const [totalPrice, setTotalPrice] = useState(0);
 
@@ -40,7 +40,7 @@ const ProductItem = ({product, onAddToCarrito, showAddButton}) => {
                         </div>
                     )}
                 </div>
-                <img className='imagen' src={image} alt='' />
+                <img className='imagen' src={imageURL} alt='' />
             </div>
         </div>
         
