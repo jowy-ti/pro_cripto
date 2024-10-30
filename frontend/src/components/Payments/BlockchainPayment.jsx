@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { sendPayment } from '../../services/Payment';
 import '../Styles/BlockchainPayment.css';
 
-const DESTINATARIO_PAGO = 0x1234;//CAMBIAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const DESTINATARIO_PAGO = "0x2b41659B028269Fe71E6683c7240294cdD9607e1"; // Es una wallet mía (Sebas)
 
 const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
     const [account, setAccount] = useState('');
@@ -37,6 +37,7 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
         setLoading(true);
         setErrorMessage('');
         setSuccessMessage('');
+        console.log("Iniciando el proceso de pago...");
     
 
         try {
@@ -48,15 +49,22 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
 
             const paymentData = {
                 signature,
-                message,
-                account,
-                recipient,
-                sender: account
+                from: account,
+                to: recipient,
+                amount: amount * (10 ** 2)
             };
 
-            const response = await sendPayment(paymentData);
-
-            setSuccessMessage(response.message);
+            const response = await fetch('http://localhost:3001/relay-transfer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(paymentData),
+            });
+    
+            const data = await response.json();
+            setSuccessMessage(data.message);
+            console.log("Pago exitoso:", data.message);
 
         } catch (error) {
             console.error(error);

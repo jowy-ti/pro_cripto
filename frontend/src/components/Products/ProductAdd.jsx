@@ -23,15 +23,34 @@ const ProductAdd = () => {
                 image,
             }
 
-            //await addProduct(newProduct);
+            try {
+                const resp = await addProduct(newProduct);
+                console.log(resp.data);
+                if (resp.status === 200) {
+                    setErrorMessage('');
+                    console.log(resp.status  + ": " + resp.data);
+                    setSuccessMessage("Producto añadido correctamente");
+                    setErrorMessage("");
 
-            setSuccessMessage("Producto añadido correctamente");
-            setErrorMessage("");
+                    setProductName('');
+                    setPrice('');
+                    setImage('');
+                    setTimeout(() => {setSuccessMessage('');}, 1000);
+                }
+            } catch (error) {
+                if (!error.response) {
+                    setErrorMessage('No se ha podido conectar con el backend');
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                else if (error.response.status === 400) {
+                    console.log(error.response.status + ": " + error.response.data);
+                    setErrorMessage(error.response.status + ": " + error.response.data);
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                
+            }
 
-            setProductName('');
-            setPrice('');
-            setImage('');
-            setTimeout(() => {setSuccessMessage('');}, 1000);
+            
         } catch (error) {
             setErrorMessage(error.message || 'Error al añadir el producto');
             setSuccessMessage('');

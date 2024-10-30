@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '???????????????????';
+const API_URL = 'http://localhost:5000';
 
 export const getAllProducts = async () => {
     try {
@@ -52,7 +52,7 @@ export const deleteProduct = async (productName) => {
 
 export const updateProduct = async (productNameBD, updatedProduct) => {
     try {
-        const response = await axios.put(`${API_URL}/product/${productNameBD}`, updatedProduct);
+        const response = await axios.patch(`${API_URL}/product/${productNameBD}`, updatedProduct);
         return response.data;
     } catch (error) {
         console.error("Error al modificar el producto");
