@@ -10,7 +10,7 @@ const ProductList = ({onAddToCarrito, itemsCarrito}) => {
 
     useEffect(() => {
         const getProducts = async () => {
-            /* LLAMADA CORRECTA
+            
             try {
                 const resp = await getAllProducts();
                 console.log(resp.data);
@@ -31,8 +31,10 @@ const ProductList = ({onAddToCarrito, itemsCarrito}) => {
                     setTimeout(() => {setErrorMessage('');}, 1000);
                 }
                 
+            } finally {
+                setLoading(false);
             }
-            */
+            /*
             try {
                 const productsData = await getAllProducts();
                 setProducts(productsData);
@@ -40,7 +42,7 @@ const ProductList = ({onAddToCarrito, itemsCarrito}) => {
                 setErrorMessage(error.message);
             } finally {
                 setLoading(false);
-            }
+            }*/
         };
         
         getProducts();
