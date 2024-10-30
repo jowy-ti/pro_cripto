@@ -1,0 +1,12 @@
+1. Instalar forticlient o conectarse de alguna forma a la vpn de la fib
+2. Mirar el documento "Descripción Kube" de la carpeta del proyecto
+3. En este documento están las IPs de las maquinas remotas
+4. ssh alumne@"IP de una maquina"
+5. introducir la contraseña "alumne"
+
+
+Si queremos editar con vscode en esa maquina hacemos lo siguiente:
+- Instalar vscode en nuestro máquina local
+- instalar la extensión Remote Development en vscode
+- Si queremos facilidad con docker instalamos docker en vscode
+- con la extensión de Remote Development nos conectamos por ssh a la maquina y ya estaría

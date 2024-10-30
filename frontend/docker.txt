@@ -1,6 +1,9 @@
 Construir imagen:
 docker build -t frontend .
 
+Crear red si no está creada:
+docker network create cluster
+
 Correr contenedor:
 docker run --name "react" -d -p 8080:3000 --network cluster frontend
 
