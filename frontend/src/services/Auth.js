@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'http://back:8081';
 
 export const login = async (userName, password) => {
     try {
@@ -12,7 +12,6 @@ export const login = async (userName, password) => {
     } catch (error) {
         throw error;
     }
-    
 };
 
 export const register = async (userName, password) => {

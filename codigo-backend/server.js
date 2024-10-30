@@ -7,12 +7,6 @@ const cookieParser = require('cookie-parser');
 const mongo_functions = require("./MongoDB.js");
 const { mongo } = require("mongoose");
 
-/*
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
-*/
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({

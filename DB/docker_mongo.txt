@@ -1,0 +1,8 @@
+Crear imagen:
+docker pull mongo:4.0
+
+Crear red si no está creada:
+docker network create cluster
+
+Correr contenedor:
+docker run -d --name mongodb -p 8082:4000 --network cluster -v mongodb_data:/data/db mongo:4.0

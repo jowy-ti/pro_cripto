@@ -2,7 +2,7 @@ Construir imagen:
 docker build -t frontend .
 
 Correr contenedor:
-docker run --name "react" -d -p 8080:3000 frontend
+docker run --name "react" -d -p 8080:3000 --network cluster frontend
 
 Web:
 10.4.41.37:8080

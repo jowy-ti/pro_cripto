@@ -1,6 +1,6 @@
 const {MongoClient} = require('mongodb');
 const crypto = require('crypto');
-const uri = 'mongodb://localhost:27017';
+const uri = 'mongodb://mongodb:27017';
 const dbName = 'Database';
 
 const client = new MongoClient(uri);
