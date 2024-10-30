@@ -10,14 +10,10 @@ const app = express();
 app.use(bodyParser.json());
 const cookieParser = require('cookie-parser');
 const mongo_functions = require("./MongoDB.js");
-const {Web3} = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
+//const {Web3} = require('web3');
+//const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 
-
-/*app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));*/
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
@@ -25,9 +21,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }));
-
-
-
 
 app.post("/login", async (req, res) => {
     
@@ -175,7 +168,7 @@ const relayerABI = [
       "type": "function"
     }
 ];
-const relayerContract = new web3.eth.Contract(relayerABI, relayerAddress);
+//const relayerContract = new web3.eth.Contract(relayerABI, relayerAddress);
 
 // Endpoint para realizar la transferencia
 app.post('/relay-transfer', async (req, res) => {
