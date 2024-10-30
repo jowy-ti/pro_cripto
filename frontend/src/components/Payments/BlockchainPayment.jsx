@@ -54,6 +54,29 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
                 amount: amount * (10 ** 2)
             };
 
+            try {
+                const resp = await sendPayment(paymentData);
+                console.log(resp.data);
+                if (resp.status === 200) {
+                    setErrorMessage('');
+                    console.log(resp.status  + ": " + resp.data);
+    
+                    setSuccessMessage('Pago realizado');
+                    setTimeout(() => {setSuccessMessage('');}, 1000);
+                }
+            } catch (error) {
+                if (!error.response) {
+                    setErrorMessage('No se ha podido conectar con el backend');
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                else if (error.response.status === 500) {
+                    console.log(error.response.status + ": " + error.response.data);
+                    setErrorMessage(error.response.status + ": " + error.response.data);
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                
+            }
+            /*
             const response = await fetch('http://localhost:3001/relay-transfer', {
                 method: 'POST',
                 headers: {
@@ -64,7 +87,7 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
     
             const data = await response.json();
             setSuccessMessage(data.message);
-            console.log("Pago exitoso:", data.message);
+            console.log("Pago exitoso:", data.message);*/
 
         } catch (error) {
             console.error(error);
