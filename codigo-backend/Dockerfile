@@ -1,23 +1,18 @@
 # Usa la imagen base de Node 20 en Alpine Linux (ligera y adecuada para producción)
 FROM node:20-alpine
 
-# Instala dependencias necesarias
-RUN apk add --no-cache ca-certificates
-
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
 COPY package*.json .
 
-COPY lib/ ./lib
-
 # Instalar dependencias
 RUN npm install
 
-COPY . .
+COPY *.js .
 
-# Exponer el puerto 8080
-EXPOSE 8080
+# Exponer el puerto 8081
+EXPOSE 8081
 
 # Comando para iniciar la aplicación
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
