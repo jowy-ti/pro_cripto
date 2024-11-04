@@ -24,11 +24,11 @@ const ProductAdd = () => {
             }
 
             try {
-                const resp = await addProduct(newProduct);
-                console.log(resp.data);
-                if (resp.status === 200) {
-                    setErrorMessage('');
-                    console.log(resp.status  + ": " + resp.data);
+                const {status, data} = await addProduct(newProduct);
+                console.log(data);
+                if (status === 200) {
+                    console.log(status  + ": " + data);
+    
                     setSuccessMessage("Producto añadido correctamente");
                     setErrorMessage("");
 
@@ -36,15 +36,17 @@ const ProductAdd = () => {
                     setPrice('');
                     setImage('');
                     setTimeout(() => {setSuccessMessage('');}, 1000);
-                }
-            } catch (error) {
-                if (!error.response) {
-                    setErrorMessage('No se ha podido conectar con el backend');
+                } else {
+                    setErrorMessage(`Error status: ${status}: ${data}`);
                     setTimeout(() => {setErrorMessage('');}, 1000);
                 }
-                else if (error.response.status === 400) {
-                    console.log(error.response.status + ": " + error.response.data);
-                    setErrorMessage(error.response.status + ": " + error.response.data);
+            } catch (error) {
+                if (error.message.includes('Error HTTP:')) {
+                    setErrorMessage(`Error al autenticarse: ${error.message}`);
+                    setTimeout(() => {setErrorMessage('');}, 1000);
+                }
+                else {
+                    setErrorMessage('No se ha podido conectar con el backend');
                     setTimeout(() => {setErrorMessage('');}, 1000);
                 }
                 

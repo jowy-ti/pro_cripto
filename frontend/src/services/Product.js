@@ -1,11 +1,20 @@
 import axios from 'axios';
 
-const API_URL = 'http://back:5000';
+const API_URL = 'http://localhost:8081';//'http://localhost:5000'
 
 export const getAllProducts = async () => {
     try {
-        const response = await axios.get(`${API_URL}/`);
-        return response;
+        const response = await fetch(`${API_URL}/`, {
+            method: 'GET',
+        });
+        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const responseJSON = await response.json();//.json()
+        console.log(`Response status: ${response.status}, Data: ${responseJSON}`);
+        return {status: response.status, data: responseJSON};
+    } catch (error) {
+        console.log('error');
+        throw error;
+    }
 
         /*const products = [
             { productName: "Producto 1", price: 10.00 , image: "https://s1.elespanol.com/2021/12/02/actualidad/631699754_217099776_1024x576.jpg"},
@@ -24,19 +33,24 @@ export const getAllProducts = async () => {
             { productName: "Producto 14", price: 5.00 , image: "https://redburger.es/wp-content/uploads/2017/12/bocata-lomo-queso.jpg"}
         ];
         return products;*/
-
-    } catch (error) {
-        console.error("Error al obtener los productos");
-        throw error;
-    }
 };
 
 export const addProduct = async (product) => {
     try {
-        const response = await axios.post(`${API_URL}/product`, product);
-        return response.data;
+        const response = await fetch(`${API_URL}/addProduc`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({productName: product.productName, price: product.price, image: product.imageURL}),
+        });
+        console.log(response.status);
+        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const responseText = await response.text();//.json()
+        console.log(`Response status: ${response.status}, Data: ${responseText}`);
+        return {status: response.status, data: responseText};
     } catch (error) {
-        console.error("Error al añadir el producto");
+        console.log('error');
         throw error;
     }
 };
@@ -52,10 +66,21 @@ export const deleteProduct = async (productName) => {
 
 export const updateProduct = async (productNameBD, updatedProduct) => {
     try {
-        const response = await axios.patch(`${API_URL}/product/${productNameBD}`, updatedProduct);
-        return response.data;
+        console.log('Entra');
+        const response = await fetch(`${API_URL}/modifyProduct`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({productNameBD, productName: updatedProduct.productName, price: updatedProduct.price, imageURL: updatedProduct.imageURL}),
+        });
+        console.log(response.status);
+        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const responseText = await response.text();//.json()
+        console.log(`Response status: ${response.status}, Data: ${responseText}`);
+        return {status: response.status, data: responseText};
     } catch (error) {
-        console.error("Error al modificar el producto");
+        console.log('error');
         throw error;
     }
 }

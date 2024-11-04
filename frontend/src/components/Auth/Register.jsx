@@ -22,26 +22,26 @@ const Register = () => {
 
         try {
 
-            const resp = await register(userName, password);
+            const {status, data} = await register(userName, password);
 
-            if (resp.status === 200) {
-                console.log(resp.status  + ": " + resp.data);
-                setSuccessMessage(resp.status  + ": " + resp.data);
+            console.log(data);
+            if (status === 200) {
                 setErrorMessage('');
-                setTimeout(() => {setSuccessMessage('');}, 1000);
+                console.log(status  + ": " + JSON.stringify(data));
+            } else {
+                setErrorMessage(`Error status: ${status}: ${data}`);
+                setTimeout(() => {setErrorMessage('');}, 1000);
             }
         } catch (error) {
-            setSuccessMessage('');
-
-            if (!error.response) {
+            if (error.message.includes('Error HTTP:')) {
+                setErrorMessage(`Error al autenticarse: ${error.message}`);
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            else {
                 setErrorMessage('No se ha podido conectar con el backend');
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
-            else if (error.response.status === 400) {
-                console.log(error.response.status + ": " + error.response.data);
-                setErrorMessage(error.response.status + ": " + error.response.data);
-                setTimeout(() => {setErrorMessage('');}, 1000);
-            }
+            
         }
     };
 

@@ -10,7 +10,7 @@ const ModifyProductPage = () => {
 
     useEffect(() => {
         const checkCookie = async() => {
-            try {
+            /*try {
                 const resp = await isAuthenticated('/productmanagementpage');
                 console.log(resp.status + ": " + resp.data);
             } catch (error) {
@@ -21,7 +21,7 @@ const ModifyProductPage = () => {
                     console.log(error.response.status + ": " + error.response.data);
                     navigate({pathname: '/errorPage', search: `?error_msg=${error.response.status}: ${error.response.data}`});
                 }
-            }
+            }*/
         };
 
         checkCookie();

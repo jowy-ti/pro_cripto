@@ -1,13 +1,20 @@
-import axios from 'axios';
-
-const API_URL = 'http://back:5000';
+const API_URL = 'http://localhost:8081';//;'http://localhost:5000'
 
 export const sendPayment = async (paymentData) => {
     try {
-        const response = await axios.post(`${API_URL}/relay-transfer`, paymentData);
-        return response;
+        const response = await fetch(`${API_URL}/relay-transfer`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(paymentData),
+        });
+        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const responseText = await response.json();//.json()
+        console.log(`Response status: ${response.status}, Data: ${responseText}`);
+        return {status: response.status, data: responseText};
     } catch (error) {
-        console.error('Error en al enviar el pago');
+        console.log('error');
         throw error;
     }
 };

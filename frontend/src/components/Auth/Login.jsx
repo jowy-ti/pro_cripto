@@ -14,22 +14,24 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const resp = await login(userName, password);
-            console.log(resp.data);
-            if (resp.status === 200) {
+            const {status, data} = await login(userName, password);
+            console.log(data);
+            if (status === 200) {
                 setErrorMessage('');
-                console.log(resp.status  + ": " + resp.data);
+                console.log(status  + ": " + JSON.stringify(data));
 
                 navigate('/dashboard');
-            }
-        } catch (error) {
-            if (!error.response) {
-                setErrorMessage('No se ha podido conectar con el backend');
+            } else {
+                setErrorMessage(`Error status: ${status}: ${data}`);
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
-            else if (error.response.status === 400) {
-                console.log(error.response.status + ": " + error.response.data);
-                setErrorMessage(error.response.status + ": " + error.response.data);
+        } catch (error) {
+            if (error.message.includes('Error HTTP:')) {
+                setErrorMessage(`Error al autenticarse: ${error.message}`);
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            else {
+                setErrorMessage('No se ha podido conectar con el backend');
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
             

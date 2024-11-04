@@ -10,15 +10,21 @@ const Dashboard = () => {
     useEffect(() => {
         const checkCookie = async() => {
             try {
-                const resp = await isAuthenticated('/dashboard');
-                console.log(resp.status + ": " + resp.data);
-            } catch (error) {
-                if (!error.response) {
-                    navigate({pathname: '/errorPage', search: "?error_msg=No hay conexion con el backend"});
+                const {status, data} = await isAuthenticated('/dashboard');
+                console.log(`${status}: ${data}`);
+
+                if (status === 200) {
+                    console.log("Usuario autenticado");
+                } else {
+                    navigate({pathname: '/errorPage', search: `?error_msg=Error status: ${status}`});
                 }
-                else if (error.response.status === 400) {
-                    console.log(error.response.status + ": " + error.response.data);
-                    navigate({pathname: '/errorPage', search: `?error_msg=${error.response.status}: ${error.response.data}`});
+
+            } catch (error) {
+                if (error.message.includes('Error HTTP:')) {
+                    navigate({pathname: '/errorPage', search: `?error_msg=Permiso denegado`} );
+                }
+                else {
+                    navigate({pathname: '/errorPage', search: "?error_msg=No hay conexion con el backend"});
                 }
             }
         };
@@ -38,19 +44,21 @@ const Dashboard = () => {
         
         try {
 
-            const resp = await logout();
-
-            if (resp.status === 200) {
+            const { status, data } = await logout();
+            console.log(data);
+            if (status === 200) {
                 navigate('/login');
-            }
-        } catch (error) {
-            if (!error.response) {
-                setErrorMessage('No se ha podido conectar con el backend');
+            } else {
+                setErrorMessage(`Error status: ${status}`);
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
-            else if (error.response.status === 400) {
-                console.log(error.response.status + ": " + error.response.data);
-                setErrorMessage(error.response.status + ": " + error.response.data);
+        } catch (error) {
+            if (error.message.includes('Error HTTP:')) {
+                setErrorMessage(`Error al cerrar la sesion`);
+                setTimeout(() => {setErrorMessage('');}, 1000);
+            }
+            else {
+                setErrorMessage('No se ha podido conectar con el backend');
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
         }
