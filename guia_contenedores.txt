@@ -1,0 +1,4 @@
+Directorio codigo-backend: información de desplegar contenedores backend y mongodb
+Directorio frontend: información de desplegar contenedor del frontend
+
+Buscar los Docker.txt con la información
