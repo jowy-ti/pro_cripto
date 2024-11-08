@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductList from '../components/Products/ProductList';
 import ProductsCarrito from '../components/Products/ProductCarrito';
 import '../components/Styles/ShopPage.css';
 
 const ShopPage = () => {
+    const navigate = useNavigate();
     const [itemsCarrito, setItemsCarrito] = useState([]);
     const [showOption, setShowOption] = useState(true);
     const [showButton, setShowButton] = useState(true);
@@ -48,6 +50,10 @@ const ShopPage = () => {
         setShowButton(true);
     };
 
+    const navigateToNetworkConfig = () => {
+        navigate('/network-configuration');
+    };
+
     return(
         <div className='content-container'>
             {messageCarrito && <div className='notification'>{messageCarrito}</div>}
@@ -63,6 +69,9 @@ const ShopPage = () => {
                     <ProductsCarrito itemsCarrito={itemsCarrito} onRemoveFromCarrito={handleRemoveFromCarrito} 
                     onPayment={handlePayment} onCancelPayment={handleCancelPayment} onEmptyCarrito={handleEmptyCarrito}/>
                     )}
+                    <button className="button-configure-network" onClick={navigateToNetworkConfig} >
+                        Configurar UPCcoin
+                    </button>
                 </div>
             )}
         </div>
