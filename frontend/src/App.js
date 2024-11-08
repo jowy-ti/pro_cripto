@@ -9,6 +9,7 @@ import ModifyProductPage from './pages/ModifyProductPage';
 import AddProductPage from './pages/AddProductPage';
 import DeleteProductPage from './pages/DeleteProductPage';
 import ErrorPage from './pages/ErrorPage';
+import NetworkConfigurationPage from './pages/NetworkConfigurationPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/addproduct" element={<AddProductPage/>} />
           <Route path="/deleteproduct" element={<DeleteProductPage/>} />
           <Route path="/modifyproduct" element={<ModifyProductPage/>} />
+          <Route path="/network-configuration" element={<NetworkConfigurationPage />} />
         </Routes>
       </header>
     </div>
