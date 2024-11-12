@@ -9,15 +9,21 @@ const ProductManagementPage = () => {
     useEffect(() => {
         const checkCookie = async() => {
             try {
-                const resp = await isAuthenticated('/productmanagementpage');
-                console.log(resp.status + ": " + resp.data);
-            } catch (error) {
-                if (!error.response) {
-                    navigate({pathname: '/errorPage', search: "?error_msg=No hay conexion con el backend"});
+                const {status, data} = await isAuthenticated('/productmanagement');
+                console.log(`${status}: ${data}`);
+
+                if (status === 200) {
+                    console.log("Usuario autenticado");
+                } else {
+                    navigate({pathname: '/errorPage', search: `?error_msg=Error status: ${status}`});
                 }
-                else if (error.response.status === 400) {
-                    console.log(error.response.status + ": " + error.response.data);
-                    navigate({pathname: '/errorPage', search: `?error_msg=${error.response.status}: ${error.response.data}`});
+
+            } catch (error) {
+                if (error.message.includes('Error HTTP:')) {
+                    navigate({pathname: '/errorPage', search: `?error_msg=Permiso denegado`} );
+                }
+                else {
+                    navigate({pathname: '/errorPage', search: "?error_msg=No hay conexion con el backend"});
                 }
             }
         };

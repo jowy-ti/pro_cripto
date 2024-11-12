@@ -89,7 +89,6 @@ const ProductModify = () => {
                 setErrorMessage('No se ha podido conectar con el backend');
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
-            
         }
     };
 
