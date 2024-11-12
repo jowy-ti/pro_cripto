@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const API_URL = 'http://localhost:8081';//'http://localhost:5000'
 
 export const getAllProducts = async () => {
@@ -57,9 +55,16 @@ export const addProduct = async (product) => {
 
 export const deleteProduct = async (productName) => {
     try {
-        await axios.delete(`${API_URL}/product/${productName}`);
+        const response = await fetch(`${API_URL}/product/${productName}`, {
+            method: 'GET',
+        });
+        console.log(response.status);
+        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const responseText = await response.text();//.json()
+        console.log(`Response status: ${response.status}, Data: ${responseText}`);
+        return {status: response.status, data: responseText};
     } catch (error) {
-        console.error("Error al eliminar el producto");
+        console.log('error');
         throw error;
     }
 };
