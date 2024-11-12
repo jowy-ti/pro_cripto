@@ -9,8 +9,8 @@ const crypto = require('crypto');
 const app = express();
 const cookieParser = require('cookie-parser');
 const mongo_functions = require("./MongoDB.js");
-//const {Web3} = require('web3');
-//const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
+const {Web3} = require('web3');
+const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 
 app.use(cors());
 app.use(cookieParser());
@@ -22,11 +22,6 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(express.json());
 
-/*
-app.get("/log", async (req, res) => {
-    return res.status(200).send('Login successful');
-});
-*/
 app.post("/login", async (req, res) => {
     
     const user = req.body.userName;

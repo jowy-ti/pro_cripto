@@ -1,0 +1,9 @@
+docker login -u joelgonzalezjimenez
+
+docker tag frontend joelgonzalezjimenez/frontend:latest
+docker tag backend joelgonzalezjimenez/backend:latest
+docker tag mongo:4.0 joelgonzalezjimenez/mongo:4.0
+
+docker push joelgonzalezjimenez/frontend:latest
+docker push joelgonzalezjimenez/backend:latest
+docker push joelgonzalezjimenez/mongo:4.0
