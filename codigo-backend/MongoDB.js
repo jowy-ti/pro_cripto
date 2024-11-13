@@ -33,17 +33,22 @@ async function initializeDatabase() {
         const collections = await db.listCollections().toArray();
         const collectionNames = collections.map(c => c.name);
 
-        if (collectionNames.includes('usuarios')) {
+        /*if (collectionNames.includes('usuarios')) {
             await db.collection('usuarios').drop();
         }
 
         if (collectionNames.includes('productos')) {
             await db.collection('productos').drop();
+        }*/
+	
+	if (!collectionNames.includes('usuarios')) {
+        	await db.createCollection('usuarios');
         }
-
-        await db.createCollection('usuarios');
-        await db.createCollection('productos');
-
+        
+        if (!collectionNames.includes('productos')) {
+        	await db.createCollection('productos');
+	}
+	
         //Llaves primarias
         await db.collection('usuarios').createIndex({user: 1}, {unique: true});
         await db.collection('productos').createIndex({productName: 1}, {unique:true});
