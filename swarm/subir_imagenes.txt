@@ -7,3 +7,8 @@ docker tag mongo:4.0 joelgonzalezjimenez/mongo:4.0
 docker push joelgonzalezjimenez/frontend:latest
 docker push joelgonzalezjimenez/backend:latest
 docker push joelgonzalezjimenez/mongo:4.0
+
+
+docker build -t joelgonzalezjimenez/frontend:latest .
+docker build -t joelgonzalezjimenez/backend:latest .
+docker build -t joelgonzalezjimenez/mongo:4.0 .

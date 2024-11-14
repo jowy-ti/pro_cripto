@@ -1,11 +1,13 @@
 services:
   frontend:
     image: joelgonzalezjimenez/frontend
+    env_file: ".env"
     ports:
       - "8080:3000"
 
   backend:
     image: joelgonzalezjimenez/backend
+    env_file: ".env"
     ports:
       - "8081:5000"
     networks:
