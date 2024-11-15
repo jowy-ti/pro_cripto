@@ -500,10 +500,10 @@ app.post('/request-initial-tokens', async (req, res) => {
   const { userWallet } = req.body;
 
   try {
-    // 1. Obtener el nonce de la transacción
+    // Obtener el nonce de la transacción
     const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
 
-    // 2. Construir la transacción para llamar a `transfer` del contrato UPCoin
+    // Construir la transacción para llamar a `transfer` del contrato UPCoin
     const amount = 100 * (10 ** 2); // 100 UPCoin con 2 decimales
     const gasEstimate = await upcoinContract.methods.transfer(userWallet, amount).estimateGas({ from: process.env.RELAYER_ADDRESS });
     const txData = {
@@ -515,10 +515,10 @@ app.post('/request-initial-tokens', async (req, res) => {
       from: process.env.RELAYER_ADDRESS,
     };
 
-    // 3. Firmar la transacción con la clave privada del Relayer
+    // Firmar la transacción con la clave privada del Relayer
     const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY);
 
-    // 4. Enviar la transacción firmada
+    // Enviar la transacción firmada
     const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 
     console.log("Transacción:", tx);
