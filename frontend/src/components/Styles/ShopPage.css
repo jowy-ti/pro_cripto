@@ -56,3 +56,20 @@
     background-color: #218838;
   }
   
+  .button-request-tokens {
+    position: absolute;
+    top: 20px;
+    left: 350px; /* Ajustar según el ancho del botón "Configurar UPCcoin" */
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    width: auto;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button-request-tokens:hover {
+    background-color: #218838;
+  }
