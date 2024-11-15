@@ -1,26 +1,22 @@
-// services/TransferTokens.js
+// Archivo src/services/TokenService.js (puedes crear este archivo si no existe)
 
-// const API_URL = 'http://localhost:8081'; // Server VM
-const API_URL = 'http://localhost:3001';  // Server Sebas
+const API_URL = 'http://localhost:3001'; 
 
-export const transferInitialTokens = async (amount) => {
-    try {
-        const response = await fetch(`${API_URL}/request-initial-tokens`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ amount }),  // Transferir la cantidad de UPCoin indicada
-        });
+export const requestInitialTokens = async (userWallet) => {
+  try {
+    const response = await fetch(`${API_URL}/request-initial-tokens`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userWallet }), 
+    });
 
-        const data = await response.json();
-        if (response.status === 200) {
-            return { status: response.status, message: 'Transferencia de UPCoin realizada con éxito', data };
-        } else {
-            return { status: response.status, message: `Error: ${data.message}`, data };
-        }
-    } catch (error) {
-        console.error('Error al realizar la transferencia:', error);
-        return { status: 500, message: 'Hubo un problema al realizar la transferencia', data: error };
-    }
+    const responseText = await response.json();
+    console.log(`Response status: ${response.status}, Data: ${responseText}`);
+    return { status: response.status, data: responseText };
+  } catch (error) {
+    console.log('Error al solicitar tokens iniciales:', error);
+    throw error; 
+  }
 };

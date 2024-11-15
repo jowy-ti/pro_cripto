@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ProductList from '../components/Products/ProductList';
 import ProductsCarrito from '../components/Products/ProductCarrito';
 import '../components/Styles/ShopPage.css';
-import axios from 'axios';
+import { requestInitialTokens } from '../services/TransferTokens'; // Ajusta la ruta si es necesario
 
 const ShopPage = () => {
     const navigate = useNavigate();
@@ -12,37 +12,36 @@ const ShopPage = () => {
     const [showButton, setShowButton] = useState(true);
     const [showContent, setShowContent] = useState(true);
     const [messageCarrito, setMessageCarrito] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false); // Estado para controlar la carga
+    const [error, setError] = useState(null); // Estado para mensajes de error
     const [success, setSuccess] = useState(null);
 
     const requestTokens = async () => {
         setLoading(true);
         setError(null);
         setSuccess(null);
-
+    
         try {
-            // Obtener la dirección de la wallet del usuario desde MetaMask
-            const userWallet = await window.ethereum.request({ method: 'eth_requestAccounts' })
-                .then(accounts => accounts[0]);
-
-            // Realizar la solicitud al backend para obtener los 100 UPC
-            const response = await axios.post('http://localhost:3001/request-initial-tokens', {
-                userWallet,
-                amount: 100,  // Solicitar 100 UPCoin
-            });
-
-            console.log(response.data);
-
-            // Si la solicitud es exitosa, mostrar mensaje
+          // Obtener la dirección de la wallet del usuario desde MetaMask
+          const userWallet = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            .then(accounts => accounts[0]);
+    
+          // Llamar a la función para solicitar los tokens
+          const { status, data } = await requestInitialTokens(userWallet);
+    
+          if (status === 200) {
+            console.log(data);
             setSuccess('Tokens enviados correctamente');
+          } else {
+            setError('Hubo un error al solicitar los tokens');
+          }
         } catch (err) {
-            console.error(err);
-            setError('Hubo un error al enviar los tokens');
+          console.error(err);
+          setError('Hubo un error al solicitar los tokens');
         } finally {
-            setLoading(false);  // Finaliza el estado de carga
+          setLoading(false);
         }
-    };
+      };
 
     const handleShow = () => {
         setShowOption(!showOption);
@@ -102,21 +101,21 @@ const ShopPage = () => {
                     onPayment={handlePayment} onCancelPayment={handleCancelPayment} onEmptyCarrito={handleEmptyCarrito}/>
                     )}
 
-                    {/* Botón para solicitar los 100 UPCoin */}
-                    <button
-                        className="button-request-tokens"
-                        onClick={requestTokens}
-                        disabled={loading}
-                    >
-                        {loading ? 'Solicitando Tokens...' : 'Solicitar 100 UPCoin'}
-                    </button>
-
-                    {success && <div style={{ color: 'green' }}>{success}</div>}
-                    {error && <div style={{ color: 'red' }}>{error}</div>}
-                    
                     <button className="button-configure-network" onClick={navigateToNetworkConfig} >
                         Configurar UPCcoin
                     </button>
+
+                    <button
+                    className="button-request-tokens"
+                    onClick={requestTokens}
+                    disabled={loading}
+                >
+                    {loading ? 'Solicitando Tokens...' : 'Solicitar 100 UPCoin'}
+                    </button>
+
+                    {/* Mostrar mensajes de éxito o error */}
+                    {success && <div style={{ color: 'green' }}>{success}</div>}
+                    {error && <div style={{ color: 'red' }}>{error}</div>}
                 </div>
             )}
         </div>

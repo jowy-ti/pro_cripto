@@ -68,7 +68,7 @@ const relayerABI = [
 ];
 const relayerContract = new web3.eth.Contract(relayerABI, relayerAddress);
 
-const upcoinAddres = '0xa8c497025661219231Ae6A2803c57842a26F1F10';
+const upcoinAddress = '0xa8c497025661219231Ae6A2803c57842a26F1F10';
 const upcoinABI = [
   {
     "inputs": [
@@ -425,7 +425,7 @@ const upcoinABI = [
     "type": "function"
   }
 ];
-const upcoinContract = new web3.eth.Contract(upcoinABI, upcoinAddres);
+const upcoinContract = new web3.eth.Contract(upcoinABI, upcoinAddress);
 
 
 // Endpoint para realizar la transferencia
@@ -497,84 +497,62 @@ app.post('/relay-transfer', async (req, res) => {
 
 // Endpoint para realizar la transferencia de tokens iniciales
 app.post('/request-initial-tokens', async (req, res) => {
-  const { amount, userWallet } = req.body;
-  console.log("Solicitud de tokens iniciales recibida. Cantidad a transferir:", amount);
-  console.log("Wallet usuario: ", userWallet);
-
-  if (!userWallet) {
-      return res.status(400).json({ error: 'Se debe proporcionar una dirección de wallet del usuario.' });
-  }
+  const { userWallet } = req.body;
 
   try {
-      // Validar que la cantidad de tokens sea mayor que 0
-      if (amount <= 0) {
-          return res.status(400).json({ error: 'La cantidad a transferir debe ser mayor a 0.' });
-      }
+    // 1. Obtener el nonce de la transacción
+    const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
 
-      // Configurar los datos de la transferencia (usando la cuenta del relayer)
-      const from = process.env.RELAYER_ADDRESS; // Usar la dirección del relayer
-      const to = userWallet; // Dirección del usuario
-      const amountInWei = web3.utils.toWei(amount.toString(), 'ether'); // Convertir la cantidad a Wei
+    // 2. Construir la transacción para llamar a `transfer` del contrato UPCoin
+    const amount = 100 * (10 ** 2); // 100 UPCoin con 2 decimales
+    const gasEstimate = await upcoinContract.methods.transfer(userWallet, amount).estimateGas({ from: process.env.RELAYER_ADDRESS });
+    const txData = {
+      to: upcoinAddress, // Dirección del contrato UPCoin
+      data: upcoinContract.methods.transfer(userWallet, amount).encodeABI(),
+      gas: gasEstimate, // Estimar el gas necesario (ajusta según sea necesario)
+      gasPrice: await web3.eth.getGasPrice(),
+      nonce: nonce,
+      from: process.env.RELAYER_ADDRESS,
+    };
 
-      console.log("TEST .......");
+    // 3. Firmar la transacción con la clave privada del Relayer
+    const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY);
 
-      // Llamar a la función transfer del contrato ERC20
-      const gasPrice = await web3.eth.getGasPrice();
-      console.log("TEST 1.......");
-      const gasEstimate = await upcoinContract.methods.transfer(to, amountInWei).estimateGas({ from });
-      console.log("TEST 1.2.......");
-      const nonce = await web3.eth.getTransactionCount(from);
+    // 4. Enviar la transacción firmada
+    const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 
-      console.log("TEST 2.......");
-      
-      const txData = {
-          to: process.env.upcoinAddres,  // Dirección del contrato ERC20
-          data: upcoinContract.methods.transfer(to, amountInWei).encodeABI(),
-          gas: gasEstimate,
-          gasPrice,
-          nonce,
-          from: process.env.RELAYER_ADDRESS,
-      };
-
-      console.log("TEST 3.......");
-
-      // Firmar la transacción
-      const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY);
-
-      console.log("TEST 4.......");
+    console.log("Transacción:", tx);
+    console.log("FIN TRANSACCIÓN");
 
 
-      // Enviar la transacción firmada
-      const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+    //res.json({ message: 'Tokens enviados correctamente', tx });
+    res.json({
+      message: 'Tokens enviados correctamente',
+      tx: {
+          blockHash: tx.blockHash,
+          blockNumber: tx.blockNumber.toString(), // Convertir blockNumber a cadena
+          cumulativeGasUsed: tx.cumulativeGasUsed.toString(), // Convertir cumulativeGasUsed a cadena
+          effectiveGasPrice: tx.effectiveGasPrice.toString(), // Convertir effectiveGasPrice a cadena
+          from: tx.from,
+          gasUsed: tx.gasUsed.toString(), // Convertir gasUsed a cadena
+          logs: tx.logs.map(log => ({
+              ...log,
+              blockNumber: log.blockNumber.toString(), // Convertir blockNumber en logs a cadena
+              logIndex: log.logIndex.toString(), // Convertir logIndex a cadena
+              transactionIndex: log.transactionIndex.toString(), // Convertir transactionIndex a cadena
+          })),
+          logsBloom: tx.logsBloom,
+          status: tx.status.toString(), // Convertir status a cadena
+          to: tx.to,
+          transactionHash: tx.transactionHash,
+          transactionIndex: tx.transactionIndex.toString(), // Convertir transactionIndex a cadena
+          type: tx.type.toString(), // Convertir type a cadena
+      },
+  });
 
-      console.log("Transacción de tokens iniciales:", tx);
-
-      res.json({
-          message: 'Tokens iniciales transferidos con éxito',
-          tx: {
-              blockHash: tx.blockHash,
-              blockNumber: tx.blockNumber.toString(),
-              cumulativeGasUsed: tx.cumulativeGasUsed.toString(),
-              effectiveGasPrice: tx.effectiveGasPrice.toString(),
-              from: tx.from,
-              gasUsed: tx.gasUsed.toString(),
-              logs: tx.logs.map(log => ({
-                  ...log,
-                  blockNumber: log.blockNumber.toString(),
-                  logIndex: log.logIndex.toString(),
-                  transactionIndex: log.transactionIndex.toString(),
-              })),
-              logsBloom: tx.logsBloom,
-              status: tx.status.toString(),
-              to: tx.to,
-              transactionHash: tx.transactionHash,
-              transactionIndex: tx.transactionIndex.toString(),
-              type: tx.type.toString(),
-          },
-      });
   } catch (error) {
-      console.error("Error en la transferencia de tokens iniciales:", error);
-      res.status(500).json({ error: 'Error al realizar la transferencia de tokens iniciales' });
+    console.error(error);
+    res.status(500).json({ error: 'Error al enviar los tokens' });
   }
 });
 
