@@ -33,26 +33,27 @@ async function initializeDatabase() {
         const collections = await db.listCollections().toArray();
         const collectionNames = collections.map(c => c.name);
 
-        if (collectionNames.includes('usuarios')) {
+        /*if (collectionNames.includes('usuarios')) {
             await db.collection('usuarios').drop();
         }
 
         if (collectionNames.includes('productos')) {
             await db.collection('productos').drop();
+        }*/
+	
+	if (!collectionNames.includes('usuarios')) {
+        	await db.createCollection('usuarios');
+        	await db.collection('usuarios').createIndex({user: 1}, {unique: true});
+        	
+        	const salt = crypto.randomBytes(16).toString('hex');
+		const password_admin = crypto.createHash("sha256").update("adm" + salt).digest("hex");
+		await db.collection('usuarios').insertOne({...usuariosStructure, user:'adm', password:password_admin, salt: salt});
         }
-
-        await db.createCollection('usuarios');
-        await db.createCollection('productos');
-
-        //Llaves primarias
-        await db.collection('usuarios').createIndex({user: 1}, {unique: true});
-        await db.collection('productos').createIndex({productName: 1}, {unique:true});
-
-        const salt = crypto.randomBytes(16).toString('hex');
-        const password_admin = crypto.createHash("sha256").update("adm" + salt).digest("hex");
-        await db.collection('usuarios').insertOne({...usuariosStructure, user:'adm', password:password_admin, salt: salt});
-
-
+        
+        if (!collectionNames.includes('productos')) {
+        	await db.createCollection('productos');
+        	await db.collection('productos').createIndex({productName: 1}, {unique:true});
+	}
         console.log('Base de datos iniciada correctamente');
     } catch (error) {
         console.error('Error al inicializar la base de datos: ', error);
@@ -200,5 +201,7 @@ async function test() {
         await closeConnection();
     }
 }
+
 module.exports = {connectToDatabase, initializeDatabase, addUser, addProduct, modifyProduct, findProduct, getAllProducts, deleteProduct, deleteUser, closeConnection ,findUser};
 /* ************************************************************************** */
+

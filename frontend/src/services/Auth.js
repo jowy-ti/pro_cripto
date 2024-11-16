@@ -8,6 +8,7 @@ export const login = async (userName, password) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({userName, password}),
+            credentials: 'include',
         });
         //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
