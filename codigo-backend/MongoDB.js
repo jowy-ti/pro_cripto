@@ -1,6 +1,6 @@
 const {MongoClient} = require('mongodb');
 const crypto = require('crypto');
-const uri = 'mongodb://mongodb:27017';
+const uri = 'mongodb://localhost:27017';
 const dbName = 'Database';
 
 const client = new MongoClient(uri);
@@ -70,17 +70,14 @@ async function addUser(user, password, salt) {
     }
 }
 
-async function findUser(username) {  // Changed parameter to 'username'
+async function findUser(username) {  
     try {
         const userFound = await db.collection('usuarios').findOne({ user: username });
         if (!userFound) {
-            console.log(`El usuario "${username}" no fue encontrado`);
             return null; 
         }
-        console.log(`Usuario encontrado: `, userFound);
-        return userFound; // Return the found user object
+        return userFound; 
     } catch (error) {
-        console.error('Error al buscar el usuario en la base de datos: ', error);
         throw error;
     }
 }
@@ -108,6 +105,18 @@ async function addProduct(productName, price, imageURL) {
         console.log('Producto añadido correctamente');
     } catch (error) {
         console.error('Error al añadir el producto a la base de datos: ', error);
+        throw error;
+    }
+}
+
+async function findProduct(productName) {  
+    try {
+        const productFound = await db.collection('productos').findOne({ productName: productName });
+        if (!productFound) {
+            return null; 
+        }
+        return productFound; // Return the found product object
+    } catch (error) {
         throw error;
     }
 }
@@ -191,5 +200,5 @@ async function test() {
         await closeConnection();
     }
 }
-module.exports = {connectToDatabase, initializeDatabase, addUser, addProduct, modifyProduct, getAllProducts, deleteProduct, deleteUser, closeConnection ,findUser};
+module.exports = {connectToDatabase, initializeDatabase, addUser, addProduct, modifyProduct, findProduct, getAllProducts, deleteProduct, deleteUser, closeConnection ,findUser};
 /* ************************************************************************** */

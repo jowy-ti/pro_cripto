@@ -2,54 +2,81 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require('body-parser');
-
+const rateLimit = require('express-rate-limit')
+const helmet = require('helmet')
 require('dotenv').config();
 const crypto = require('crypto');
+const expressMongoSanitize = require ("express-mongo-sanitize");
+const xss = require('xss-clean');
+
 
 const app = express();
+app.use(bodyParser.json());
 const cookieParser = require('cookie-parser');
 const mongo_functions = require("./MongoDB.js");
 const {Web3} = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
-
-app.use(cors());
-app.use(cookieParser());
-app.use(session({
-    secret: "123456789",
-    resave: true,
-    saveUninitialized: true,
+app.use(helmet())
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
 }));
-app.use(bodyParser.json());
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+    session({
+        secret: '123456789',
+        resave: false,
+        name: 'cookie',
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60 * 24, // 1 day
+        },
+    })
+);
+app.use(xss());
+app.use(expressMongoSanitize());
 
-app.post("/login", async (req, res) => {
-    
+
+
+app.set('trust proxy', 1);
+
+const loginRateLimiter = rateLimit({
+    windowMs: 60*1000*5,
+    max: 60,
+    message: "Too many login attempts",
+    stardardHeaders: true,
+    legacyHeaders: false,
+    keyGenerator: (req, res) => req.ip
+});
+
+
+app.post("/login", loginRateLimiter, async (req, res) => {
     const user = req.body.userName;
     const password = req.body.password;
-    //await mongo_functions.addUser(user, password, "d45051ff9f2585fa21d84eb440129656");
-
     if (user && password) {
-
         const user_profile = await mongo_functions.findUser(user);
         if (user_profile == null){
             return res.status(400).send('Invalid username or password');
         };
-
         const salt = user_profile.salt;
         const password_hashed = crypto.createHash("sha256").update(password + salt).digest("hex");
         
         if (password_hashed != user_profile.password){
             return res.status(400).send('Invalid username or password');
         };
-        
-        req.session.user = user;
         req.session.role = "Admin";
-
+        req.session.loggedIn = true
+        req.session.user = req.body.userName;
         res.cookie('session_id', req.sessionID, { 
             httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24,
+            secure: false,
+            sameSite: 'None',
+            maxAge: 1000 * 60 * 60 * 24, 
         });
+        console.log(req.session)
         return res.status(200).send('Login successful');
     }
     return res.status(400).send('Invalid username or password');
@@ -57,28 +84,77 @@ app.post("/login", async (req, res) => {
 
 
 app.post("/register", async(req, res) => {
-    const user = req.body.userName;
-    const password = req.body.password;
-    if (user && password){
-        const user_profile = await mongo_functions.findUser(user);
-        if (user_profile != null){
-            return res.status(400).send('Username already exists');
-        };
-        const salt = crypto.randomBytes(16).toString('hex');
-        const password_hashed = crypto.createHash("sha256").update(password + salt).digest("hex");
-        mongo_functions.addUser(user, password_hashed, salt);
-        req.session.user = user;
-        req.session.role = "Admin";
+    //if (req.session && req.session.loggedIn){
+        const user = req.body.userName;
+        const password = req.body.password;
+        if (user && password){
+            const user_profile = await mongo_functions.findUser(user);
+            if (user_profile != null){
+                return res.status(400).send('Username already exists');
+            };
+            const salt = crypto.randomBytes(16).toString('hex');
+            const password_hashed = crypto.createHash("sha256").update(password + salt).digest("hex");
+            mongo_functions.addUser(user, password_hashed, salt);
+            req.session.user = user;
+            req.session.role = "Admin";
 
-        res.cookie('session_id', req.sessionID, { 
-            httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24,
-        });
-        res.status(200).send("User added");
-    }
-    else res.status(400).send("Invalid username or password")
+            res.cookie('session_id', req.sessionID, { 
+                httpOnly: true, 
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 1000 * 60 * 60 * 24,
+            });
+            res.status(200).send("User added");
+        }
+        else res.status(400).send("Invalid username or password")
+    //}
 })
+
+app.get("/register", async(req, res) => {
+    if (req.session && req.session.loggedIn){
+        return   res.status(200).send("User added");
+    }
+    else{
+        res.status(400).send("Invalid username or password")
+    } 
+})
+
+
+app.get("/productmanagement", async(req, res) => {
+    if (req.session && req.session.loggedIn){
+        return   res.status(200).send("User added");
+    }
+    else{
+        res.status(400).send("Invalid username or password")
+    } 
+})
+
+app.get("/addproduct", async(req, res) => {
+    if (req.session && req.session.loggedIn){
+        return   res.status(200).send("User added");
+    }
+    else{
+        res.status(400).send("Invalid username or password")
+    } 
+})
+
+app.get("/deleteproduct", async(req, res) => {
+    if (req.session && req.session.loggedIn){
+        return   res.status(200).send("User added");
+    }
+    else{
+        res.status(400).send("Invalid username or password")
+    } 
+})
+
+app.get("/modifyproduct", async(req, res) => {
+    if (req.session && req.session.loggedIn){
+        return   res.status(200).send("User added");
+    }
+    else{
+        res.status(400).send("Invalid username or password")
+    } 
+})
+
 app.listen(5000, () => {
     console.log("Server started on port 5000");
 });
@@ -99,15 +175,70 @@ app.get("/", async(req, res)  => {
 })();
 
 
-app.get("/dashboard", (req,res) =>{
-    const sessionId = req.cookies.session_id; // Get the session_id cookie
-    if (sessionId){
-        console.log('Session ID:', sessionId);
-    }
-    else {
-        console.log("No SESSION ID")
-    }
+app.get("/dashboard", async(req,res) =>{
+    if (req.session && req.session.loggedIn)
+        return res.status(200).send("");
+    else 
+    return res.status(401).send("Not authenticated")
 });
+
+app.post("/addProduct", async(req,res) =>{
+    const productName = req.body.productName;
+    const price = req.body.price;
+    const image = req.body.image;
+    if (productName && price && image){
+        const product_exists = await mongo_functions.findProduct(productName);
+        if (product_exists != null){
+            return res.status(400).send("Product already exists");
+        }
+        mongo_functions.addProduct(productName, price, image);
+        res.status(200).send("Product added");
+    }
+    else res.status(400).send("Invalid name, price or image");
+
+});
+
+app.post("/deleteProduct", async(req,res) =>{
+    const productName = req.body.product;
+    if (productName){
+        const product_exists = await mongo_functions.findProduct(productName);
+        if (product_exists == null){
+            return res.status(400).send("Product already exists");
+        }
+        mongo_functions.deleteProduct(productName);
+        res.status(200).send("Product deleted");
+    }
+    else res.status(400).send("Invalid name");
+
+});
+
+app.post("/modifyProduct", async(req,res) =>{
+    const productName = req.body.productName;
+    const price = req.body.price;
+    const image = req.body.image;
+    if (productName && (price || image)){
+        const product_exists = await mongo_functions.findProduct(productName);
+        if (product_exists == null){
+            return res.status(400).send("Product doesn't exists");
+        }
+        if (price && !image){
+            const imageURL = product_exists.imageURL;
+            await mongo_functions.modifyProduct(productName, {price, imageURL})
+        }
+        if (image && !price){
+            const price_BD = product_exists.price;
+            await mongo_functions.modifyProduct(productName, {price_BD, image})
+        }
+        else {
+            await mongo_functions.modifyProduct(productName, {price, image})
+        }
+        res.status(200).send("Product modified");
+    }
+    else res.status(400).send("Invalid name, price or image");
+});
+
+
+
 
 /************************* UPCOIN *************************/
 
@@ -656,3 +787,4 @@ app.post('/request-initial-tokens', async (req, res) => {
       res.status(500).json({ error: 'Error al enviar los tokens' });
     }
   });
+
