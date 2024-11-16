@@ -27,6 +27,8 @@ const Register = () => {
             console.log(data);
             if (status === 200) {
                 setErrorMessage('');
+                setSuccessMessage(status  + ": " + JSON.stringify(data));
+                setTimeout(() => {setSuccessMessage('');}, 1000);
                 console.log(status  + ": " + JSON.stringify(data));
             } else {
                 setErrorMessage(`Error status: ${status}: ${data}`);
