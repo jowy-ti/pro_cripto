@@ -4,6 +4,11 @@ services:
     env_file: ".env"
     ports:
       - "8080:3000"
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname != charizard
 
   backend:
     image: joelgonzalezjimenez/backend
@@ -12,22 +17,25 @@ services:
       - "8081:5000"
     networks:
       - back-tier
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname != charizard
 
   mongodb:
     image: joelgonzalezjimenez/mongo:4.0
-#    volumes:
-#      - db-data:/etc/data
+    volumes:
+      - /mnt/shared_data:/data/db
     ports:
       - "8082:27017"
     networks:
       - back-tier
-
-#volumes:
-#  db-data:
-#    driver: flocker
-#    driver_opts:
-#      size: "10GiB"
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == charmander
 
 networks:
-
   back-tier: {}
