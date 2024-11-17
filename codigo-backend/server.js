@@ -2,8 +2,8 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require('body-parser');
-const rateLimit = require('express-rate-limit')
-const helmet = require('helmet')
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 require('dotenv').config();
 const crypto = require('crypto');
 const expressMongoSanitize = require ("express-mongo-sanitize");
@@ -16,11 +16,8 @@ const cookieParser = require('cookie-parser');
 const mongo_functions = require("./MongoDB.js");
 const {Web3} = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
-app.use(helmet())
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
+app.use(helmet());
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(
