@@ -30,14 +30,8 @@ const ProductModify = () => {
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
         }  catch (error) {
-            if (error.message.includes('Error HTTP:')) {
-                setErrorMessage(`Error al obtener los productos: ${error.message}`);
-                setTimeout(() => {setErrorMessage('');}, 1000);
-            }
-            else {
-                setErrorMessage('No se ha podido conectar con el backend');
-                setTimeout(() => {setErrorMessage('');}, 1000);
-            }
+            setErrorMessage(`Error al conectar al backend: ${error.message}`);
+            setTimeout(() => {setErrorMessage('');}, 1000);
             
         } finally {
             setLoading(false);
@@ -81,14 +75,8 @@ const ProductModify = () => {
                 setTimeout(() => {setErrorMessage('');}, 1000);
             }
         } catch (error) {
-            if (error.message.includes('Error HTTP:')) {
-                setErrorMessage(`Error al autenticarse: ${error.message}`);
-                setTimeout(() => {setErrorMessage('');}, 1000);
-            }
-            else {
-                setErrorMessage('No se ha podido conectar con el backend');
-                setTimeout(() => {setErrorMessage('');}, 1000);
-            }
+            setErrorMessage(`Error al conectar al backend: ${error.message}`);
+            setTimeout(() => {setErrorMessage('');}, 1000);
         }
     };
 

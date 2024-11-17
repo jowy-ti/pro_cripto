@@ -1,4 +1,4 @@
-const API_URL = 'http://10.4.41.37:8081';//;'http://localhost:5000'
+const API_URL = 'http://10.4.41.37:8081';//'http://localhost:5000';
 
 export const login = async (userName, password) => {
     try {
@@ -10,7 +10,6 @@ export const login = async (userName, password) => {
             body: JSON.stringify({userName, password}),
             credentials: 'include',
         });
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
         console.log(`Response status: ${response.status}, Data: ${responseText}`);
         return {status: response.status, data: responseText};
@@ -29,7 +28,6 @@ export const register = async (userName, password) => {
             },
             body: JSON.stringify({userName, password}),
         });
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
         console.log(`Response status: ${response.status}, Data: ${responseText}`);
         return {status: response.status, data: responseText};
@@ -45,12 +43,9 @@ export const isAuthenticated = async (page) => {
             method: 'GET',
             credentials: 'include',
         });
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        //const responseText = await response.json();//.json()
         const responseText = await response.text();
         console.log(`Response status: ${response.status}, Data: ${responseText}`);
         return {status: response.status, data: responseText};
-        //return {status: 200, data: "successful"};
     } catch (error) {
         console.log('error');
         throw error;
@@ -68,7 +63,6 @@ export const logout = async () =>{
             },
             body: JSON.stringify({}),
         });
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
         console.log(`Response status: ${response.status}, Data: ${responseText}`);
         return {status: response.status, data: responseText};
