@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000';//'http://10.4.41.37:8081'
+const API_URL = 'http://10.4.41.37:8081';//'http://10.4.41.37:8081'
 
 export const getAllProducts = async () => {
     try {
