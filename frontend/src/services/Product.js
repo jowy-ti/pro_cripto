@@ -1,4 +1,4 @@
-const API_URL = 'http://10.4.41.37:8081';//'http://localhost:5000'
+const API_URL = 'http://localhost:5000';//'http://10.4.41.37:8081'
 
 export const getAllProducts = async () => {
     try {
@@ -35,7 +35,7 @@ export const getAllProducts = async () => {
 
 export const addProduct = async (product) => {
     try {
-        const response = await fetch(`${API_URL}/addProduc`, {
+        const response = await fetch(`${API_URL}/addProduct`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,8 +55,12 @@ export const addProduct = async (product) => {
 
 export const deleteProduct = async (productName) => {
     try {
-        const response = await fetch(`${API_URL}/product/${productName}`, {
-            method: 'GET',
+        const response = await fetch(`${API_URL}/deleteProduct`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({product: productName}),
         });
         console.log(response.status);
         //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
@@ -77,7 +81,7 @@ export const updateProduct = async (productNameBD, updatedProduct) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({productNameBD, productName: updatedProduct.productName, price: updatedProduct.price, imageURL: updatedProduct.imageURL}),
+            body: JSON.stringify({productNameBD, productName: updatedProduct.productName, price: updatedProduct.price, image: updatedProduct.imageURL}),
         });
         console.log(response.status);
         //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);

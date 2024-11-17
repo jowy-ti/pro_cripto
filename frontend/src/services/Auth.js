@@ -1,4 +1,4 @@
-const API_URL = 'http://10.4.41.37:8081';//;'http://localhost:5000'
+const API_URL = 'http://localhost:5000';//;'http://10.4.41.37:8081'
 
 export const login = async (userName, password) => {
     try {
@@ -8,6 +8,7 @@ export const login = async (userName, password) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({userName, password}),
+            credentials: 'include',
         });
         //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
