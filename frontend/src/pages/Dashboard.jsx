@@ -16,16 +16,11 @@ const Dashboard = () => {
                 if (status === 200) {
                     console.log("Usuario autenticado");
                 } else {
-                    navigate({pathname: '/errorPage', search: `?error_msg=Error status: ${status}`});
+                    navigate({pathname: '/errorPage', search: `?error_msg=Error status: ${status}, Data: ${data}`});
                 }
 
             } catch (error) {
-                if (error.message.includes('Error HTTP:')) {
-                    navigate({pathname: '/errorPage', search: `?error_msg=Permiso denegado`} );
-                }
-                else {
-                    navigate({pathname: '/errorPage', search: "?error_msg=No hay conexion con el backend"});
-                }
+                navigate({pathname: '/errorPage', search: `?error_msg=Error al conectar al backend: ${error.message}`});
             }
         };
 

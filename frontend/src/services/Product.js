@@ -1,11 +1,10 @@
-const API_URL = 'http://10.4.41.37:8081';//'http://10.4.41.37:8081'
+const API_URL = 'http://10.4.41.37:8081';//'http://localhost:5000'
 
 export const getAllProducts = async () => {
     try {
         const response = await fetch(`${API_URL}/`, {
             method: 'GET',
         });
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseJSON = await response.json();//.json()
         console.log(`Response status: ${response.status}, Data: ${responseJSON}`);
         return {status: response.status, data: responseJSON};
@@ -43,7 +42,6 @@ export const addProduct = async (product) => {
             body: JSON.stringify({productName: product.productName, price: product.price, image: product.imageURL}),
         });
         console.log(response.status);
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
         console.log(`Response status: ${response.status}, Data: ${responseText}`);
         return {status: response.status, data: responseText};
@@ -63,7 +61,6 @@ export const deleteProduct = async (productName) => {
             body: JSON.stringify({product: productName}),
         });
         console.log(response.status);
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
         console.log(`Response status: ${response.status}, Data: ${responseText}`);
         return {status: response.status, data: responseText};
@@ -84,7 +81,6 @@ export const updateProduct = async (productNameBD, updatedProduct) => {
             body: JSON.stringify({productNameBD, productName: updatedProduct.productName, price: updatedProduct.price, image: updatedProduct.imageURL}),
         });
         console.log(response.status);
-        //if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const responseText = await response.text();//.json()
         console.log(`Response status: ${response.status}, Data: ${responseText}`);
         return {status: response.status, data: responseText};
