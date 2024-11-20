@@ -19,4 +19,9 @@ contract Relayer {
         upcoin.transferWithSignature(from, to, amount, signature);
         // Paga el gas aquí si es necesario
     }
+
+    function relayMint(address to, uint256 amount) public {
+        upcoin.mint(to, amount); 
+    }
+
 }
