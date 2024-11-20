@@ -10,13 +10,14 @@ import AddProductPage from './pages/AddProductPage';
 import DeleteProductPage from './pages/DeleteProductPage';
 import ErrorPage from './pages/ErrorPage';
 import NetworkConfigurationPage from './pages/NetworkConfigurationPage';
+import ClientMenuPage from './pages/ClientMenuPage';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <Routes>
-          <Route path="/" element={<ShopPage />} />
+          <Route path="/" element={<ClientMenuPage />} />
           <Route path="/login" element={<LoginPage />} /> 
           <Route path="/shoppage" element={<ShopPage />} /> 
           <Route path="/errorpage" element={<ErrorPage />} /> 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/deleteproduct" element={<DeleteProductPage/>} />
           <Route path="/modifyproduct" element={<ModifyProductPage/>} />
           <Route path="/network-configuration" element={<NetworkConfigurationPage />} />
+          <Route path="/clientmenu" element={<ClientMenuPage/>}/>
         </Routes>
       </header>
     </div>
