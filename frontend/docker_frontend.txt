@@ -8,4 +8,5 @@ Web:
 contenedores remotos:	10.4.41.37:8080
 contenedores en local:	localhost:8080
 
+Prueba:
 curl -i -H "Content-Type: application/json" -d '{"userName": "Fatima", "password": "234123412f"}' http://10.4.41.37:8081/register
