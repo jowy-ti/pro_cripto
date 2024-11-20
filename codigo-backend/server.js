@@ -152,8 +152,8 @@ app.get("/modifyproduct", async(req, res) => {
     } 
 })
 
-app.listen(5000, () => {
-    console.log("Server started on port 5000");
+app.listen(8081, '10.4.41.37', () => {
+    console.log("Server started on port 8081 and ip 10.4.41.37");
 });
 
 app.get("/", async(req, res)  => {
