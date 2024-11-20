@@ -1,6 +1,5 @@
 const API_URL = 'http://10.4.41.37:8081';//'http://localhost:5000'
 
-
 export const getAllProducts = async () => {
     try {
         const response = await fetch(`${API_URL}/`, {
