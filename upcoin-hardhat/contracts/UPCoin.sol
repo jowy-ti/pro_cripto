@@ -30,16 +30,18 @@ contract UPCoin is ERC20 {
         return 2;
     }
 
+    // public: desde fuera y desde dentro
     // Función mint solo accesible por el relayer
     function mint(address to, uint256 amount) public onlyRelayer {
         _mint(to, amount);
     }
 
     // Reclamar tokens iniciales
-    function claimTokens() external {
-        require(!hasClaimedTokens[msg.sender], "Tokens already claimed by this address");
-        hasClaimedTokens[msg.sender] = true;
-        _mint(msg.sender, AIRDROP_AMOUNT);
+    // "external" :  puede ser llamada desde fuera del contrato
+    function claimTokens(address user) external onlyRelayer{
+        require(!hasClaimedTokens[user], "Tokens already claimed by this address");
+        hasClaimedTokens[user] = true;
+        _mint(user, AIRDROP_AMOUNT);
     }
 
     // Función para transferir tokens usando meta-transacciones

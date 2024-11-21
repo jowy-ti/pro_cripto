@@ -1,5 +1,6 @@
 /**
  * Script para desplegar los contratos en la testnet de Sepolia
+ * npx hardhat run scripts/deploy.js --network sepolia
  */
 
 const {Web3} = require("web3");
@@ -7,14 +8,14 @@ const fs = require("fs");
 const path = require("path");
 require("dotenv").config(); // Carga el archivo .env en la raíz
 
-console.log('PRIVATE_KEY:', process.env.PRIVATE_KEY);
+console.log('RELAYER_PRIVATE_KEY:', process.env.RELAYER_PRIVATE_KEY);
 console.log('INFURA_API_URL:', process.env.INFURA_API_URL);
 
 // Conectar a la red (ajusta la URL de Sepolia según tu configuración)
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 
 async function main() {
-    const privateKey = `0x${process.env.PRIVATE_KEY.trim()}`;
+    const privateKey = `0x${process.env.RELAYER_PRIVATE_KEY.trim()}`;
     const account = web3.eth.accounts.privateKeyToAccount(privateKey);
     web3.eth.accounts.wallet.add(account);
 

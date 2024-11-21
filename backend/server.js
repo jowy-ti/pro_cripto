@@ -155,6 +155,73 @@ app.post('/request-initial-tokens', async (req, res) => {
   }
 });
 
+// Endpoint para reclamar los tokens iniciales
+app.post('/claim-tokens', async (req, res) => {
+  const { userWallet } = req.body;
+
+  console.log("(ct) userWallet : " + userWallet);
+
+  try {
+    // Obtener el nonce para la transacción
+    const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
+
+    console.log("nonce obtenido:", nonce);
+
+    // Estimar el gas necesario para la transacción
+    const gasEstimate = await upcoinContract.methods.claimTokens().estimateGas({ from: userWallet });
+
+    // Construir los datos de la transacción
+    const txData = {
+      to: process.env.UPCOIN_DEPLOY_ADDRESS, // Dirección del contrato UPCoin
+      data: upcoinContract.methods.claimTokens().encodeABI(), // data: upcoinContract.methods.claimTokens(userWallet).encodeABI(),
+      gas: gasEstimate.toString(), // Convertir gas a cadena
+      gasPrice: (await web3.eth.getGasPrice()).toString(), // Convertir gasPrice a cadena
+      nonce: nonce,
+      from: process.env.RELAYER_ADDRESS, // Dirección del relayer
+    };
+
+    console.log("txData construido:", txData);
+
+    // Firmar la transacción con la clave privada del Relayer
+    const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.RELAYER_PRIVATE_KEY);
+
+    console.log("Transacción firmada");
+
+    // Enviar la transacción firmada
+    const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+    console.log("Transacción enviada:", tx);
+
+    // Responder al cliente con los detalles de la transacción
+    res.json({
+      message: 'Tokens reclamados correctamente',
+      tx: {
+        blockHash: tx.blockHash,
+        blockNumber: tx.blockNumber.toString(),
+        cumulativeGasUsed: tx.cumulativeGasUsed.toString(),
+        effectiveGasPrice: tx.effectiveGasPrice.toString(),
+        from: tx.from,
+        gasUsed: tx.gasUsed.toString(),
+        logs: tx.logs.map(log => ({
+          ...log,
+          blockNumber: log.blockNumber.toString(),
+          logIndex: log.logIndex.toString(),
+          transactionIndex: log.transactionIndex.toString(),
+        })),
+        logsBloom: tx.logsBloom,
+        status: tx.status.toString(),
+        to: tx.to,
+        transactionHash: tx.transactionHash,
+        transactionIndex: tx.transactionIndex.toString(),
+        type: tx.type.toString(),
+      },
+    });
+  } catch (error) {
+    console.error("Error al reclamar tokens:", error);
+    res.status(500).json({ error: 'Error al reclamar los tokens' });
+  }
+});
+
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 3001;

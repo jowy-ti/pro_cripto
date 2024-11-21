@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:3001';    // Pruebas Sebas
 
 export const requestInitialTokens = async (userWallet) => {
   try {
-    const response = await fetch(`${API_URL}/request-initial-tokens`, {
+    const response = await fetch(`${API_URL}/claim-tokens`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
