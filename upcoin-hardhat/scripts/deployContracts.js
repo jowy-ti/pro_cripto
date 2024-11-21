@@ -1,3 +1,7 @@
+/**
+ * Script para desplegar los contratos en la testnet de Sepolia
+ */
+
 const {Web3} = require("web3");
 const fs = require("fs");
 const path = require("path");
@@ -67,6 +71,3 @@ main().catch((error) => {
     console.error("Error during deployment:", error);
     process.exit(1);
 });
-
-// Contrato UPCoin: 0xa8c497025661219231Ae6A2803c57842a26F1F10
-// Contrato Relayer: 0x4cB654441C5971b73179DDe42F02f26E7cf3e287
