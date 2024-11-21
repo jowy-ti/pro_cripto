@@ -59,9 +59,30 @@ contract UPCoin is ERC20 {
         address to,
         uint256 amount,
         bytes memory signature
-    ) internal view returns (bool) {
-        // Lógica para verificar la firma aquí
-        return true; // Implementa la lógica de verificación
+    ) internal pure returns (bool) {
+        bytes32 messageHash = keccak256(abi.encodePacked(from, to, amount));
+        bytes32 ethSignedMessageHash = keccak256(
+            abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash)
+        );
+
+        (bytes32 r, bytes32 s, uint8 v) = splitSignature(signature);
+        address recoveredSigner = ecrecover(ethSignedMessageHash, v, r, s);
+
+        return recoveredSigner == from;
+    }
+
+    function splitSignature(bytes memory sig)
+    internal
+    pure
+    returns (bytes32 r, bytes32 s, uint8 v)
+    {
+        require(sig.length == 65, "Invalid signature length");
+
+        assembly {
+            r := mload(add(sig, 32))
+            s := mload(add(sig, 64))
+            v := byte(0, mload(add(sig, 96)))
+        }
     }
 }
 
