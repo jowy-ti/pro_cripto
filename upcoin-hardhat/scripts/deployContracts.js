@@ -1,6 +1,6 @@
 /**
  * Script para desplegar los contratos en la testnet de Sepolia
- * npx hardhat run scripts/deploy.js --network sepolia
+ * npx hardhat run scripts/deployContracts.js --network sepolia
  */
 
 const {Web3} = require("web3");
@@ -72,3 +72,12 @@ main().catch((error) => {
     console.error("Error during deployment:", error);
     process.exit(1);
 });
+
+/**
+ * Último Deploy 21/11
+ * 
+ *  Deploying contracts with the account: 0x0e627480Fd689313967b81a85b40fAa131653F51
+ *  UPCoin deployed to: 0xD3BcD23F1B6d0aDA3e83C84443e2285B75F2D008
+ *  Relayer deployed to: 0x86F53C5aF034dC83083F7c935b132601D66AA8eb
+ * 
+ */

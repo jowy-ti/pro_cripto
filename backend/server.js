@@ -168,12 +168,12 @@ app.post('/claim-tokens', async (req, res) => {
     console.log("nonce obtenido:", nonce);
 
     // Estimar el gas necesario para la transacción
-    const gasEstimate = await upcoinContract.methods.claimTokens().estimateGas({ from: userWallet });
+    const gasEstimate = await relayerContract.methods.relayClaimTokens(userWallet).estimateGas({ from: process.env.RELAYER_ADDRESS});
 
     // Construir los datos de la transacción
     const txData = {
-      to: process.env.UPCOIN_DEPLOY_ADDRESS, // Dirección del contrato UPCoin
-      data: upcoinContract.methods.claimTokens().encodeABI(), // data: upcoinContract.methods.claimTokens(userWallet).encodeABI(),
+      to: process.env.RELAYER_DEPLOY_ADDRESS,
+      data: relayerContract.methods.relayClaimTokens(userWallet).encodeABI(), // data: upcoinContract.methods.claimTokens(userWallet).encodeABI(),
       gas: gasEstimate.toString(), // Convertir gas a cadena
       gasPrice: (await web3.eth.getGasPrice()).toString(), // Convertir gasPrice a cadena
       nonce: nonce,
