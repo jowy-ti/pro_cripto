@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors'); // Importar cors
 const {Web3} = require('web3');
 require('dotenv').config();
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(cors());
@@ -10,8 +12,22 @@ app.use(bodyParser.json());
 
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 
-// Dirección del contrato del Relayer
-const relayerAddress = '0x4cB654441C5971b73179DDe42F02f26E7cf3e287';
+/*
+Version Final 
+// Cargar ABI del contrato UPCoin
+const abiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/UPCoin.sol/UPCoin.json");
+const upcoinABI = JSON.parse(fs.readFileSync(abiPath, "utf-8")).abi;
+const upcoinContract = new web3.eth.Contract(upcoinABI, process.env.UPCOIN_DEPLOY_ADDRESS);
+
+const relayerAbiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/Relayer.sol/Relayer.json");
+const relayerABI = JSON.parse(fs.readFileSync(relayerAbiPath, "utf-8")).abi;
+const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
+*/
+
+
+// ANTIGUA invocación contrato Relayer
+// Dirección del contrato del Relayer 
+//const relayerAddress = '0x4cB654441C5971b73179DDe42F02f26E7cf3e287';
 const relayerABI = [
     {
       "inputs": [
@@ -66,7 +82,10 @@ const relayerABI = [
       "type": "function"
     }
 ];
-const relayerContract = new web3.eth.Contract(relayerABI, relayerAddress);
+const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
+
+
+// ANTIGUA invocación contrato UPCoin
 
 const upcoinAddress = '0xa8c497025661219231Ae6A2803c57842a26F1F10';
 const upcoinABI = [
@@ -425,8 +444,7 @@ const upcoinABI = [
     "type": "function"
   }
 ];
-const upcoinContract = new web3.eth.Contract(upcoinABI, upcoinAddress);
-
+const upcoinContract = new web3.eth.Contract(upcoinABI, process.env.UPCOIN_DEPLOY_ADDRESS);
 
 // Endpoint para realizar la transferencia
 app.post('/relay-transfer', async (req, res) => {
@@ -444,7 +462,7 @@ app.post('/relay-transfer', async (req, res) => {
         const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
 
         const txData = {
-            to: relayerAddress,
+            to: process.env.RELAYER_DEPLOY_ADDRESS,
             data: relayerContract.methods.relayTransfer(from, to, amount, signature).encodeABI(),
             gas: gasEstimate,
             gasPrice,
@@ -454,7 +472,7 @@ app.post('/relay-transfer', async (req, res) => {
         };
 
         // Firmar la transacción
-        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY); // original
+        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY); // TODO
 
 
         // Enviar la transacción firmada
@@ -503,6 +521,8 @@ app.post('/request-initial-tokens', async (req, res) => {
     // Obtener el nonce de la transacción
     const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
 
+    console.log("nonce");
+
     // Construir la transacción para llamar a `transfer` del contrato UPCoin
     const amount = 100 * (10 ** 2); // 100 UPCoin con 2 decimales
     const gasEstimate = await upcoinContract.methods.transfer(userWallet, amount).estimateGas({ from: process.env.RELAYER_ADDRESS });
@@ -515,11 +535,15 @@ app.post('/request-initial-tokens', async (req, res) => {
       from: process.env.RELAYER_ADDRESS,
     };
 
+    console.log("txData");
+
     // Firmar la transacción con la clave privada del Relayer
-    const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY);
+    const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY); //TODO
+    console.log("1");
 
     // Enviar la transacción firmada
     const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+    console.log("2");
 
     console.log("Transacción:", tx);
     console.log("FIN TRANSACCIÓN");
