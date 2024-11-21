@@ -17,7 +17,10 @@ const mongo_functions = require("./MongoDB.js");
 const {Web3} = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: 'http://10.4.41.37:8080',
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
