@@ -12,8 +12,6 @@ app.use(bodyParser.json());
 
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 
-/*
-Version Final 
 // Cargar ABI del contrato UPCoin
 const abiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/UPCoin.sol/UPCoin.json");
 const upcoinABI = JSON.parse(fs.readFileSync(abiPath, "utf-8")).abi;
@@ -22,429 +20,7 @@ const upcoinContract = new web3.eth.Contract(upcoinABI, process.env.UPCOIN_DEPLO
 const relayerAbiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/Relayer.sol/Relayer.json");
 const relayerABI = JSON.parse(fs.readFileSync(relayerAbiPath, "utf-8")).abi;
 const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
-*/
 
-
-// ANTIGUA invocación contrato Relayer
-// Dirección del contrato del Relayer 
-//const relayerAddress = '0x4cB654441C5971b73179DDe42F02f26E7cf3e287';
-const relayerABI = [
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_upcoinAddress",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "signature",
-          "type": "bytes"
-        }
-      ],
-      "name": "relayTransfer",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "upcoin",
-      "outputs": [
-        {
-          "internalType": "contract UPCoin",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-];
-const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
-
-
-// ANTIGUA invocación contrato UPCoin
-
-const upcoinAddress = '0xa8c497025661219231Ae6A2803c57842a26F1F10';
-const upcoinABI = [
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "initialSupply",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "allowance",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "needed",
-        "type": "uint256"
-      }
-    ],
-    "name": "ERC20InsufficientAllowance",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "balance",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "needed",
-        "type": "uint256"
-      }
-    ],
-    "name": "ERC20InsufficientBalance",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "approver",
-        "type": "address"
-      }
-    ],
-    "name": "ERC20InvalidApprover",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "receiver",
-        "type": "address"
-      }
-    ],
-    "name": "ERC20InvalidReceiver",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      }
-    ],
-    "name": "ERC20InvalidSender",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "spender",
-        "type": "address"
-      }
-    ],
-    "name": "ERC20InvalidSpender",
-    "type": "error"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "Approval",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "Transfer",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "spender",
-        "type": "address"
-      }
-    ],
-    "name": "allowance",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "spender",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "approve",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      }
-    ],
-    "name": "balanceOf",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "claimTokens",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "decimals",
-    "outputs": [
-      {
-        "internalType": "uint8",
-        "name": "",
-        "type": "uint8"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "name",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "symbol",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalSupply",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "transfer",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      }
-    ],
-    "name": "transferFrom",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "signature",
-        "type": "bytes"
-      }
-    ],
-    "name": "transferWithSignature",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-];
-const upcoinContract = new web3.eth.Contract(upcoinABI, process.env.UPCOIN_DEPLOY_ADDRESS);
 
 // Endpoint para realizar la transferencia
 app.post('/relay-transfer', async (req, res) => {
@@ -467,12 +43,11 @@ app.post('/relay-transfer', async (req, res) => {
             gas: gasEstimate,
             gasPrice,
             nonce,
-            //from: from,
             from: process.env.RELAYER_ADDRESS,
         };
 
         // Firmar la transacción
-        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY); // TODO
+        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.RELAYER_PRIVATE_KEY); // TODO
 
 
         // Enviar la transacción firmada
@@ -517,6 +92,8 @@ app.post('/relay-transfer', async (req, res) => {
 app.post('/request-initial-tokens', async (req, res) => {
   const { userWallet } = req.body;
 
+  console.log("userWallet : " + userWallet);
+
   try {
     // Obtener el nonce de la transacción
     const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
@@ -527,7 +104,7 @@ app.post('/request-initial-tokens', async (req, res) => {
     const amount = 100 * (10 ** 2); // 100 UPCoin con 2 decimales
     const gasEstimate = await upcoinContract.methods.transfer(userWallet, amount).estimateGas({ from: process.env.RELAYER_ADDRESS });
     const txData = {
-      to: upcoinAddress, // Dirección del contrato UPCoin
+      to: process.env.UPCOIN_DEPLOY_ADDRESS, // Dirección del contrato UPCoin
       data: upcoinContract.methods.transfer(userWallet, amount).encodeABI(),
       gas: gasEstimate, // Estimar el gas necesario (ajusta según sea necesario)
       gasPrice: await web3.eth.getGasPrice(),
@@ -535,10 +112,8 @@ app.post('/request-initial-tokens', async (req, res) => {
       from: process.env.RELAYER_ADDRESS,
     };
 
-    console.log("txData");
-
     // Firmar la transacción con la clave privada del Relayer
-    const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY); //TODO
+    const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.RELAYER_PRIVATE_KEY); //TODO
     console.log("1");
 
     // Enviar la transacción firmada
@@ -579,12 +154,6 @@ app.post('/request-initial-tokens', async (req, res) => {
     res.status(500).json({ error: 'Error al enviar los tokens' });
   }
 });
-
-
-
-
-
-
 
 
 // Iniciar el servidor
