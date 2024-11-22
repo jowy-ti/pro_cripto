@@ -4,7 +4,7 @@ const API_URL = 'http://10.4.41.37:8081'; // MV
 
 export const requestInitialTokens = async (userWallet) => {
   try {
-    const response = await fetch(`${API_URL}/request-initial-tokens`, {
+    const response = await fetch(`${API_URL}/claim-tokens`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
