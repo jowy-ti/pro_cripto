@@ -335,13 +335,22 @@ app.post('/claim-tokens', async (req, res) => {
       // Estimar el gas necesario para la transacción
       const gasEstimate = await relayerContract.methods.relayClaimTokens(userWallet).estimateGas({ from: process.env.RELAYER_ADDRESS});
   
+      const block = await web3.eth.getBlock("latest");
+      const baseFee = parseInt(block.baseFeePerGas); // Tarifa base actual
+  
+      // Ajustar valores dinámicamente
+      const maxPriorityFeePerGas = web3.utils.toWei('2', 'gwei'); // 2 gwei
+      const maxFeePerGas = baseFee + parseInt(maxPriorityFeePerGas);
+  
       // Construir los datos de la transacción
       const txData = {
         to: process.env.RELAYER_DEPLOY_ADDRESS,
         data: relayerContract.methods.relayClaimTokens(userWallet).encodeABI(), // data: upcoinContract.methods.claimTokens(userWallet).encodeABI(),
         gas: gasEstimate.toString(), // Convertir gas a cadena
-        gasPrice: (await web3.eth.getGasPrice()).toString(), // Convertir gasPrice a cadena
+        //gasPrice: (await web3.eth.getGasPrice()).toString(), // Convertir gasPrice a cadena
         nonce: nonce,
+        maxFeePerGas: maxFeePerGas.toString(), // Máximo calculado dinámicamente
+        maxPriorityFeePerGas: maxPriorityFeePerGas.toString(), // Incentivo ajustado
         from: process.env.RELAYER_ADDRESS, // Dirección del relayer
       };
   
