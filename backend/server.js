@@ -2,9 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // Importar cors
 const {Web3} = require('web3');
-require('dotenv').config();
 const fs = require("fs");
 const path = require("path");
+require('dotenv').config();
 
 const app = express();
 app.use(cors());

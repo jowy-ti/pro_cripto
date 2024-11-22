@@ -4,12 +4,12 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-require('dotenv').config();
 const crypto = require('crypto');
 const expressMongoSanitize = require ("express-mongo-sanitize");
 const xss = require('xss-clean');
 const fs = require("fs");
 const path = require("path");
+require('dotenv').config();
 
 
 const app = express();
