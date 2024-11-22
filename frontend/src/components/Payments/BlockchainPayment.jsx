@@ -43,9 +43,15 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
         try {
             if (!window.ethereum) throw new Error ("MetaMask no esta instalado");
 
-            const message = `Pay ${amount} UPCoin to ${recipient}`;
+            // Crear el mensaje a firmar según el formato del contrato
+            const messageHash = `0x${web3.utils.soliditySha3(
+                { t: 'address', v: account },
+                { t: 'address', v: recipient },
+                { t: 'uint256', v: amount * (10 ** 2) }
+            ).toString('hex')}`;
 
-            const signature = await window.ethereum.request({method: 'personal_sign', params: [message, account]});
+            // Firma el mensaje con MetaMask
+            const signature = await window.ethereum.request({ method: 'personal_sign', params: [messageHash, account] });
 
             const paymentData = {
                 signature,

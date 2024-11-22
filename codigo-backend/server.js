@@ -254,71 +254,85 @@ const relayerAbiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contrac
 const relayerABI = JSON.parse(fs.readFileSync(relayerAbiPath, "utf-8")).abi;
 const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
 
-// Endpoint para realizar la transferencia
-// TODO Arreglar la función para funcionar con Verify
+// Endpoint para realizar la transferencia con verificación de firma
 app.post('/relay-transfer', async (req, res) => {
     const { from, to, amount, signature } = req.body;
     console.log("Datos recibidos:", req.body);
-
+  
     try {
-        console.log("Validando firma...");
+        // Obtener el precio de gas dinámico
         const gasPrice = await web3.eth.getGasPrice();
         console.log("Gas Price obtenido:", gasPrice);
-
-        const gasEstimate = await relayerContract.methods.relayTransfer(from, to, amount, signature).estimateGas({ from });
+  
+        // Estimar el gas necesario
+        const gasEstimate = await relayerContract.methods
+            .relayTransfer(from, to, amount, signature)
+            .estimateGas({ from: process.env.RELAYER_ADDRESS });
         console.log("Estimación de Gas:", gasEstimate);
-
+  
+        // Obtener el número de nonce
         const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
-
+  
+        // Obtener información del bloque más reciente para calcular las tarifas base
+        const block = await web3.eth.getBlock("latest");
+        const baseFee = parseInt(block.baseFeePerGas);
+  
+        const maxPriorityFeePerGas = web3.utils.toWei('2', 'gwei'); // 2 gwei
+        const maxFeePerGas = baseFee + parseInt(maxPriorityFeePerGas);
+  
+        // Preparar los datos de la transacción
         const txData = {
             to: process.env.RELAYER_DEPLOY_ADDRESS,
-            data: relayerContract.methods.relayTransfer(from, to, amount, signature).encodeABI(),
-            gas: gasEstimate,
-            gasPrice,
+            data: relayerContract.methods
+                .relayTransfer(from, to, amount, signature)
+                .encodeABI(),
+            gas: gasEstimate.toString(),
+            maxFeePerGas: maxFeePerGas.toString(),
+            maxPriorityFeePerGas: maxPriorityFeePerGas.toString(),
             nonce,
             from: process.env.RELAYER_ADDRESS,
         };
-
-        // Firmar la transacción
-        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.RELAYER_PRIVATE_KEY); // original
-
-
+  
+        console.log("Datos de la transacción:", txData);
+  
+        // Firmar la transacción con la clave privada del Relayer
+        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.RELAYER_PRIVATE_KEY);
+        console.log("Transacción firmada");
+  
         // Enviar la transacción firmada
         const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-
-        console.log("Transacción:", tx);
-        console.log("FIN TRANSACCIÓN");
-
-        //res.json({ message: 'Transferencia realizada', tx });
+        console.log("Transacción enviada:", tx);
+  
+        // Responder con los detalles de la transacción
         res.json({
-            message: 'Transferencia realizada',
+            message: 'Transferencia realizada con éxito',
             tx: {
                 blockHash: tx.blockHash,
-                blockNumber: tx.blockNumber.toString(), // Convertir blockNumber a cadena
-                cumulativeGasUsed: tx.cumulativeGasUsed.toString(), // Convertir cumulativeGasUsed a cadena
-                effectiveGasPrice: tx.effectiveGasPrice.toString(), // Convertir effectiveGasPrice a cadena
+                blockNumber: tx.blockNumber.toString(),
+                cumulativeGasUsed: tx.cumulativeGasUsed.toString(),
+                effectiveGasPrice: tx.effectiveGasPrice.toString(),
                 from: tx.from,
-                gasUsed: tx.gasUsed.toString(), // Convertir gasUsed a cadena
+                gasUsed: tx.gasUsed.toString(),
                 logs: tx.logs.map(log => ({
                     ...log,
-                    blockNumber: log.blockNumber.toString(), // Convertir blockNumber en logs a cadena
-                    logIndex: log.logIndex.toString(), // Convertir logIndex a cadena
-                    transactionIndex: log.transactionIndex.toString(), // Convertir transactionIndex a cadena
+                    blockNumber: log.blockNumber.toString(),
+                    logIndex: log.logIndex.toString(),
+                    transactionIndex: log.transactionIndex.toString(),
                 })),
                 logsBloom: tx.logsBloom,
-                status: tx.status.toString(), // Convertir status a cadena
+                status: tx.status.toString(),
                 to: tx.to,
                 transactionHash: tx.transactionHash,
-                transactionIndex: tx.transactionIndex.toString(), // Convertir transactionIndex a cadena
-                type: tx.type.toString(), // Convertir type a cadena
+                transactionIndex: tx.transactionIndex.toString(),
+                type: tx.type.toString(),
             },
         });
-        
+  
     } catch (error) {
-        console.error(error);
+        console.error("Error en la transferencia:", error);
         res.status(500).json({ error: 'Error en la transferencia' });
     }
-});
+  });
 
 // Endpoint para reclamar los tokens iniciales
 app.post('/claim-tokens', async (req, res) => {
