@@ -491,7 +491,17 @@ app.post('/claim-tokens', async (req, res) => {
       });
     } catch (error) {
       console.error("Error al reclamar tokens:", error);
-      res.status(500).json({ error: 'Error al reclamar los tokens' });
+      // Identificar si el error es porque ya se reclamaron los tokens
+      const isTokensAlreadyClaimedError =
+      error.cause &&
+      error.cause.message &&
+      error.cause.message.includes("Tokens already claimed by this address");
+
+        if (isTokensAlreadyClaimedError) {
+            res.status(400).json({ error: 'Los tokens ya fueron reclamados por esta dirección' });
+        } else {
+            res.status(500).json({ error: 'Error al reclamar los tokens' });
+        }
     }
   });
 
