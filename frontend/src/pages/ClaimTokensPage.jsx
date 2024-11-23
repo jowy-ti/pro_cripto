@@ -15,26 +15,29 @@ const ClaimTokensPage = () => {
     setSuccessMessage(null);
 
     try {
-      const userWallet = await window.ethereum.request({ method: 'eth_requestAccounts' })
-        .then(accounts => accounts[0]);
-
-      const { status, data } = await claimInitialsTokens(userWallet);
-
-      if (status === 200) {
-        setSuccessMessage('Tokens enviados correctamente');
-        setTimeout(() => { setSuccessMessage(''); }, 1000);
-      } else {
-        setErrorMessage('Hubo un error al solicitar los tokens');
-        setTimeout(() => { setErrorMessage(''); }, 1000);
+        const userWallet = await window.ethereum.request({ method: 'eth_requestAccounts' })
+          .then(accounts => accounts[0]);
+  
+        const { status, data } = await claimInitialsTokens(userWallet);
+  
+        if (status === 200) {
+          setSuccessMessage('Tokens enviados correctamente. ¡Disfruta de tus 100 UPC!');
+          setTimeout(() => setSuccessMessage(''), 5000); // Mensaje visible durante 5 segundos
+        } else if (status === 500 && data.message === 'Tokens already claimed by this address') {
+          setErrorMessage('Ya has reclamado tus tokens iniciales. Solo puedes hacerlo una vez.');
+          setTimeout(() => setErrorMessage(''), 5000); // Mensaje visible durante 5 segundos
+        } else {
+          setErrorMessage('Hubo un error al solicitar los tokens. Intenta nuevamente.');
+          setTimeout(() => setErrorMessage(''), 5000); // Mensaje visible durante 5 segundos
+        }
+      } catch (err) {
+        console.error(err);
+        setErrorMessage('Hubo un error al solicitar los tokens. Intenta nuevamente.');
+        setTimeout(() => setErrorMessage(''), 5000); // Mensaje visible durante 5 segundos
+      } finally {
+        setLoadingMessage(false);
       }
-    } catch (err) {
-      console.error(err);
-      setErrorMessage('Hubo un error al solicitar los tokens');
-      setTimeout(() => { setErrorMessage(''); }, 1000);
-    } finally {
-      setLoadingMessage(false);
-    }
-  }
+    };
 
   return (
     <div className="content-container">
