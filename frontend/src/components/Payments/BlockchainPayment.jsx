@@ -98,6 +98,19 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
                 
             }
 
+            /*
+            const response = await fetch('http://localhost:3001/relay-transfer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(paymentData),
+            });
+    
+            const data = await response.json();
+            setSuccessMessage(data.message);
+            console.log("Pago exitoso:", data.message);*/
+
         } catch (error) {
             console.error(error);
             setErrorMessage(error || 'Ha ocurrido un error durante el pago')

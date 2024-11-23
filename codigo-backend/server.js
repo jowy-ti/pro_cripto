@@ -339,159 +339,490 @@ const relayerABI = [
   ];
 const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
 
-// Endpoint para realizar la transferencia con verificación de firma
+// Dirección del contrato del UPCoin
+const upcoinAddress = '0xa8c497025661219231Ae6A2803c57842a26F1F10';
+const upcoinABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "initialSupply",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "allowance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "needed",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC20InsufficientAllowance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "needed",
+        "type": "uint256"
+      }
+    ],
+    "name": "ERC20InsufficientBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "approver",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidApprover",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidReceiver",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidSender",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "ERC20InvalidSpender",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "spender",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "claimTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "transferWithSignature",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+];
+const upcoinContract = new web3.eth.Contract(upcoinABI, upcoinAddress);
+
+// Endpoint para realizar la transferencia
 app.post('/relay-transfer', async (req, res) => {
     const { from, to, amount, signature } = req.body;
     console.log("Datos recibidos:", req.body);
-  
+
     try {
-        // Obtener el precio de gas dinámico
+        console.log("Validando firma...");
         const gasPrice = await web3.eth.getGasPrice();
         console.log("Gas Price obtenido:", gasPrice);
-  
-        // Estimar el gas necesario
-        const gasEstimate = await relayerContract.methods
-            .relayTransfer(from, to, amount, signature)
-            .estimateGas({ from: process.env.RELAYER_ADDRESS });
+
+        const gasEstimate = await relayerContract.methods.relayTransfer(from, to, amount, signature).estimateGas({ from });
         console.log("Estimación de Gas:", gasEstimate);
-  
-        // Obtener el número de nonce
+
         const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
-  
-        // Obtener información del bloque más reciente para calcular las tarifas base
-        const block = await web3.eth.getBlock("latest");
-        const baseFee = parseInt(block.baseFeePerGas);
-  
-        const maxPriorityFeePerGas = web3.utils.toWei('2', 'gwei'); // 2 gwei
-        const maxFeePerGas = baseFee + parseInt(maxPriorityFeePerGas);
-  
-        // Preparar los datos de la transacción
+
         const txData = {
-            to: process.env.RELAYER_DEPLOY_ADDRESS,
-            data: relayerContract.methods
-                .relayTransfer(from, to, amount, signature)
-                .encodeABI(),
-            gas: gasEstimate.toString(),
-            maxFeePerGas: maxFeePerGas.toString(),
-            maxPriorityFeePerGas: maxPriorityFeePerGas.toString(),
+            to: relayerAddress,
+            data: relayerContract.methods.relayTransfer(from, to, amount, signature).encodeABI(),
+            gas: gasEstimate,
+            gasPrice,
             nonce,
+            //from: from,
             from: process.env.RELAYER_ADDRESS,
         };
-  
-        console.log("Datos de la transacción:", txData);
-  
-        // Firmar la transacción con la clave privada del Relayer
-        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.RELAYER_PRIVATE_KEY);
-        console.log("Transacción firmada");
-  
+
+        // Firmar la transacción
+        const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY); // original
+
+
         // Enviar la transacción firmada
         const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-        console.log("Transacción enviada:", tx);
-  
-        // Responder con los detalles de la transacción
+
+        console.log("Transacción:", tx);
+        console.log("FIN TRANSACCIÓN");
+
+        //res.json({ message: 'Transferencia realizada', tx });
         res.json({
-            message: 'Transferencia realizada con éxito',
+            message: 'Transferencia realizada',
             tx: {
                 blockHash: tx.blockHash,
-                blockNumber: tx.blockNumber.toString(),
-                cumulativeGasUsed: tx.cumulativeGasUsed.toString(),
-                effectiveGasPrice: tx.effectiveGasPrice.toString(),
+                blockNumber: tx.blockNumber.toString(), // Convertir blockNumber a cadena
+                cumulativeGasUsed: tx.cumulativeGasUsed.toString(), // Convertir cumulativeGasUsed a cadena
+                effectiveGasPrice: tx.effectiveGasPrice.toString(), // Convertir effectiveGasPrice a cadena
                 from: tx.from,
-                gasUsed: tx.gasUsed.toString(),
+                gasUsed: tx.gasUsed.toString(), // Convertir gasUsed a cadena
                 logs: tx.logs.map(log => ({
                     ...log,
-                    blockNumber: log.blockNumber.toString(),
-                    logIndex: log.logIndex.toString(),
-                    transactionIndex: log.transactionIndex.toString(),
+                    blockNumber: log.blockNumber.toString(), // Convertir blockNumber en logs a cadena
+                    logIndex: log.logIndex.toString(), // Convertir logIndex a cadena
+                    transactionIndex: log.transactionIndex.toString(), // Convertir transactionIndex a cadena
                 })),
                 logsBloom: tx.logsBloom,
-                status: tx.status.toString(),
+                status: tx.status.toString(), // Convertir status a cadena
                 to: tx.to,
                 transactionHash: tx.transactionHash,
-                transactionIndex: tx.transactionIndex.toString(),
-                type: tx.type.toString(),
+                transactionIndex: tx.transactionIndex.toString(), // Convertir transactionIndex a cadena
+                type: tx.type.toString(), // Convertir type a cadena
             },
         });
-  
+        
     } catch (error) {
-        console.error("Error en la transferencia:", error);
+        console.error(error);
         res.status(500).json({ error: 'Error en la transferencia' });
     }
-  });
+});
 
-// Endpoint para reclamar los tokens iniciales
-app.post('/claim-tokens', async (req, res) => {
+// Endpoint para realizar la transferencia de tokens iniciales
+app.post('/request-initial-tokens', async (req, res) => {
     const { userWallet } = req.body;
   
-    console.log("(ct) userWallet : " + userWallet);
-  
     try {
-      // Obtener el nonce para la transacción
+      //Obtener el nonce de la transacción
       const nonce = await web3.eth.getTransactionCount(process.env.RELAYER_ADDRESS);
   
-      console.log("nonce obtenido:", nonce);
-  
-      // Estimar el gas necesario para la transacción
-      const gasEstimate = await relayerContract.methods.relayClaimTokens(userWallet).estimateGas({ from: process.env.RELAYER_ADDRESS});
-  
-      const block = await web3.eth.getBlock("latest");
-      const baseFee = parseInt(block.baseFeePerGas); // Tarifa base actual
-  
-      // Ajustar valores dinámicamente
-      const maxPriorityFeePerGas = web3.utils.toWei('2', 'gwei'); // 2 gwei
-      const maxFeePerGas = baseFee + parseInt(maxPriorityFeePerGas);
-  
-      // Construir los datos de la transacción
+      //Construir la transacción para llamar a `transfer` del contrato UPCoin
+      const amount = 100 * (10 ** 2); // 100 UPCoin con 2 decimales
+      const gasEstimate = await upcoinContract.methods.transfer(userWallet, amount).estimateGas({ from: process.env.RELAYER_ADDRESS });
       const txData = {
         to: process.env.RELAYER_DEPLOY_ADDRESS,
         data: relayerContract.methods.relayClaimTokens(userWallet).encodeABI(),
         gas: gasEstimate.toString(), // Convertir gas a cadena
         //gasPrice: (await web3.eth.getGasPrice()).toString(), // Convertir gasPrice a cadena
         nonce: nonce,
-        maxFeePerGas: maxFeePerGas.toString(), // Máximo calculado dinámicamente
-        maxPriorityFeePerGas: maxPriorityFeePerGas.toString(), // Incentivo ajustado
-        from: process.env.RELAYER_ADDRESS, // Dirección del relayer
+        from: process.env.RELAYER_ADDRESS,
       };
   
-      console.log("txData construido:", txData);
+      //Firmar la transacción con la clave privada del Relayer
+      const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.PRIVATE_KEY);
   
-      // Firmar la transacción con la clave privada del Relayer
-      const signedTx = await web3.eth.accounts.signTransaction(txData, process.env.RELAYER_PRIVATE_KEY);
-  
-      console.log("Transacción firmada");
-  
-      // Enviar la transacción firmada
+      //Enviar la transacción firmada
       const tx = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
   
-      console.log("Transacción enviada:", tx);
+      console.log("Transacción:", tx);
+      console.log("FIN TRANSACCIÓN");
   
-      // Responder al cliente con los detalles de la transacción
+  
+      //res.json({ message: 'Tokens enviados correctamente', tx });
       res.json({
-        message: 'Tokens reclamados correctamente',
+        message: 'Tokens enviados correctamente',
         tx: {
-          blockHash: tx.blockHash,
-          blockNumber: tx.blockNumber.toString(),
-          cumulativeGasUsed: tx.cumulativeGasUsed.toString(),
-          effectiveGasPrice: tx.effectiveGasPrice.toString(),
-          from: tx.from,
-          gasUsed: tx.gasUsed.toString(),
-          logs: tx.logs.map(log => ({
-            ...log,
-            blockNumber: log.blockNumber.toString(),
-            logIndex: log.logIndex.toString(),
-            transactionIndex: log.transactionIndex.toString(),
-          })),
-          logsBloom: tx.logsBloom,
-          status: tx.status.toString(),
-          to: tx.to,
-          transactionHash: tx.transactionHash,
-          transactionIndex: tx.transactionIndex.toString(),
-          type: tx.type.toString(),
+            blockHash: tx.blockHash,
+            blockNumber: tx.blockNumber.toString(), // Convertir blockNumber a cadena
+            cumulativeGasUsed: tx.cumulativeGasUsed.toString(), // Convertir cumulativeGasUsed a cadena
+            effectiveGasPrice: tx.effectiveGasPrice.toString(), // Convertir effectiveGasPrice a cadena
+            from: tx.from,
+            gasUsed: tx.gasUsed.toString(), // Convertir gasUsed a cadena
+            logs: tx.logs.map(log => ({
+                ...log,
+                blockNumber: log.blockNumber.toString(), // Convertir blockNumber en logs a cadena
+                logIndex: log.logIndex.toString(), // Convertir logIndex a cadena
+                transactionIndex: log.transactionIndex.toString(), // Convertir transactionIndex a cadena
+            })),
+            logsBloom: tx.logsBloom,
+            status: tx.status.toString(), // Convertir status a cadena
+            to: tx.to,
+            transactionHash: tx.transactionHash,
+            transactionIndex: tx.transactionIndex.toString(), // Convertir transactionIndex a cadena
+            type: tx.type.toString(), // Convertir type a cadena
         },
-      });
+    });
+  
     } catch (error) {
-      console.error("Error al reclamar tokens:", error);
-      res.status(500).json({ error: 'Error al reclamar los tokens' });
+      console.error(error);
+      res.status(500).json({ error: 'Error al enviar los tokens' });
     }
   });
 
