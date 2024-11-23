@@ -1,4 +1,4 @@
-const API_URL = 'http://10.4.41.37:8081';//;'http://localhost:5000'
+const API_URL = 'http://10.4.41.37:8081';//;'http://localhost:3001'
 
 export const sendPayment = async (paymentData) => {
     try {

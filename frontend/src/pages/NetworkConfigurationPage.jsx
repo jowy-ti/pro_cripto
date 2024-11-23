@@ -45,13 +45,15 @@ const NetworkConfigurationPage = () => {
     }
   };
 
+  console.log("UPCOIN_DEPLOY_ADDRESS: ", process.env.REACT_APP_UPCOIN_DEPLOY_ADDRESS );
+
   // Función para agregar el token UPCoin
   const addUpcoinToken = async () => {
     // Definir el token UPCoin
     const upcoinToken = {
       type: 'ERC20',
       options: {
-        address: '0xa8c497025661219231Ae6A2803c57842a26F1F10', // Dirección del contrato de UPCoin
+        address: process.env.REACT_APP_UPCOIN_DEPLOY_ADDRESS, // Dirección del contrato de UPCoin
         symbol: 'UPC',
         decimals: 2,
       },

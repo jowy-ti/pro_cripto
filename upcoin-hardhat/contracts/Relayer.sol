@@ -17,6 +17,14 @@ contract Relayer {
         bytes memory signature
     ) public {
         upcoin.transferWithSignature(from, to, amount, signature);
-        // Paga el gas aquí si es necesario
     }
+
+    function relayMint(address to, uint256 amount) public {
+        upcoin.mint(to, amount); 
+    }
+
+    function relayClaimTokens(address user) public {
+        upcoin.claimTokens(user);
+    }
+
 }
