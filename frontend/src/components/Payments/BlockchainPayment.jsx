@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { sendPayment } from '../../services/Payment';
 import '../Styles/BlockchainPayment.css';
+import Web3 from 'web3';
 
 const DESTINATARIO_PAGO = "0x2b41659B028269Fe71E6683c7240294cdD9607e1"; // Es una wallet mía (Sebas)
 
@@ -11,7 +12,7 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
     const [errorMessage , setErrorMessage] = useState('');
     const [successMessage , setSuccessMessage] = useState('');
 
-    const amount = costeTotal;
+    const amount = costeTotal * Math.pow(10, 2);
     const recipient = `${DESTINATARIO_PAGO}`;
 
     useEffect(() => {
@@ -42,17 +43,35 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
 
         try {
             if (!window.ethereum) throw new Error ("MetaMask no esta instalado");
+            console.log("Meta maks Instalado");
 
-            const message = `Pay ${amount} UPCoin to ${recipient}`;
+            const web3 = new Web3(window.ethereum);
 
-            const signature = await window.ethereum.request({method: 'personal_sign', params: [message, account]});
+            // Generar el hash del mensaje como en el script funcional
+            const messageHash = web3.utils.soliditySha3(
+                { type: 'address', value: account },
+                { type: 'address', value: recipient },
+                { type: 'uint256', value: amount }
+            );
+
+            console.log("Hash del mensaje generado:", messageHash);
+
+            // Firmar el hash con MetaMask (sin aplicar prefijos manuales)
+            const signature = await window.ethereum.request({
+                method: 'personal_sign',
+                params: [messageHash, account],
+            });
+
+            console.log("Firma generada:", signature);
 
             const paymentData = {
                 signature,
                 from: account,
                 to: recipient,
-                amount: amount * (10 ** 2)
+                amount: amount,
             };
+
+            console.log("Datos del pago:", paymentData);
 
             try {
                 const {status, data} = await sendPayment(paymentData);

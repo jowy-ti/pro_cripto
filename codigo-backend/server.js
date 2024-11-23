@@ -9,7 +9,6 @@ const crypto = require('crypto');
 const expressMongoSanitize = require ("express-mongo-sanitize");
 const xss = require('xss-clean');
 
-
 const app = express();
 app.use(bodyParser.json());
 const cookieParser = require('cookie-parser');
@@ -242,9 +241,17 @@ app.post("/modifyProduct", async(req,res) =>{
 
 /************************* UPCOIN *************************/
 
+/*
+// INSTANCIA CONTRATO UPCOIN
+const abiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/UPCoin.sol/UPCoin.json");
+const upcoinABI = JSON.parse(fs.readFileSync(abiPath, "utf-8")).abi;
+const upcoinContract = new web3.eth.Contract(upcoinABI, process.env.UPCOIN_DEPLOY_ADDRESS);
+*/
 
-// Dirección del contrato del Relayer
-const relayerAddress = '0x4cB654441C5971b73179DDe42F02f26E7cf3e287';
+// INSTANCIA CONTRATO RELAYER
+//const relayerAbiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/Relayer.sol/Relayer.json");
+//const relayerABI = JSON.parse(fs.readFileSync(relayerAbiPath, "utf-8")).abi;
+
 const relayerABI = [
     {
       "inputs": [
@@ -256,6 +263,37 @@ const relayerABI = [
       ],
       "stateMutability": "nonpayable",
       "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "relayClaimTokens",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "relayMint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "inputs": [
@@ -298,8 +336,8 @@ const relayerABI = [
       "stateMutability": "view",
       "type": "function"
     }
-];
-//const relayerContract = new web3.eth.Contract(relayerABI, relayerAddress);
+  ];
+const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
 
 // Dirección del contrato del UPCoin
 const upcoinAddress = '0xa8c497025661219231Ae6A2803c57842a26F1F10';
@@ -739,10 +777,10 @@ app.post('/request-initial-tokens', async (req, res) => {
       const amount = 100 * (10 ** 2); // 100 UPCoin con 2 decimales
       const gasEstimate = await upcoinContract.methods.transfer(userWallet, amount).estimateGas({ from: process.env.RELAYER_ADDRESS });
       const txData = {
-        to: upcoinAddress, // Dirección del contrato UPCoin
-        data: upcoinContract.methods.transfer(userWallet, amount).encodeABI(),
-        gas: gasEstimate, // Estimar el gas necesario (ajusta según sea necesario)
-        gasPrice: await web3.eth.getGasPrice(),
+        to: process.env.RELAYER_DEPLOY_ADDRESS,
+        data: relayerContract.methods.relayClaimTokens(userWallet).encodeABI(),
+        gas: gasEstimate.toString(), // Convertir gas a cadena
+        //gasPrice: (await web3.eth.getGasPrice()).toString(), // Convertir gasPrice a cadena
         nonce: nonce,
         from: process.env.RELAYER_ADDRESS,
       };

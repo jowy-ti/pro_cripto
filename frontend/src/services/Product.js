@@ -39,7 +39,7 @@ export const addProduct = async (product) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({productName: product.productName, price: product.price, image: product.imageURL}),
+            body: JSON.stringify({productName: product.productName, price: product.price, image: product.image}),
         });
         console.log(response.status);
         const responseText = await response.text();//.json()
