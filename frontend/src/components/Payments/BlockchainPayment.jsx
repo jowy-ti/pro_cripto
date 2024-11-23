@@ -43,15 +43,9 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
         try {
             if (!window.ethereum) throw new Error ("MetaMask no esta instalado");
 
-            // Crear el mensaje a firmar según el formato del contrato
-            const messageHash = `0x${web3.utils.soliditySha3(
-                { t: 'address', v: account },
-                { t: 'address', v: recipient },
-                { t: 'uint256', v: amount * (10 ** 2) }
-            ).toString('hex')}`;
+            const message = `Pay ${amount} UPCoin to ${recipient}`;
 
-            // Firma el mensaje con MetaMask
-            const signature = await window.ethereum.request({ method: 'personal_sign', params: [messageHash, account] });
+            const signature = await window.ethereum.request({method: 'personal_sign', params: [message, account]});
 
             const paymentData = {
                 signature,
@@ -84,6 +78,19 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
                 }
                 
             }
+
+            /*
+            const response = await fetch('http://localhost:3001/relay-transfer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(paymentData),
+            });
+    
+            const data = await response.json();
+            setSuccessMessage(data.message);
+            console.log("Pago exitoso:", data.message);*/
 
         } catch (error) {
             console.error(error);

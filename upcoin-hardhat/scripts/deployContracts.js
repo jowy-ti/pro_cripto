@@ -1,21 +1,16 @@
-/**
- * Script para desplegar los contratos en la testnet de Sepolia
- * npx hardhat run scripts/deployContracts.js --network sepolia
- */
-
 const {Web3} = require("web3");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config(); // Carga el archivo .env en la raíz
 
-console.log('RELAYER_PRIVATE_KEY:', process.env.RELAYER_PRIVATE_KEY);
+console.log('PRIVATE_KEY:', process.env.PRIVATE_KEY);
 console.log('INFURA_API_URL:', process.env.INFURA_API_URL);
 
 // Conectar a la red (ajusta la URL de Sepolia según tu configuración)
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 
 async function main() {
-    const privateKey = `0x${process.env.RELAYER_PRIVATE_KEY.trim()}`;
+    const privateKey = `0x${process.env.PRIVATE_KEY.trim()}`;
     const account = web3.eth.accounts.privateKeyToAccount(privateKey);
     web3.eth.accounts.wallet.add(account);
 
@@ -73,11 +68,5 @@ main().catch((error) => {
     process.exit(1);
 });
 
-/**
- * Último Deploy 21/11
- * 
- *  Deploying contracts with the account: 0x0e627480Fd689313967b81a85b40fAa131653F51
- *  UPCoin deployed to: 0xD3BcD23F1B6d0aDA3e83C84443e2285B75F2D008
- *  Relayer deployed to: 0x86F53C5aF034dC83083F7c935b132601D66AA8eb
- * 
- */
+// Contrato UPCoin: 0xa8c497025661219231Ae6A2803c57842a26F1F10
+// Contrato Relayer: 0x4cB654441C5971b73179DDe42F02f26E7cf3e287
