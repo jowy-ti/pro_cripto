@@ -495,10 +495,3 @@ app.post('/claim-tokens', async (req, res) => {
     }
   });
 
-
-// Iniciar el servidor
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
-});
-
