@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import { requestInitialTokens } from '../services/TransferTokens'; // Ajusta la ruta si es necesario
+import { claimInitialsTokens } from '../services/ClaimTokens'; // Ajusta la ruta si es necesario
 import '../components/Styles/Dashboard.css';
 
 const ClientMenuPage = () => {
@@ -28,7 +28,7 @@ const ClientMenuPage = () => {
             .then(accounts => accounts[0]);
     
             // Llamar a la función para solicitar los tokens
-            const { status, data } = await requestInitialTokens(userWallet);
+            const { status, data } = await claimInitialsTokens(userWallet);
     
             if (status === 200) {
             console.log(data);
