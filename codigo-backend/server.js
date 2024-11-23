@@ -4,13 +4,10 @@ const cors = require("cors");
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+require('dotenv').config();
 const crypto = require('crypto');
 const expressMongoSanitize = require ("express-mongo-sanitize");
 const xss = require('xss-clean');
-const fs = require("fs");
-const path = require("path");
-require('dotenv').config();
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -244,14 +241,102 @@ app.post("/modifyProduct", async(req,res) =>{
 
 /************************* UPCOIN *************************/
 
+/*
 // INSTANCIA CONTRATO UPCOIN
 const abiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/UPCoin.sol/UPCoin.json");
 const upcoinABI = JSON.parse(fs.readFileSync(abiPath, "utf-8")).abi;
 const upcoinContract = new web3.eth.Contract(upcoinABI, process.env.UPCOIN_DEPLOY_ADDRESS);
+*/
 
 // INSTANCIA CONTRATO RELAYER
-const relayerAbiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/Relayer.sol/Relayer.json");
-const relayerABI = JSON.parse(fs.readFileSync(relayerAbiPath, "utf-8")).abi;
+//const relayerAbiPath = path.join(__dirname, "../upcoin-hardhat/artifacts/contracts/Relayer.sol/Relayer.json");
+//const relayerABI = JSON.parse(fs.readFileSync(relayerAbiPath, "utf-8")).abi;
+
+const relayerABI = [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_upcoinAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "relayClaimTokens",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "relayMint",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "relayTransfer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "upcoin",
+      "outputs": [
+        {
+          "internalType": "contract UPCoin",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
 const relayerContract = new web3.eth.Contract(relayerABI, process.env.RELAYER_DEPLOY_ADDRESS);
 
 // Endpoint para realizar la transferencia con verificación de firma
@@ -359,7 +444,7 @@ app.post('/claim-tokens', async (req, res) => {
       // Construir los datos de la transacción
       const txData = {
         to: process.env.RELAYER_DEPLOY_ADDRESS,
-        data: relayerContract.methods.relayClaimTokens(userWallet).encodeABI(), // data: upcoinContract.methods.claimTokens(userWallet).encodeABI(),
+        data: relayerContract.methods.relayClaimTokens(userWallet).encodeABI(),
         gas: gasEstimate.toString(), // Convertir gas a cadena
         //gasPrice: (await web3.eth.getGasPrice()).toString(), // Convertir gasPrice a cadena
         nonce: nonce,
