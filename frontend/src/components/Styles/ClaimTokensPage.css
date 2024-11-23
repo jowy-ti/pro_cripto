@@ -1,0 +1,52 @@
+/* src/components/Styles/ClaimTokensPage.css */
+
+.content-container {
+    background-color: #1e1e1e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;  /* Organiza los elementos en columna */
+    align-items: center;     /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+    font-size: calc(10px + 2vmin);
+    color: white;
+    position: relative;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: calc(20px + 3vmin);
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: calc(12px + 1vmin);
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .status-message {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .button-claim-tokens {
+    padding: 15px 30px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .button-claim-tokens:hover {
+    background-color: #0056b3;
+  }

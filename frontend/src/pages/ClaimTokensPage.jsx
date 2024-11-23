@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { claimInitialsTokens } from '../services/ClaimTokens';
-import '../components/Styles/NetworkConfigurationPage.css';
+import '../components/Styles/ClaimTokensPage.css';
 
 const ClaimTokensPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -37,13 +37,19 @@ const ClaimTokensPage = () => {
   }
 
   return (
-    <div className="claim-tokens-container">
+    <div className="content-container">
       <h1>Consigue tus primeros 100 UPCoins</h1>
-      <p>Como nuevo usuario, tienes la oportunidad de recibir tus primeros 100 UPCoin.<br/> Puedes reclamar esta cantidad una sola vez por wallet.<br/>Haz clic en el botón para completar el proceso y obtener tus tokens iniciales.</p>
-      <button onClick={handleRequestTokens}>Reclamar 100 UPCoins</button>
-      {errorMessage && <p className='error-message'>{errorMessage}</p>}
-      {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
-      {loadingMessage && <div style={{ color: 'green' }}>{'Solicitando Tokens...'} </div>}
+      <p>
+        Como nuevo usuario, tienes la oportunidad de recibir tus primeros 100 UPCoin.<br/>
+        Puedes reclamar esta cantidad una sola vez por wallet.<br/>
+        Haz clic en el botón para completar el proceso y obtener tus tokens iniciales.
+      </p>
+      <button className="button-claim-tokens" onClick={handleRequestTokens}>
+        Reclamar 100 UPCoins
+      </button>
+      {errorMessage && <div className="status-message error">{errorMessage}</div>}
+      {successMessage && <div className="status-message success">{successMessage}</div>}
+      {loadingMessage && <div className="status-message loading">Solicitando Tokens...</div>}
     </div>
   );
 };
