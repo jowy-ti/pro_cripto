@@ -44,7 +44,7 @@ p {
   padding: 15px 30px;
   font-size: 18px;
   color: #fff;
-  background-color: #28a745;
+  background-color: #007bff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -52,7 +52,7 @@ p {
 }
 
 .button-configure-network-page:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
   
   

@@ -85,11 +85,11 @@ const NetworkConfigurationPage = () => {
 
   return (
     <div className="content-container">
-      <h1>Empezar a utilizar UPCoin</h1>
-      <p>Para empezar a utilizar UPCoin es necesario configurar la red y añadir el token.</p>
+      <h1>Configura la Red y Agrega UPCoin a tu Wallet</h1>
+      <p>Para poder usar UPCoin en tu MetaMask, es necesario conectarse a la red Sepolia y añadir el token UPCoin a tu billetera.<br />Haz clic en el botón de abajo para configurar todo automáticamente.</p>
 
       <button className="button-configure-network-page" onClick={switchToSepolia}>
-        Configurar red y Agregar UPCoin
+        Configurar red y agregar UPCoin
       </button>
       {statusMessage && <p className="status-message">{statusMessage}</p>}
     </div>
