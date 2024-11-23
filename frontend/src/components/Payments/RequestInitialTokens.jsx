@@ -35,6 +35,8 @@ const BlockchainInitialTokens = () => {
     try {
       if (!window.ethereum) throw new Error("MetaMask no está instalado");
 
+      console.log("ANTES DE HACER PETICION");
+
       // Llamar a la función para solicitar los tokens
       const { status, data } = await requestInitialTokens(account);
 
