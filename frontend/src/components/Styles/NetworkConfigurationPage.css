@@ -1,50 +1,59 @@
 /* src/components/Styles/NetworkConfigurationPage.css */
 
 .content-container {
-    background-color: #1e1e1e;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;  /* Organiza los elementos en columna */
-    align-items: center;     /* Centra los elementos horizontalmente */
-    justify-content: center; /* Centra los elementos verticalmente */
-    font-size: calc(10px + 2vmin);
-    color: white;
-    position: relative;
-    text-align: center;      /* Asegura que el texto esté centrado */
-  }
-  
-  h1 {
-    font-size: calc(20px + 3vmin);
-    margin-bottom: 20px;     /* Añade un margen en la parte inferior del título */
-  }
-  
-  /* Estilo del mensaje de estado */
-  .status-message {
-    background-color: #333;  /* Color de fondo más oscuro para el mensaje */
-    color: #fff;             /* Texto blanco */
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-    text-align: center;
-    width: 80%;              /* Ocupar un 80% del ancho disponible */
-    max-width: 500px;        /* Tamaño máximo del mensaje */
-  }
-  
-  /* Botón centrado específico para NetworkConfigurationPage */
-  .button-configure-network-page {
-    padding: 15px 30px;
-    font-size: 18px;
-    color: #fff;
-    background-color: #28a745;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px; /* Ajusta el espaciado entre el título y el botón */
-  }
-  
-  .button-configure-network-page:hover {
-    background-color: #218838;
-  }
+  background-color: #1e1e1e;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;  /* Organiza los elementos en columna */
+  align-items: center;     /* Centra los elementos horizontalmente */
+  justify-content: center; /* Centra los elementos verticalmente */
+  font-size: calc(10px + 2vmin);
+  color: white;
+  position: relative;
+  text-align: center;      /* Asegura que el texto esté centrado */
+}
+
+h1 {
+  font-size: calc(20px + 3vmin);
+  margin-bottom: 10px;     /* Reducir un poco el espacio entre el título y el párrafo */
+  color: white;            /* Color blanco para el título */
+}
+
+p {
+  font-size: calc(12px + 1vmin);
+  margin-bottom: 20px;     /* Añadir espacio abajo para separar del botón */
+  color: #ccc;             /* Color gris claro para el texto */
+  max-width: 80%;          /* Limitar el ancho del párrafo */
+  line-height: 1.5;        /* Mejorar la legibilidad del texto */
+}
+
+/* Estilo del mensaje de estado */
+.status-message {
+  background-color: #333;  /* Color de fondo más oscuro para el mensaje */
+  color: #fff;             /* Texto blanco */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  width: 80%;              /* Ocupar un 80% del ancho disponible */
+  max-width: 500px;        /* Tamaño máximo del mensaje */
+}
+
+/* Botón centrado específico para NetworkConfigurationPage */
+.button-configure-network-page {
+  padding: 15px 30px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Ajusta el espaciado entre el título y el botón */
+}
+
+.button-configure-network-page:hover {
+  background-color: #218838;
+}
   
   
   

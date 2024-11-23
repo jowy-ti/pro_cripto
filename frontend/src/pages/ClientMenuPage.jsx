@@ -52,7 +52,7 @@ const ClientMenuPage = () => {
             <div className='dashboard-content'>
                 <h2>Menú</h2>
                 <button onClick={handleBuy}>Comprar</button>
-                <button onClick={handleConfigureNetwork}>Configurar red</button>
+                <button onClick={handleConfigureNetwork}>Empezar a utilizar UPCoin</button>
                 <button onClick={handleRequestTokens}>100 UPCoins</button>
                 {errorMessage && <p className='error-message'>{errorMessage}</p>}
                 {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}

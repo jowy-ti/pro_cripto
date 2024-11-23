@@ -85,9 +85,11 @@ const NetworkConfigurationPage = () => {
 
   return (
     <div className="content-container">
-      <h1>Configuración de Red Sepolia y Token UPCoin</h1>
+      <h1>Empezar a utilizar UPCoin</h1>
+      <p>Para empezar a utilizar UPCoin es necesario configurar la red y añadir el token.</p>
+
       <button className="button-configure-network-page" onClick={switchToSepolia}>
-        Cambiar a Red Sepolia y Agregar UPCoin
+        Configurar red y Agregar UPCoin
       </button>
       {statusMessage && <p className="status-message">{statusMessage}</p>}
     </div>
