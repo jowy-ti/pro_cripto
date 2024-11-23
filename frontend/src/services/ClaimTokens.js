@@ -2,8 +2,8 @@
 const API_URL = 'http://10.4.41.37:8081'; // MV
 // const API_URL = 'http://localhost:3001';    // Pruebas Sebas
 
-export const requestInitialTokens = async (userWallet) => {
-  console.log("REQUEST SERVIDOR");
+export const claimInitialsTokens = async (userWallet) => {
+  console.log("REQUEST A SERVIDOR");
   try {
     const response = await fetch(`${API_URL}/claim-tokens`, {
       method: 'POST',

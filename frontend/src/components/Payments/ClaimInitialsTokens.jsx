@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { requestInitialTokens } from '../../services/TransferTokens'; 
+import { claimInitialsTokens } from '../../services/ClaimTokens'; 
 import '../Styles/BlockchainPayment.css'; 
 
 const BlockchainInitialTokens = () => {
@@ -35,8 +35,10 @@ const BlockchainInitialTokens = () => {
     try {
       if (!window.ethereum) throw new Error("MetaMask no está instalado");
 
+      console.log("ANTES DE HACER PETICION");
+
       // Llamar a la función para solicitar los tokens
-      const { status, data } = await requestInitialTokens(account);
+      const { status, data } = await claimInitialsTokens(account);
 
       if (status === 200) {
         console.log(data);
