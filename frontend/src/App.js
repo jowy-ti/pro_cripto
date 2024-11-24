@@ -12,7 +12,7 @@ import ErrorPage from './pages/ErrorPage';
 import NetworkConfigurationPage from './pages/NetworkConfigurationPage';
 import ClientMenuPage from './pages/ClientMenuPage';
 import ClaimTokensPage from './pages/ClaimTokensPage';
-import BlockchainTransfer from './pages/TranferTokensPage';
+import BlockchainTransfer from './pages/TransferTokensPage';
 
 function App() {
   return (
