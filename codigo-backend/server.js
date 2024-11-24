@@ -81,6 +81,20 @@ app.post("/login", loginRateLimiter, async (req, res) => {
     return res.status(400).send('Invalid username or password');
 });
 
+app.post('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).send('Failed to logout');
+        }
+        res.clearCookie('session_id', {
+            httpOnly: true, 
+            secure: false, 
+            sameSite: 'None'
+        });
+        res.status(200).send('Logged out successfully');
+    });
+});
+
 
 app.post("/register", async(req, res) => {
     //if (req.session && req.session.loggedIn){
