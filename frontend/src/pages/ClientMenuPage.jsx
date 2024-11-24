@@ -20,6 +20,10 @@ const ClientMenuPage = () => {
         navigate('/claim-tokens');
     };
 
+    const handleTransferTokens = () => {
+        navigate('/transfer-tokens'); 
+    };
+
     return(
         <div className='dashboard-container'>
             <div className='dashboard-content'>
@@ -27,6 +31,7 @@ const ClientMenuPage = () => {
                 <button onClick={handleBuy}>Comprar</button>
                 <button onClick={handleConfigureNetwork}>Empezar a utilizar UPCoin</button>
                 <button onClick={handleClaimTokens}>Reclamar 100 UPCoins</button>
+                <button onClick={handleTransferTokens}>Transferir Tokens</button>
                 {errorMessage && <p className='error-message'>{errorMessage}</p>}
                 {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
                 {loadingMessage && <div style={{ color: 'green' }}>{'Solicitando Tokens...'} </div>}
