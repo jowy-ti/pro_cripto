@@ -61,7 +61,14 @@ const BlockchainTransfer = ({ onClose }) => {
     return (
         <div className='transfer-form'>
             <h2>Transferir Tokens</h2>
-            {account ? <p className='txt'>Cuenta conectada: {account}</p> : <p>Por favor conecta tu cuenta de MetaMask.</p>}
+            {account ? (
+                <div className="account-info">
+                    <label>Cuenta conectada:</label>
+                    <p className="account-address">{account}</p>
+                </div>
+            ) : (
+                <p>Por favor conecta tu cuenta de MetaMask.</p>
+            )}
             <form onSubmit={handleTransfer}>
                 <div>
                     <label>

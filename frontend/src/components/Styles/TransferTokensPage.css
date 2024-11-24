@@ -99,3 +99,22 @@ body {
     font-size: 14px;
     text-align: center;
 }
+
+.account-info {
+    margin-bottom: 15px;
+    color: #ffffff; /* Color del texto */
+}
+
+.account-info label {
+    font-weight: bold; /* Resalta el texto de la etiqueta */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.account-info .account-address {
+    white-space: nowrap; /* Hace que la dirección no se rompa en varias líneas */
+    overflow: hidden;    /* Oculta cualquier texto que se desborde */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es demasiado largo */
+    font-size: 14px;     /* Ajusta el tamaño de la fuente */
+    color: #61dafb;      /* Cambia el color de la dirección (puedes personalizarlo) */
+}
