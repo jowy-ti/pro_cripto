@@ -1,4 +1,4 @@
-// src/services/TransferTokens.jsx
+// src/services/TransferTokens.js
 
 import Web3 from 'web3';
 import { sendPayment } from './UserTransfer';
