@@ -12,6 +12,7 @@ import ErrorPage from './pages/ErrorPage';
 import NetworkConfigurationPage from './pages/NetworkConfigurationPage';
 import ClientMenuPage from './pages/ClientMenuPage';
 import ClaimTokensPage from './pages/ClaimTokensPage';
+import BlockchainTransfer from './pages/TransferTokensPage';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/network-configuration" element={<NetworkConfigurationPage />} />
           <Route path="/clientmenu" element={<ClientMenuPage/>}/>
           <Route path="/claim-tokens" element={<ClaimTokensPage />} />
+          <Route path="/transfer-tokens" element={<BlockchainTransfer />} />
         </Routes>
       </header>
     </div>
