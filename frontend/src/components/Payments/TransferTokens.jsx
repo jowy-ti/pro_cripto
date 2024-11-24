@@ -25,7 +25,11 @@ export const prepareAndSendPayment = async (from, to, amount) => {
         console.log("Hash del mensaje generado:", messageHash);
 
         // Solicitar firma del hash en MetaMask
-        const signature = await web3.eth.personal.sign(messageHash, from);
+        // Firmar el hash con MetaMask (sin aplicar prefijos manuales)
+        const signature = await window.ethereum.request({
+            method: 'personal_sign',
+            params: [messageHash, from],
+        });
 
         console.log("Firma generada:", signature);
 
