@@ -1,116 +1,85 @@
-/* src/components/Styles/TransferTokensPage.css */
-
-/* Estilos generales de la página de transferencia */
-.blockchain-payment {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #f4f4f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: auto;
+.transfer-form {
+    background-color: #3a3f4b;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+.transfer-form h2 {
     margin-bottom: 20px;
+    color: #61dafb;
+    text-align: center;
 }
 
-.txt {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 10px;
+.transfer-form div {
+    margin-bottom: 15px;
 }
 
-/* Estilos de los campos de entrada */
-form {
+.transfer-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.transfer-form input {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-label {
-    font-size: 16px;
-    color: #333;
-}
-
-input {
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-input:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Estilos para los botones */
-button {
-    padding: 12px;
-    font-size: 16px;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 5px;
+    background-color: #454b59;
+    color: white;
+}
+
+.transfer-form input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #61dafb;
+}
+
+.submit-btn {
+    margin-top: 30px;
     width: 100%;
-    box-sizing: border-box;
-}
-
-button.pay {
+    padding: 10px 15px;
+    font-size: 18px;
+    color: #ffffff;
     background-color: #007bff;
-    color: white;
-    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
 }
 
-button.pay:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.submit-btn:hover {
+    background-color: #0056b3;
 }
 
-button.cancel {
-    background-color: #dc3545;
-    color: white;
+.cancel-btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
 }
 
-button.cancel:hover {
-    background-color: #c82333;
+.cancel-btn:hover {
+    background-color: #5a6268;
 }
 
-/* Mensajes de éxito y error */
-.errorMessage, .successMessage {
-    font-size: 16px;
-    margin-top: 20px;
+.error-message {
+    color: #ff6b6b;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
 }
 
-.errorMessage {
-    color: red;
-}
-
-.successMessage {
-    color: green;
-}
-
-/* Responsividad para pantallas más pequeñas */
-@media (max-width: 600px) {
-    .blockchain-payment {
-        padding: 15px;
-        width: 100%;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    input, button {
-        font-size: 14px;
-    }
+.success-message {
+    color: #4caf50;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
 }

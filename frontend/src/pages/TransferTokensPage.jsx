@@ -1,6 +1,6 @@
 // src/pages/TransferTokensPage.jsx
 import React, { useState, useEffect } from 'react';
-import { prepareAndSendPayment } from '../components/Payments/TransferTokens'; // Cambia la importación
+import { prepareAndSendPayment } from '../components/Payments/TransferTokens';
 import '../components/Styles/TransferTokensPage.css';
 
 const BlockchainTransfer = ({ onClose }) => {
@@ -59,8 +59,8 @@ const BlockchainTransfer = ({ onClose }) => {
     };
 
     return (
-        <div className='blockchain-payment'>
-            <h2>Blockchain Transfer</h2>
+        <div className='transfer-form'>
+            <h2>Transferir Tokens</h2>
             {account ? <p className='txt'>Cuenta conectada: {account}</p> : <p>Por favor conecta tu cuenta de MetaMask.</p>}
             <form onSubmit={handleTransfer}>
                 <div>
@@ -86,13 +86,13 @@ const BlockchainTransfer = ({ onClose }) => {
                         />
                     </label>
                 </div>
-                <button className='pay' type='submit' disabled={!account || loading}>
+                <button className='submit-btn' type='submit' disabled={!account || loading}>
                     {loading ? 'Procesando...' : 'Firmar y Transferir'}
                 </button>
-                <button className='cancel' type='button' onClick={onClose}>Cancelar</button>
+                <button className='cancel-btn' type='button' onClick={onClose}>Cancelar</button>
             </form>
-            {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
-            {successMessage && <p className='successMessage'>{successMessage}</p>}
+            {errorMessage && <p className='error-message'>{errorMessage}</p>}
+            {successMessage && <p className='success-message'>{successMessage}</p>}
         </div>
     );
 };
