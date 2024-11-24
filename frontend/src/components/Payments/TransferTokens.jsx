@@ -1,7 +1,6 @@
-// src/services/TransferTokens.js
-
+// src/components/Payments/TransferTokens.js
 import Web3 from 'web3';
-import { sendPayment } from './UserTransfer';
+import { sendPayment } from '../../services/UserTransfer'; // Cambia la ruta relativa
 
 /**
  * Prepara los datos de transferencia y los envía al backend.

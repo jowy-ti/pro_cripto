@@ -1,7 +1,6 @@
-// src/pages/TranferTokensPage.jsx
-
+// src/pages/TransferTokensPage.jsx
 import React, { useState, useEffect } from 'react';
-import { prepareAndSendPayment } from '../services/TransferTokens';  // Importar la función correcta
+import { prepareAndSendPayment } from '../components/Payments/TransferTokens'; // Cambia la importación
 import '../components/Styles/TransferTokensPage.css';
 
 const BlockchainTransfer = ({ onClose }) => {
