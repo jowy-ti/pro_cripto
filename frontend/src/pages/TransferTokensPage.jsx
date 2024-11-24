@@ -41,6 +41,8 @@ const BlockchainTransfer = ({ onClose }) => {
 
             const amountInUnits = parseFloat(amount) * Math.pow(10, 2);
 
+            console.log("amountInUnits :", amountInUnits);
+
             console.log("Iniciando el proceso de transferencia...");
             const { status, data } = await prepareAndSendPayment(account, recipient, amountInUnits);
 
