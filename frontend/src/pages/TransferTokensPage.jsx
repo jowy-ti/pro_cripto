@@ -61,47 +61,49 @@ const BlockchainTransfer = ({ onClose }) => {
     };
 
     return (
-        <div className='transfer-form'>
-            <h2>Transferir Tokens</h2>
-            {account ? (
-                <div className="account-info">
-                    <label>Cuenta conectada:</label>
-                    <p className="account-address">{account}</p>
-                </div>
-            ) : (
-                <p>Por favor conecta tu cuenta de MetaMask.</p>
-            )}
-            <form onSubmit={handleTransfer}>
-                <div>
-                    <label>
-                        Dirección del destinatario:
-                        <input
-                            type='text'
-                            value={recipient}
-                            onChange={(e) => setRecipient(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Cantidad de UPCoin a transferir:
-                        <input
-                            type='number'
-                            step='0.01'
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <button className='submit-btn' type='submit' disabled={!account || loading}>
-                    {loading ? 'Procesando...' : 'Firmar y Transferir'}
-                </button>
-                <button className='cancel-btn' type='button' onClick={onClose}>Cancelar</button>
-            </form>
-            {errorMessage && <p className='error-message'>{errorMessage}</p>}
-            {successMessage && <p className='success-message'>{successMessage}</p>}
+        <div className="page-container">
+            <div className='transfer-form'>
+                <h2>Transferir Tokens</h2>
+                {account ? (
+                    <div className="account-info">
+                        <label>Cuenta conectada:</label>
+                        <p className="account-address">{account}</p>
+                    </div>
+                ) : (
+                    <p>Por favor conecta tu cuenta de MetaMask.</p>
+                )}
+                <form onSubmit={handleTransfer}>
+                    <div>
+                        <label>
+                            Dirección del destinatario:
+                            <input
+                                type='text'
+                                value={recipient}
+                                onChange={(e) => setRecipient(e.target.value)}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Cantidad de UPCoin a transferir:
+                            <input
+                                type='number'
+                                step='0.01'
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <button className='submit-btn' type='submit' disabled={!account || loading}>
+                        {loading ? 'Procesando...' : 'Firmar y Transferir'}
+                    </button>
+                    <button className='cancel-btn' type='button' onClick={onClose}>Cancelar</button>
+                </form>
+                {errorMessage && <p className='error-message'>{errorMessage}</p>}
+                {successMessage && <p className='success-message'>{successMessage}</p>}
+            </div>
         </div>
     );
 };
