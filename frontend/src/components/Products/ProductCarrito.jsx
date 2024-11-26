@@ -33,7 +33,7 @@ const ProductCarrito = ({ itemsCarrito, onRemoveFromCarrito, onPayment, onCancel
                         </div> 
                         ))}
                     </div>
-                    <h3>Importe total: ${totalAmount}</h3>
+                    <h3>Importe total: {totalAmount} UPC</h3>
                     <div className='opciones-carrito'>
                         <button className='pay-button' onClick={() => {handlePayment(); onPayment();}}>Pagar</button>
                         <button className='empty-button' onClick={() => handleEmptyCarrito()}>Vaciar Carrito</button>

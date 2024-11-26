@@ -112,7 +112,7 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
             {account ? (<p className='txt'>Cuenta conectada: {account}</p>) : (<p>Porfavor conecta tu cuenta de MetaMask wallet</p>)}
             <form onSubmit={handlePayment}>
                 <div>
-                    <p className='txt'>Total a pagar: {amount} UPCoin</p>
+                    <p className='txt'>Total a pagar: {(amount / Math.pow(10, 2)).toFixed(2)} UPC</p>
                     <p className='txt'>Destinatario del pago: {recipient}</p>
                 </div>
                 <button className='pay' type='submit' disabled={!account || loading}>
