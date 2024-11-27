@@ -1,5 +1,10 @@
 .ClientMenu-container {
-    background-color: #282c34;
+    background-image: url('https://i.pinimg.com/originals/c4/00/4e/c4004e7f1b6e0c9dde1751456e504791.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /*background-color: #282c34;*/
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -10,7 +15,7 @@
 }
 
 .ClientMenu-content {
-    background-color: #3a3f4b;
+    background-color: transparent;/*#3a3f4b*/
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
