@@ -1,0 +1,47 @@
+.ClientMenu-container {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.ClientMenu-content {
+    background-color: #3a3f4b;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.ClientMenu-content h2 {
+    margin-bottom: 20px;
+    color: #61dafb;
+}
+
+.ClientMenu-content button {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.ClientMenu-content button:hover {
+    background-color: #0056b3;
+}
+
+.ClientMenu-form .error-message {
+    color: #ff6b6b;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
