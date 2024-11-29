@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; 
 import "../components/Styles/HomePage.css";
 import logoUPC from "../assets/images/logo-upc.png";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="homepage-container">
       {/* Imagen de cabecera con texto superpuesto */}
@@ -12,7 +15,7 @@ const HomePage = () => {
 
         {/* Contenedor de los botones dentro de la imagen */}
         <div className="button-container-home">
-          <button className="nav-button-home" onClick={() => window.location.href = "/shop"}>
+          <button className="nav-button-home" onClick={() => navigate("/shoppage")}>
             Ir a la tienda
           </button>
         </div>

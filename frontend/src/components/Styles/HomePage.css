@@ -118,7 +118,7 @@ body, html {
     font-size: 1.2rem;
     color: #555;
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -128,7 +128,7 @@ body, html {
     justify-content: center;
     margin-bottom: auto; 
     margin-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 .nav-button-setup {
