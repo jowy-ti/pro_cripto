@@ -8,7 +8,7 @@ const ProductModify = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [modifiedProduct, setModifiedProduct] = useState({productName: '', price: '', image: ''});
+    const [modifiedProduct, setModifiedProduct] = useState({productName: '', price: '', imageURL: ''});
 
     useEffect(() => {
         getProducts();
@@ -52,7 +52,7 @@ const ProductModify = () => {
         setModifiedProduct({
             productName: product.productName,
             price: product.price,
-            image: product.image
+            imageURL: product.imageURL
         });
     };
 
@@ -67,7 +67,7 @@ const ProductModify = () => {
                 setErrorMessage('');
                 await getProducts();
                 setSelectedProduct(null);
-                setModifiedProduct({ productName: '', price: '', image: '' });
+                setModifiedProduct({ productName: '', price: '', imageURL: '' });
                 setSuccessMessage('Producto modificado correctamente');
                 setTimeout(() => {setSuccessMessage('');}, 1000);
             } else {
@@ -92,7 +92,7 @@ const ProductModify = () => {
                             <li key={product.productName} className="product-item">
                                 <span>{product.productName}</span>
                                 <span>{product.price.toFixed(2)} UPCoin</span>
-                                <img className='imagen' src={product.image} alt='' />
+                                <img className='imagen' src={product.imageURL} alt='' />
                                 <button onClick={() => handleModify(product)}>Modificar</button>
                             </li>
                         ))}
@@ -114,7 +114,7 @@ const ProductModify = () => {
                     </div>
                     <div>
                         <label htmlFor="image">URL de la Imagen:</label>
-                        <input type="text" id="image" value={modifiedProduct.image}onChange={(e) => setModifiedProduct({image: e.target.value})}/>
+                        <input type="text" id="image" value={modifiedProduct.imageURL}onChange={(e) => setModifiedProduct({imageURL: e.target.value})}/>
                     </div>
                     <button type="submit">Guardar Cambios</button>
                     <button type="button" onClick={() => setSelectedProduct(null)}>Cancelar</button>
