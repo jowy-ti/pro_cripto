@@ -1,4 +1,5 @@
-//import './App.css';
+import HomePage from './pages/HomePage';
+
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -19,7 +20,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Routes>
-          <Route path="/" element={<ClientMenuPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} /> 
           <Route path="/shoppage" element={<ShopPage />} /> 
           <Route path="/errorpage" element={<ErrorPage />} /> 

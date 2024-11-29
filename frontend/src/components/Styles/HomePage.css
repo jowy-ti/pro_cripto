@@ -1,0 +1,238 @@
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%; /* Asegura que el body y html ocupen toda la altura de la pantalla */
+    font-family: Helvetica, sans-serif;
+}
+
+/* Contenedor principal */
+.homepage-container {
+    position: relative;
+    min-height: 100vh; /* La altura mínima es la de la ventana */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Separa contenido y pie de página */
+    align-items: center;
+    overflow: hidden; /* Evita desplazamientos no deseados */
+    
+}
+
+/* Cabecera de la imagen */
+.header-image {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    background-image: url('../../assets/images/header2.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+/* Capa oscura sobre la imagen */
+.header-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Título y eslogan */
+.header-title {
+    font-size: 4rem;
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+}
+
+.header-slogan {
+    font-size: 2rem;
+    margin-top: 10px;
+    color: #ffffff;
+    text-align: center;
+    max-width: 90%;
+    word-wrap: break-word;
+    z-index: 2;
+}
+
+/* Contenedor de los botones (debajo del texto) */
+.button-container-home {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+}
+
+/* Estilo de los botones */
+.nav-button-home {
+    padding: 15px 30px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+}
+
+.nav-button-home:hover {
+    background-color: #0056b3;
+}
+
+/* Nueva sección para la configuración del usuario */
+.user-setup {
+    margin-top: 40px; /* Espaciado superior para separar la sección */
+    text-align: center; /* Centra el texto en la sección */
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centra los elementos dentro de la sección */
+    justify-content: center; /* Asegura que el contenido se centre verticalmente */
+}
+
+.setup-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.setup-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Contenedor de botones */
+.button-container-setup {
+    display: flex;
+    justify-content: center;
+    margin-bottom: auto; 
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.nav-button-setup {
+    padding: 15px 30px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+}
+
+.nav-button-setup:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos generales del pie de página */
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    color: white;
+    padding: 10px 30px;
+    font-family: Helvetica, sans-serif;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.8rem;
+    height: 120px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 25%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.footer-column p {
+    margin: 2px 0;
+    font-size: 0.9rem;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.footer-right img {
+    width: 250px;
+    height: auto;
+    max-width: 250px;
+}
+
+/* Asegura que el pie de página se quede al final */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .footer-column {
+        flex-basis: 100%;
+        text-align: center;
+    }
+
+    .footer-right img {
+        width: 120px;
+    }
+
+    .header-title {
+        font-size: 3rem;
+    }
+
+    .header-slogan {
+        font-size: 1.5rem;
+    }
+
+    .setup-title {
+        font-size: 2rem;
+    }
+
+    .setup-description {
+        font-size: 1rem;
+    }
+
+    .nav-button-home, .nav-button-setup {
+        max-width: 200px;
+    }
+}
