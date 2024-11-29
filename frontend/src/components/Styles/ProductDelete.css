@@ -25,6 +25,7 @@
 
 .products-list .product-item {
     align-items: center;
+    color: black;
 }
 
 .product-item span{
