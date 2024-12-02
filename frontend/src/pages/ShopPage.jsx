@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';  // Importa Link para la navegación
 import ProductList from '../components/Products/ProductList';
 import ProductsCarrito from '../components/Products/ProductCarrito';
 import '../components/Styles/ShopPage.css';
@@ -7,7 +8,6 @@ const ShopPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [itemsCarrito, setItemsCarrito] = useState([]);
   const [showOption, setShowOption] = useState(true); // Para alternar entre productos y carrito
-  const [showButton, setShowButton] = useState(true);
   const [messageCarrito, setMessageCarrito] = useState('');
 
   const toggleMenu = () => {
@@ -37,11 +37,11 @@ const ShopPage = () => {
   };
 
   const handlePayment = () => {
-    setShowButton(false);
+    setShowOption(false); // Cambiar a la vista de pago
   };
 
   const handleCancelPayment = () => {
-    setShowButton(true);
+    setShowOption(true); // Volver a la vista de productos
   };
 
   return (
@@ -55,16 +55,31 @@ const ShopPage = () => {
         </h1>
         
         {/* Contenedor para los botones */}
-  <div className="button-container-sp">
-    <button className="button cart-button-sp">
-      Carrito
-    </button>
+        <div className="button-container-sp">
+          <button className="button cart-button-sp" onClick={() => setShowOption(!showOption)}>
+            Carrito
+          </button>
 
-    <button className="button menu-button-sp" onClick={toggleMenu}>
-      Menú
-    </button>
-  </div>
+          <button className="button menu-button-sp" onClick={toggleMenu}>
+            Menú
+          </button>
+        </div>
       </header>
+
+      {/* Menú desplegable (estilo oculto cuando menuOpen es false) */}
+      {menuOpen && (
+        <div className="menu-dropdown">
+          <button className="button close-button-sp" onClick={toggleMenu}>
+            Cerrar Menú
+          </button>
+          <ul>
+            <li><Link to="/" className="menu-link">Pantalla de Inicio</Link></li>
+            <li><Link to="/login" className="menu-link">Login de Administrador</Link></li>
+            <li><Link to="/getstartedpage" className="menu-link">Empezar a utilizar UPCoin</Link></li>
+            <li><Link to="/transfer-tokens" className="menu-link">Transferir UPC</Link></li>
+          </ul>
+        </div>
+      )}
 
       {/* Imagen de cabecera */}
       <div className="header-image-pt">
@@ -79,17 +94,9 @@ const ShopPage = () => {
       <div className="product-section">
         {messageCarrito && <div className="notification">{messageCarrito}</div>}
         <div>
-          {showButton && (
-            <button className="button-top-right" onClick={() => setShowOption(!showOption)}>
-              {showOption ? 'Ver Carrito' : 'Ver Productos'}
-            </button>
-          )}
-
-          {showOption && (
+          {showOption ? (
             <ProductList onAddToCarrito={handleAddToCarrito} itemsCarrito={itemsCarrito} />
-          )}
-
-          {!showOption && (
+          ) : (
             <ProductsCarrito
               itemsCarrito={itemsCarrito}
               onRemoveFromCarrito={handleRemoveFromCarrito}

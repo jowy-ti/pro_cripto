@@ -2,6 +2,7 @@
 .product-item {
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* Asegura que los elementos se distribuyan en las filas */
     padding: 35px;
     margin: 5px;
     background-color: #ffffff;
@@ -11,74 +12,95 @@
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+    height: 100%; /* Ocupa el 100% de altura disponible */
 }
 
-/* Nombre producto */
+/* Nombre del producto (primera fila) */
 .product-item h3 {
     margin: 0;
     color: #333;
+    text-align: center;
 }
 
-/* Alinear en linea, espacio entre elementos*/
-.line {
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-}
-
-/* Quadrado de producto: No ocupa todo lo que puede*/
-.product-info {
-    flex-grow: 0;
-    margin-right: 15px;
-}
-
-/* Imagen: Mantener proporcion y tamaño maximo */
+/* Imagen del producto (segunda fila) */
 .imagen {
     max-width: 150px;
     max-height: 150px;
     height: auto;
     object-fit: contain;
+    margin: 15px auto; /* Centrado con margen */
 }
 
-/* Botones: Azules con texto blanco */
-button {
-    padding: 5px 10px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* Información del producto (tercera fila) */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
 }
 
-/*Oscurecer el boton al pasar por encima*/
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Estilo para boton - deshabilitado*/
-button[disabled] {
-    background-color: #ccc;
-}
-
-/*Color numeros*/
+/* Estilo para texto, precio, cantidad (en la tercera fila) */
 .text {
-    margin: 0 10px;
+    margin: 5px 0;
     font-size: 18px;
     color: #333;
 }
 
-/*Columna - Numero + con Añadir*/
-.button-container {
-    text-align: center;
+/* Contenedor de los botones de cantidad (penúltima fila) */
+.quantity-row {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
-/*Alinear - Numero +*/
+/* Botones de cantidad (dentro de la penúltima fila) */
 .quantity-buttons {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+button {
+    padding: 8px 12px; /* Reducir el padding para que el botón sea más bajo */
+    font-size: 16px; /* Reducir el tamaño del texto */
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px; /* Bordes redondeados moderados */
+    cursor: pointer;
+}
+
+/* Oscurecer el botón al pasar por encima */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el botón deshabilitado */
+button[disabled] {
+    background-color: #ccc;
+}
+
+/* Contenedor del botón de añadir al carrito (última fila) */
+.add-to-cart-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Separación entre botones */
+}
+
+/* Botón de añadir al carrito (última fila) */
+.add-to-cart {
+    padding: 12px 20px; /* Reducir el padding para que el botón sea más bajo */
+    font-size: 16px; /* Reducir el tamaño del texto */
+    background-color: #007bff;
+    color: white;
+    border-radius: 20px; /* Bordes redondeados moderados */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Botón añadir al carrito hover */
+.add-to-cart:hover {
+    background-color: #0056b3;
 }
