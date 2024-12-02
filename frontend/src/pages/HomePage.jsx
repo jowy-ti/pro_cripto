@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <div className="homepage-container">
       {/* Imagen de cabecera con texto superpuesto */}
-      <div className="header-image">
+      <div className="header-image-hp">
         <h1 className="header-title">UPCoin</h1>
         <p className="header-slogan">Una criptomoneda creada para la UPC, diseñada para la comunidad universitaria</p>
 
@@ -28,7 +28,7 @@ const HomePage = () => {
           Configura tu wallet y reclama tus primeros tokens UPC.  <br/> Es fácil, solo sigue los pasos en la sección de <br/> "Empezar a utilizar UPCoin" para comenzar.
         </p>
         <div className="button-container-setup">
-          <button className="nav-button-setup" onClick={() => window.location.href = "/crypto-management"}>
+          <button className="nav-button-setup" onClick={() => window.location.href = "/network-configuration"}>
             Empezar a utilizar UPCoin
           </button>
         </div>

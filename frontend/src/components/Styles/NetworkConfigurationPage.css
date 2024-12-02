@@ -1,59 +1,218 @@
-/* src/components/Styles/NetworkConfigurationPage.css */
-
-.content-container {
-  background-color: #1e1e1e;
-  min-height: 100vh;
+/* General */
+.content-container-NC {
   display: flex;
-  flex-direction: column;  /* Organiza los elementos en columna */
-  align-items: center;     /* Centra los elementos horizontalmente */
-  justify-content: center; /* Centra los elementos verticalmente */
-  font-size: calc(10px + 2vmin);
-  color: white;
-  position: relative;
-  text-align: center;      /* Asegura que el texto esté centrado */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  color: #333;
 }
 
-h1 {
-  font-size: calc(20px + 3vmin);
-  margin-bottom: 10px;     /* Reducir un poco el espacio entre el título y el párrafo */
-  color: white;            /* Color blanco para el título */
+/* Cabecera de la página */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #f8f9fa; /* Fondo claro */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin: 0; /* Elimina cualquier margen alrededor de la cabecera */
+  position: fixed; /* Hace que la cabecera se mantenga fija */
+  top: 0; /* Alinea la cabecera al borde superior */
+  left: 0; /* Asegura que esté alineada al inicio horizontal */
+  z-index: 1000; /* Mantiene la cabecera por encima de otros elementos */
 }
 
-p {
-  font-size: calc(12px + 1vmin);
-  margin-bottom: 20px;     /* Añadir espacio abajo para separar del botón */
-  color: #ccc;             /* Color gris claro para el texto */
-  max-width: 80%;          /* Limitar el ancho del párrafo */
-  line-height: 1.5;        /* Mejorar la legibilidad del texto */
+.header-left {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff; /* Azul */
 }
 
-/* Estilo del mensaje de estado */
-.status-message {
-  background-color: #333;  /* Color de fondo más oscuro para el mensaje */
-  color: #fff;             /* Texto blanco */
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 20px;
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-right a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.header-right a:hover {
+  color: #0056b3; /* Azul más oscuro */
+}
+
+/* Mensaje de bienvenida */
+.intro-text {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  width: 80%;              /* Ocupar un 80% del ancho disponible */
-  max-width: 500px;        /* Tamaño máximo del mensaje */
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  margin-top: 60px; /* Ajusta el espacio después de la cabecera fija */
 }
 
-/* Botón centrado específico para NetworkConfigurationPage */
+.intro-title-NC {
+  width: 100%; /* Asegura que el título ocupe todo el ancho disponible */
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center; /* Asegura que el título esté centrado */
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.3;
+  display: block; /* Hace que el título sea un bloque y ocupe todo el ancho */
+}
+
+/* Descripción */
+.intro-description {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.5;
+  width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+  max-width: none; /* Elimina cualquier límite de ancho */
+  margin: 0 auto;
+  text-align: center; /* Alinea el texto */
+  padding: 0 150px; /* Añade un poco de padding a los lados para que no se vea tan pegado al borde */
+}
+
+/* Pestañas */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: relative;
+  margin: 0 15px;
+}
+
+.tab:hover {
+  color: #007bff;
+}
+
+/* Línea azul debajo de la pestaña activa */
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #007bff;
+}
+
+/* Contenido de las pestañas */
+.tab-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Asegura que el contenido de las pestañas ocupe todo el ancho */
+}
+
+/* Contenido específico de cada pestaña */
+.configuracion-contenido,
+.otra-pestana {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Botón */
 .button-configure-network-page {
   padding: 15px 30px;
-  font-size: 18px;
-  color: #fff;
+  font-size: 1rem;
   background-color: #007bff;
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
-  margin-top: 20px; /* Ajusta el espaciado entre el título y el botón */
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
 }
 
 .button-configure-network-page:hover {
   background-color: #0056b3;
 }
-  
-  
-  
+
+/* Mensaje de estado */
+.status-message {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #007bff;
+  text-align: center;
+  width: 100%;
+}
+
+/* Imagen de cabecera */
+.header-image-NC {
+  width: 100vw;
+  height: auto;
+  object-fit: cover;
+  background-image: url('../../assets/images/HolaUPC.jpg'); /* Ruta a la imagen */
+  background-size: cover; /* Asegura que la imagen cubra el área */
+  background-position: center; /* Centra la imagen */
+  height: 400px; /* Ajusta la altura como sea necesario */
+}
+
+/* Cabecera de la página */
+.page-header {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+  justify-content: flex-start; /* Alinea horizontalmente al inicio */
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #f8f9fa; /* Fondo claro */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Título del header */
+.page-header-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  display: inline-block; /* Asegura que el título se alinee correctamente */
+}
+
+/* Separador */
+.separator {
+  margin: 0 10px; /* Espaciado horizontal entre el título y el subtítulo */
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: normal;
+  display: inline-block; /* Asegura que el separador se alinee correctamente */
+}
+
+/* Subtítulo */
+.subtitle {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #555;
+  display: inline-block; /* Asegura que el subtítulo se alinee correctamente */
+}
+
+/* Texto explicativo */
+.configuracion-texto {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px; /* Espaciado entre el texto y el botón */
+  line-height: 1.5;
+  padding: 0 20px; /* Espaciado lateral */
+}

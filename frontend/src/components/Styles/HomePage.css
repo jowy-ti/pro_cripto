@@ -23,7 +23,7 @@ body, html {
 }
 
 /* Cabecera de la imagen */
-.header-image {
+.header-image-hp {
     position: relative;
     width: 100%;
     height: 50vh;
@@ -39,7 +39,7 @@ body, html {
 }
 
 /* Capa oscura sobre la imagen */
-.header-image::after {
+.header-image-hp::after {
     content: '';
     position: absolute;
     top: 0;
