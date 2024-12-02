@@ -1,3 +1,141 @@
+/* Contenedor general para la página ShopPage */
+.shop-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #333;
+}
+
+/* Cabecera de la página */
+.page-header-sp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Separa el texto y los botones */
+  width: 100%;
+  background-color: #f8f9fa; /* Fondo claro */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin: 0; /* Elimina cualquier margen alrededor de la cabecera */
+  position: fixed; /* Hace que la cabecera se mantenga fija */
+  top: 0; /* Alinea la cabecera al borde superior */
+  left: 0; /* Asegura que esté alineada al inicio horizontal */
+  z-index: 1000; /* Mantiene la cabecera por encima de otros elementos */
+}
+
+.page-header-title {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff; /* Azul */
+}
+
+.separator {
+  margin: 0 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #6c757d; /* Gris oscuro */
+}
+
+
+/* Contenedor para los botones */
+.button-container-sp {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  align-items: center; /* Centra los botones verticalmente */
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+}
+
+/* Estilos comunes para los botones */
+/* Estilos comunes para los botones */
+.button {
+  background-color: transparent;
+  border: 2px solid black;
+  color: black;
+  font-size: 16px; /* Ajuste del tamaño */
+  padding: 8px 15px; /* Ajuste del tamaño */
+  cursor: pointer;
+  border-radius: 50px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: black; /* Fondo negro al pasar el ratón */
+  color: white; /* Texto blanco al pasar el ratón */
+}
+
+/* Estilos específicos para el botón del carrito */
+.cart-button-sp {
+  /* No es necesario cambiar nada aquí si usas la clase común .button */
+}
+
+/* Estilos específicos para el botón del menú */
+.menu-button-sp {
+  /* No es necesario cambiar nada aquí si usas la clase común .button */
+}
+
+/* Imagen de cabecera */
+.header-image-pt {
+  position: relative;
+  width: 100%;
+  height: 40vh;
+  background-image: url('../../assets/images/UPCshop.png'); /* Ruta de la imagen */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.header-image-pt::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Oscurecer la imagen con un color negro semi-transparente */
+  z-index: 0; /* Coloca la capa oscura debajo del texto */
+}
+
+/* Mensaje de bienvenida */
+.intro-text {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-top: 60px; /* Ajusta el espacio después de la cabecera fija */
+  position: relative;
+  z-index: 2; /* Asegura que el texto quede encima de la capa oscura */
+}
+
+.intro-title-NC {
+  font-size: 4rem;
+  margin: 0;
+  font-weight: bold;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.intro-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+
+
+/*
 .content-container {
     background-color: #1e1e1e;
     min-height: 100vh;
@@ -18,7 +156,7 @@
   }
   
   
-  /* Boton arriba a la derecha */
+  /* Boton arriba a la derecha 
   .button-top-right {
     position: absolute;
     top: 20px;
@@ -34,6 +172,7 @@
 
   }
   
+  
   .button-top-right:hover {
     background-color: #0056b3;
   }
@@ -41,7 +180,7 @@
   .button-configure-network {
     position: absolute;
     top: 20px;
-    left: 120px; /* Ajustar... */
+    left: 120px; /* Ajustar... 
     padding: 10px 15px;
     font-size: 16px;
     color: #fff;
@@ -59,7 +198,7 @@
   .button-request-tokens {
     position: absolute;
     top: 20px;
-    left: 350px; /* Ajustar según el ancho del botón "Configurar UPCcoin" */
+    left: 350px; /* Ajustar según el ancho del botón "Configurar UPCcoin"
     padding: 10px 15px;
     font-size: 16px;
     color: #fff;
@@ -73,3 +212,4 @@
   .button-request-tokens:hover {
     background-color: #218838;
   }
+  */
