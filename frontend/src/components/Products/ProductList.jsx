@@ -50,7 +50,6 @@ const ProductList = ({onAddToCarrito, itemsCarrito}) => {
 
     return(
         <div className="product-list">
-            <h2>Productos</h2>
             <div className="products">
                 {products.map((product) => {
                     const itemInCarrito = itemsCarrito.find(item => item.productName === product.productName);

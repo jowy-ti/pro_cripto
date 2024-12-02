@@ -1,8 +1,3 @@
-/* Lista */
-.product-list {
-    background-color: #1e1e1e; /* Fondo oscuro para el contenedor */
-}
-
 /* Titulo alineado y no pegado a los elementos*/
 .product-list h2 {
     text-align: center;
