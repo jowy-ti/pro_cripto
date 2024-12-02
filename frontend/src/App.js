@@ -10,7 +10,7 @@ import ModifyProductPage from './pages/ModifyProductPage';
 import AddProductPage from './pages/AddProductPage';
 import DeleteProductPage from './pages/DeleteProductPage';
 import ErrorPage from './pages/ErrorPage';
-import NetworkConfigurationPage from './pages/NetworkConfigurationPage';
+import GetStartedPage from './pages/GetStartedPage';
 import ClientMenuPage from './pages/ClientMenuPage';
 import ClaimTokensPage from './pages/ClaimTokensPage';
 import BlockchainTransfer from './pages/TransferTokensPage';
@@ -30,7 +30,7 @@ function App() {
           <Route path="/addproduct" element={<AddProductPage/>} />
           <Route path="/deleteproduct" element={<DeleteProductPage/>} />
           <Route path="/modifyproduct" element={<ModifyProductPage/>} />
-          <Route path="/network-configuration" element={<NetworkConfigurationPage />} />
+          <Route path="/getstartedpage" element={<GetStartedPage />} />
           <Route path="/clientmenu" element={<ClientMenuPage/>}/>
           <Route path="/claim-tokens" element={<ClaimTokensPage />} />
           <Route path="/transfer-tokens" element={<BlockchainTransfer />} />

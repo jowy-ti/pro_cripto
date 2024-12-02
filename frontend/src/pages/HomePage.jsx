@@ -28,7 +28,7 @@ const HomePage = () => {
           Configura tu wallet y reclama tus primeros tokens UPC.  <br/> Es fácil, solo sigue los pasos en la sección de <br/> "Empezar a utilizar UPCoin" para comenzar.
         </p>
         <div className="button-container-setup">
-          <button className="nav-button-setup" onClick={() => window.location.href = "/network-configuration"}>
+          <button className="nav-button-setup" onClick={() => window.location.href = "/getstartedpage"}>
             Empezar a utilizar UPCoin
           </button>
         </div>

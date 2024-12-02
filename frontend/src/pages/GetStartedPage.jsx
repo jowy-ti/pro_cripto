@@ -1,37 +1,36 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { claimInitialsTokens } from '../services/ClaimTokens';
-import '../components/Styles/NetworkConfigurationPage.css';
+import '../components/Styles/GetStartedPage.css';
 
-const NetworkConfigurationPage = () => {
+const GetStartedPage = () => {
   const [statusMessage, setStatusMessage] = useState('');
   const [loadingMessage, setLoadingMessage] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
   const [activeTab, setActiveTab] = useState('configurar'); // Pestaña activa
+  const navigate = useNavigate(); // Crea el hook para navegar
+
 
   const switchToSepolia = async () => {
-    // Verificar si MetaMask está instalado
     if (!window.ethereum) {
       setStatusMessage('MetaMask no está instalado.');
+      setTimeout(() => setStatusMessage(''), 3000);
       console.log('MetaMask no está instalado');
       return;
     }
 
-    // Comprobar la red actual en MetaMask
     const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
     console.log('ID de la cadena actual:', currentChainId);
 
-    // ID de la red Sepolia
     const sepoliaChainId = '0xaa36a7';
 
-    // Si ya estamos en Sepolia, no es necesario hacer nada
     if (currentChainId === sepoliaChainId) {
-      setStatusMessage('Ya estás conectado a la red Sepolia.');
+      setStatusMessage('Conectado a la red Sepolia.');
+      setTimeout(() => setStatusMessage(''), 3000);
       console.log('Ya estás en la red Sepolia');
-      addUpcoinToken(); // Intentamos agregar el token si ya estamos en la red correcta
+      addUpcoinToken();
       return;
     }
 
-    // Si no estamos en Sepolia, intentar cambiar a Sepolia
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
@@ -40,7 +39,7 @@ const NetworkConfigurationPage = () => {
 
       setStatusMessage('Red Sepolia configurada correctamente.');
       console.log('Red Sepolia configurada correctamente');
-      addUpcoinToken(); // Intentamos agregar el token después de cambiar la red
+      addUpcoinToken();
     } catch (error) {
       setStatusMessage('Error al configurar la red Sepolia.');
       console.error('Error al configurar la red Sepolia:', error);
@@ -48,7 +47,6 @@ const NetworkConfigurationPage = () => {
   };
 
   const addUpcoinToken = async () => {
-    // Definir el token UPCoin
     const upcoinToken = {
       type: 'ERC20',
       options: {
@@ -58,7 +56,6 @@ const NetworkConfigurationPage = () => {
       },
     };
 
-    // Intentar agregar el token UPCoin a la wallet de MetaMask
     try {
       console.log('Intentando agregar el token UPCoin...');
       const tokenAdded = await window.ethereum.request({
@@ -82,32 +79,28 @@ const NetworkConfigurationPage = () => {
     }
   };
 
-   // Función para manejar la solicitud de tokens
-   const handleRequestTokens = async () => {
+  const handleRequestTokens = async () => {
     setLoadingMessage(true);
-    setSuccessMessage(null);
     setStatusMessage('');
 
     try {
       const userWallet = await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => accounts[0]);
       const { status, data } = await claimInitialsTokens(userWallet);
 
-      console.log("MENSAJE ERROR: ", data.error);
-
       if (status === 200) {
-        setSuccessMessage('Tokens enviados correctamente. ¡Disfruta de tus 100 UPC!');
-        setTimeout(() => setSuccessMessage(''), 5000); // Mensaje visible durante 5 segundos
+        setStatusMessage('Tokens enviados correctamente. ¡Disfruta de tus 100 UPC!');
+        setTimeout(() => setStatusMessage(''), 3000);
       } else if (status === 400 && data.error === 'Los tokens ya fueron reclamados por esta dirección') {
         setStatusMessage('Ya has reclamado tus tokens iniciales. Solo puedes hacerlo una vez.');
-        setTimeout(() => setStatusMessage(''), 5000); // Mensaje visible durante 5 segundos
+        setTimeout(() => setStatusMessage(''), 3000);
       } else {
         setStatusMessage('Hubo un error al solicitar los tokens. Intenta nuevamente.');
-        setTimeout(() => setStatusMessage(''), 5000); // Mensaje visible durante 5 segundos
+        setTimeout(() => setStatusMessage(''), 3000);
       }
     } catch (err) {
       console.error(err);
       setStatusMessage('Hubo un error al solicitar los tokens. Intenta nuevamente.');
-      setTimeout(() => setStatusMessage(''), 5000); // Mensaje visible durante 5 segundos
+      setTimeout(() => setStatusMessage(''), 3000);
     } finally {
       setLoadingMessage(false);
     }
@@ -125,14 +118,18 @@ const NetworkConfigurationPage = () => {
       </header>
 
       {/* Imagen de cabecera */}
-      <div className="header-image-NC"></div>
-
-      {/* Mensaje de bienvenida */}
-      <div className="intro-text">
-        <p className="intro-title-NC">Hola UPCoin: La Nueva Criptomoneda de la UPC</p>
-        <p className="intro-description">
-          UPCoin es una criptomoneda diseñada para transformar la forma en que la comunidad UPC interactúa económicamente. Rápida, segura y fácil de usar, UPCoin permite a estudiantes, profesores y personal de la universidad realizar pagos y transacciones de manera eficiente dentro del entorno académico. Únete a la revolución digital y empieza a disfrutar de los beneficios de UPCoin.
-        </p>
+      <div className="header-image-NC">
+        {/* Mensaje de bienvenida */}
+        <div className="intro-text">
+          <p className="intro-title-NC">Hola UPCoin</p>
+          <p className="intro-subtitle">La Nueva Criptomoneda de la UPC</p>
+          <p className="intro-description">
+            UPCoin es una criptomoneda basada en el estándar ERC20, diseñada para transformar la economía de la UPC. 
+            Con un contrato inteligente desplegado en la testnet de Sepolia, UPCoin permite a estudiantes, profesores 
+            y personal realizar pagos y transacciones de forma rápida, segura y eficiente dentro del entorno académico. 
+            Únete a la revolución digital y empieza a disfrutar de los beneficios de UPCoin.
+          </p>
+        </div>
       </div>
 
       {/* Pestañas */}
@@ -155,11 +152,9 @@ const NetworkConfigurationPage = () => {
       <div className="tab-content">
         {activeTab === 'configurar' && (
           <div className="configuracion-contenido">
-            {/* Texto explicativo */}
             <p className="configuracion-texto">
-              Para comenzar a utilizar UPCoin, necesitas configurar la red Sepolia en tu wallet de MetaMask y agregar el token UPC a tu lista de activos.
+              Para comenzar a utilizar UPCoin, se va ha configurar la red Sepolia en tu wallet de MetaMask y agregar el token UPC a tu lista de activos.
             </p>
-            {/* Botón */}
             <button className="button-configure-network-page" onClick={switchToSepolia}>
               Configurar red y agregar UPCoin
             </button>
@@ -168,7 +163,7 @@ const NetworkConfigurationPage = () => {
         {activeTab === 'otra' && (
           <div className="otra-pestana">
             <p className="configuracion-texto">
-              Para reclamar tus primeros UPCs, asegúrate de tener MetaMask configurado en la red Sepolia.
+              Para reclamar tus primeros UPCs, asegúrate de tener MetaMask configurado en la red Sepolia. Los usuarios solo pueden reclamar 100 UPC una vez por wallet.
             </p>
             <button
               className="button-configure-network-page"
@@ -177,16 +172,32 @@ const NetworkConfigurationPage = () => {
             >
               {loadingMessage ? 'Cargando...' : 'Reclama tus 100 UPC'}
             </button>
-            {statusMessage && <p className="status-message">{statusMessage}</p>}
-            {successMessage && <p className="status-message success">{successMessage}</p>}
           </div>
         )}
       </div>
 
       {/* Mensaje de estado */}
-      {statusMessage && <p className="status-message">{statusMessage}</p>}
+      {statusMessage && (
+        <p className={`status-message 
+          ${statusMessage === 'MetaMask no está instalado.' ? 'error' : ''}
+          ${statusMessage.includes('Error') ? 'error' : ''} 
+          ${statusMessage.includes('error') ? 'error' : ''} 
+          ${statusMessage.includes('error') ? 'error' : ''} 
+          ${statusMessage === 'Ya has reclamado tus tokens iniciales. Solo puedes hacerlo una vez.' ? 'error' : ''}
+          ${statusMessage.includes('correctamente') ? 'success' : ''}`}
+        >
+          {statusMessage}
+        </p>
+      )}
+
+      {/* Botón para redirigir a ShopPage */}
+      <div className="button-container">
+        <button className="button-go-to-shop" onClick={() => navigate('/shoppage')}>
+          Ir a la tienda
+        </button>
+      </div>
     </div>
   );
 };
 
-export default NetworkConfigurationPage;
+export default GetStartedPage;
