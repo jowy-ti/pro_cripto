@@ -7,7 +7,7 @@ const ProductCarrito = ({ itemsCarrito, onRemoveFromCarrito, onPayment, onCancel
     const [isPaymentVisible, setIsPaymentVisible] = useState(false);
 
     if (itemsCarrito.length === 0) {
-        return <p>El carrito esta vacio</p>;
+        return <p>El carrito está vacío</p>;
     }
 
     const totalAmount = itemsCarrito.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2);
@@ -24,7 +24,7 @@ const ProductCarrito = ({ itemsCarrito, onRemoveFromCarrito, onPayment, onCancel
         <div className='products-carrito'>
             {!isPaymentVisible && (
                 <div>
-                    <h2>Tu carrito</h2>
+                    <div className='titulo-carrito'>Tu carrito</div>
                     <div className='items-carrito'>
                         {itemsCarrito.map((product) => (
                             <div key={product.productName} className='item'>
@@ -35,7 +35,7 @@ const ProductCarrito = ({ itemsCarrito, onRemoveFromCarrito, onPayment, onCancel
                             </div>
                         ))}
                     </div>
-                    <h3>Importe total: {totalAmount} UPC</h3>
+                    <div className='importe-total'>Importe total: {totalAmount} UPC</div>
                     <div className='opciones-carrito'>
                         <button className='pay-button' onClick={() => { handlePayment(); onPayment(); }}>Pagar</button>
                         <button className='empty-button' onClick={() => handleEmptyCarrito()}>Vaciar Carrito</button>
