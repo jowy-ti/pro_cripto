@@ -26,12 +26,12 @@ const HomePage = () => {
       <div className="header-image-hp">
         <h1 className="header-title">UPCoin</h1>
         <p className="intro-subtitle-hp">Plataforma de comercio</p>
-        <p className="header-slogan">Accede a la plataforma de comercio creada para UPCoin</p>
+        <p className="header-slogan">La plataforma de comercio creada para UPCoin</p>
 
         {/* Contenedor de los botones dentro de la imagen */}
         <div className="button-container-home">
           <button className="nav-button-home" onClick={() => navigate("/shoppage")}>
-            Plataforma de comercio
+            Ir a la plataforma
           </button>
         </div>
       </div>
