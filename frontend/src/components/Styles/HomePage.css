@@ -12,18 +12,22 @@ body, html {
 
 /* Contenedor principal */
 .homepage-container {
-    position: relative;
-    min-height: 100vh; /* La altura mínima es la de la ventana */
+    margin: 0;
+    padding: 0;
+    padding-top: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Separa contenido y pie de página */
     align-items: center;
-    overflow: hidden; /* Evita desplazamientos no deseados */
+    justify-content: center;
+    width: 100%;
+    color: #333;
     
 }
 
 /* Cabecera de la imagen */
 .header-image-hp {
+    margin: 0; /* Elimina cualquier margen */
+    padding: 0; /* Elimina cualquier padding extra */
     position: relative;
     width: 100%;
     height: 50vh;
@@ -36,6 +40,8 @@ body, html {
     justify-content: center;
     text-align: center;
     color: white;
+    z-index: 1;
+    top: 0; /* Asegura que la imagen comience desde el borde superior */
 }
 
 /* Capa oscura sobre la imagen */
@@ -46,8 +52,8 @@ body, html {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 0;
 }
 
 /* Título y eslogan */
@@ -59,9 +65,16 @@ body, html {
     z-index: 2;
 }
 
+.intro-subtitle-hp {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #ffffff;
+    z-index: 2;
+  }
+
 .header-slogan {
     font-size: 2rem;
-    margin-top: 10px;
     color: #ffffff;
     text-align: center;
     max-width: 90%;

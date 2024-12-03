@@ -1,5 +1,6 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; 
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+import Menu from '../components/Menu';  // Importa el componente del menú
 import "../components/Styles/HomePage.css";
 import logoUPC from "../assets/images/logo-upc.png";
 
@@ -8,15 +9,29 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      {/* Imagen de cabecera con texto superpuesto */}
+
+    {/* Cabecera de página */}
+    <header className="page-header">
+        <h1 className="page-header-title">
+          <span className="logo"></span>
+          UPCoin
+          <span className="separator">|</span>
+          <span className="subtitle">Página de Inicio</span>
+        </h1>
+        {/* Usar el componente Menu */}
+          <Menu />
+      </header>
+
+      {/* Imagen con texto superpuesto */}
       <div className="header-image-hp">
         <h1 className="header-title">UPCoin</h1>
-        <p className="header-slogan">Una criptomoneda creada para la UPC, diseñada para la comunidad universitaria</p>
+        <p className="intro-subtitle-hp">Plataforma de comercio</p>
+        <p className="header-slogan">Accede a la plataforma de comercio creada para UPCoin</p>
 
         {/* Contenedor de los botones dentro de la imagen */}
         <div className="button-container-home">
           <button className="nav-button-home" onClick={() => navigate("/shoppage")}>
-            Ir a la tienda
+            Plataforma de comercio
           </button>
         </div>
       </div>

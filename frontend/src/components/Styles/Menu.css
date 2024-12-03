@@ -1,0 +1,70 @@
+/* Estilo del menú desplegable */
+.menu-dropdown {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    width: 250px;
+    height: 100%;
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-dropdown ul {
+    list-style-type: none;
+    padding: 20px;
+  }
+  
+  .menu-dropdown ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .menu-dropdown ul li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Estilo para los enlaces del menú */
+  .menu-link {
+    color: black; /* Color negro */
+    text-decoration: none; /* Sin subrayado */
+    font-size: 16px;
+  }
+  
+  .menu-link:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+  }
+  
+  /* Botón de cerrar menú */
+  .close-button-sp {
+    display: block; /* Botón ocupa una línea completa */
+    margin: 20px auto; /* Centrado horizontalmente */
+    background-color: transparent;
+    border: 2px solid black;
+    color: blue;
+    font-size: 16px;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .close-button-sp:hover {
+    background-color: black; /* Fondo negro al pasar el ratón */
+    color: white; /* Texto blanco al pasar el ratón */
+  }
+
+  /* Espaciado entre algunos elementos de la lista */
+.menu-separator {
+    margin-top: 20px;
+    font-weight: bold;   /* Texto en negrita */
+    color: black;        /* Color negro */
+    font-size: 1.1rem;   /* Opcional: tamaño de fuente */
+    pointer-events: none; /* Desactiva la interacción con el ratón */
+    user-select: none; /* Evita que se seleccione el texto */
+  }
+  
+
+  

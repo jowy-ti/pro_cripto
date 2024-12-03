@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { claimInitialsTokens } from '../services/ClaimTokens';
 import '../components/Styles/GetStartedPage.css';
+import Menu from '../components/Menu';
 
 const GetStartedPage = () => {
   const [statusMessage, setStatusMessage] = useState('');
@@ -114,8 +115,9 @@ const GetStartedPage = () => {
           <span className="logo"></span>
           UPCoin
           <span className="separator">|</span>
-          <span className="subtitle">Primeros pasos con UPCoin</span>
+          <span className="subtitle">Empezar a utilizar UPCoin</span>
         </h1>
+        <Menu />
       </header>
 
       {/* Imagen de cabecera */}

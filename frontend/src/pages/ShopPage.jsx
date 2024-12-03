@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';  // Importa Link para la navegación
 import ProductList from '../components/Products/ProductList';
 import ProductsCarrito from '../components/Products/ProductCarrito';
 import '../components/Styles/ShopPage.css';
+import Menu from '../components/Menu';
 
 const ShopPage = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [itemsCarrito, setItemsCarrito] = useState([]);
   const [showOption, setShowOption] = useState(true); // Para alternar entre productos y carrito
   const [messageCarrito, setMessageCarrito] = useState('');
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
 
   const handleAddToCarrito = (product, quantity) => {
     const existingProductIndex = itemsCarrito.findIndex(item => item.productName === product.productName);
@@ -52,7 +48,7 @@ const ShopPage = () => {
           <span className="logo"></span>
           UPCoin
           <span className="separator">|</span>
-          <span className="subtitle">Tienda en línea</span>
+          <span className="subtitle">Plataforma de comercio</span>
         </h1>
         
         {/* Contenedor para los botones */}
@@ -60,27 +56,9 @@ const ShopPage = () => {
           <button className="button cart-button-sp" onClick={() => setShowOption(!showOption)}>
             Carrito
           </button>
-
-          <button className="button menu-button-sp" onClick={toggleMenu}>
-            Menú
-          </button>
+          <Menu />
         </div>
       </header>
-
-      {/* Menú desplegable (estilo oculto cuando menuOpen es false) */}
-      {menuOpen && (
-        <div className="menu-dropdown">
-          <button className="button close-button-sp" onClick={toggleMenu}>
-            Cerrar Menú
-          </button>
-          <ul>
-            <li><Link to="/" className="menu-link">Pantalla de Inicio</Link></li>
-            <li><Link to="/login" className="menu-link">Login de Administrador</Link></li>
-            <li><Link to="/getstartedpage" className="menu-link">Empezar a utilizar UPCoin</Link></li>
-            <li><Link to="/transfer-tokens" className="menu-link">Transferir UPC</Link></li>
-          </ul>
-        </div>
-      )}
 
       {/* Imagen de cabecera */}
       <div className="header-image-pt">
