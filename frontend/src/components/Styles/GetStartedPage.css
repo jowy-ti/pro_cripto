@@ -61,7 +61,7 @@
   justify-content: center;
   text-align: center;
   color: white;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .header-image-NC::after {
@@ -71,7 +71,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Oscurecer la imagen con un color negro semi-transparente */
+  background-color: rgba(0, 0, 0, 0.7); /* Oscurecer la imagen con un color negro semi-transparente */
   z-index: 0; /* Colocar la capa oscura debajo del texto */
 }
 
@@ -191,11 +191,32 @@
   width: 100%;
 }
 
+.logo {
+  background-image: url('../../assets/images/Logo-B.png'); /* Ajusta la ruta a tu archivo */
+  background-size: contain; /* Asegura que la imagen se ajuste completamente */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  width: 32px; /* Ajusta el ancho del logo */
+  height: 32px; /* Ajusta la altura del logo */
+  display: inline-block; /* Para comportarse como un elemento en línea */
+  margin-right: 10px; /* Espaciado entre el logo y el texto */
+}
+
+.logo-gs {
+  background-image: url('../../assets/images/Logo-W.png'); /* Ajusta la ruta a tu archivo */
+  width: 120px; /* Ajusta según el tamaño deseado */
+  height: 120px; /* Ajusta según el tamaño deseado */
+  background-size: contain; /* Asegura que la imagen se ajuste al contenedor */
+  background-repeat: no-repeat;
+  display: block; /* Asegura que sea visible */
+  margin: 0 auto; /* Centra el logo horizontalmente */
+  margin-bottom: 15px;
+}
+
 /* Cabecera de la página */
 .page-header {
   display: flex;
   align-items: center; /* Alinea verticalmente al centro */
-  justify-content: flex-start; /* Alinea horizontalmente al inicio */
+  justify-content: space-between; /* Alinea horizontalmente al inicio */
   width: 100%;
   padding: 10px 20px;
   background-color: #f8f9fa; /* Fondo claro */
@@ -208,7 +229,7 @@
   font-size: 2rem;
   font-weight: bold;
   color: black;
-  display: inline-block; /* Asegura que el título se alinee correctamente */
+  display: flex; /* Asegura que el título se alinee correctamente */
 }
 
 /* Separador */

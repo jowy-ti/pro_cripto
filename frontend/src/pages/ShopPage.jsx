@@ -49,9 +49,10 @@ const ShopPage = () => {
       {/* Cabecera */}
       <header className="page-header-sp">
         <h1 className="page-header-title">
+          <span className="logo"></span>
           UPCoin
           <span className="separator">|</span>
-          <span className="subtitle">Portal de tiendas</span>
+          <span className="subtitle">Tienda en línea</span>
         </h1>
         
         {/* Contenedor para los botones */}

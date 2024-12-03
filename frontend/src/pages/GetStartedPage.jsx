@@ -111,6 +111,7 @@ const GetStartedPage = () => {
       {/* Cabecera de página */}
       <header className="page-header">
         <h1 className="page-header-title">
+          <span className="logo"></span>
           UPCoin
           <span className="separator">|</span>
           <span className="subtitle">Primeros pasos con UPCoin</span>
@@ -121,6 +122,7 @@ const GetStartedPage = () => {
       <div className="header-image-NC">
         {/* Mensaje de bienvenida */}
         <div className="intro-text">
+          <span className="logo-gs"></span>
           <p className="intro-title-NC">Hola UPCoin</p>
           <p className="intro-subtitle">La Nueva Criptomoneda de la UPC</p>
           <p className="intro-description">
