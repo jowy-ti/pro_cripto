@@ -54,7 +54,7 @@ const ShopPage = () => {
         {/* Contenedor para los botones */}
         <div className="button-container-sp">
           <button className="button cart-button-sp" onClick={() => setShowOption(!showOption)}>
-            Carrito
+            {showOption ? "Ver Carrito" : "Ver Productos"} {/* Cambia el texto del botón */}
           </button>
           <Menu />
         </div>
