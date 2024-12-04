@@ -80,14 +80,17 @@ const BlockchainTransfer = ({ onClose }) => {
             <div className="transfer-form-container">
                 <span className="logo-bp"></span>
                 <div className="title">Transferencias de UPCoin</div>
-                    {account ? (
-                        <div className="account-info">
-                            <label>Cuenta conectada:</label>
-                            <p className="account-address">{account}</p>
-                        </div>
-                    ) : (
-                        <p>Por favor conecta tu cuenta de MetaMask.</p>
-                    )}
+                    
+                {account ? (
+                    <div className="wallet-container-tt wallet-user-tt">
+                        <span className="wallet-label">Wallet conectada</span>
+                        <span className="wallet-address">{account}</span>
+                    </div>
+                ) : (
+                    <p className="metamask-message">Por favor conecta tu cuenta de MetaMask wallet</p>
+                )}
+
+
                     <form onSubmit={handleTransfer}>
                         <div>
                             <label>
@@ -115,7 +118,6 @@ const BlockchainTransfer = ({ onClose }) => {
                         <button className='submit-btn' type='submit' disabled={!account || loading}>
                             {loading ? 'Procesando...' : 'Firmar y Transferir'}
                         </button>
-                        <button className='cancel-btn' type='button' onClick={onClose}>Cancelar</button>
                     </form>
                     {errorMessage && <p className='error-message'>{errorMessage}</p>}
                     {successMessage && <p className='success-message'>{successMessage}</p>}
