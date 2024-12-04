@@ -30,10 +30,10 @@ const HomePage = () => {
           <p className="intro-title-hp">Hola UPCoin</p>
           <p className="intro-subtitle-hp">La Nueva Criptomoneda de la UPC</p>
           <p className="intro-description-hp">
-            UPCoin es una criptomoneda basada en el estándar ERC20, diseñada para transformar la economía de la UPC. 
-            Con un contrato inteligente desplegado en la testnet de Sepolia, UPCoin permite a estudiantes, profesores 
-            y personal realizar pagos y transacciones de forma rápida, segura y eficiente dentro del entorno académico. 
-            Únete a la revolución digital y empieza a disfrutar de los beneficios de UPCoin.
+          UPCoin es una criptomoneda basada en el estándar ERC20 y respaldada por la tecnología blockchain, 
+          diseñada para transformar la economía de la UPC. Con un contrato inteligente en la testnet de Sepolia, 
+          permite a estudiantes, profesores y personal realizar pagos y transacciones de forma rápida, 
+          segura y eficiente en el entorno académico. Únete a la revolución digital con UPCoin.
           </p>
         </div>
       </div>

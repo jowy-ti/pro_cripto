@@ -121,17 +121,16 @@ const GetStartedPage = () => {
       </header>
 
       {/* Imagen de cabecera */}
-      <div className="header-image-NC">
+      <div className="header-image-gs">
         {/* Mensaje de bienvenida */}
-        <div className="intro-text">
-          <span className="logo-gs"></span>
-          <p className="intro-title-NC">Hola UPCoin</p>
-          <p className="intro-subtitle">La Nueva Criptomoneda de la UPC</p>
+        <span className="logo-gs"></span>
+        <div className="intro-text-gs">
+          <p className="intro-title-gs">Tu Primer Paso con UPCoin</p>
+          <p className="intro-subtitle">Configura tu wallet y reclama tus UPCs iniciales</p>
           <p className="intro-description">
-            UPCoin es una criptomoneda basada en el estándar ERC20, diseñada para transformar la economía de la UPC. 
-            Con un contrato inteligente desplegado en la testnet de Sepolia, UPCoin permite a estudiantes, profesores 
-            y personal realizar pagos y transacciones de forma rápida, segura y eficiente dentro del entorno académico. 
-            Únete a la revolución digital y empieza a disfrutar de los beneficios de UPCoin.
+          Empieza a usar UPCoin en unos pocos clics. 
+          Configura tu wallet, añade el token y prepárate para realizar transacciones 
+          rápidas, seguras y 100% digitales.
           </p>
         </div>
       </div>
@@ -157,7 +156,9 @@ const GetStartedPage = () => {
         {activeTab === 'configurar' && (
           <div className="configuracion-contenido">
             <p className="configuracion-texto">
-              Para comenzar a utilizar UPCoin, se va ha configurar la red Sepolia en tu wallet de MetaMask y agregar el token UPC a tu lista de activos.
+            Para comenzar a usar UPCoin, necesitarás MetaMask como wallet. 
+            Configuraremos automáticamente la red Sepolia, donde está desplegado el contrato de UPCoin, 
+            y añadiremos el token UPC a tu lista de activos para que puedas empezar a utilizarlo.
             </p>
             <button className="button-configure-network-page" onClick={switchToSepolia}>
               Configurar red y agregar UPCoin
@@ -167,7 +168,8 @@ const GetStartedPage = () => {
         {activeTab === 'otra' && (
           <div className="otra-pestana">
             <p className="configuracion-texto">
-              Para reclamar tus primeros UPCs, asegúrate de tener MetaMask configurado en la red Sepolia. Los usuarios solo pueden reclamar 100 UPC una vez por wallet.
+            Para reclamar tus primeros UPCs, asegúrate de haber completado previamente el paso de “Configurar Wallet”. 
+            Una vez hecho esto, podrás recibir 100 UPC, disponible solo una vez por wallet.
             </p>
             <button
               className="button-configure-network-page"
