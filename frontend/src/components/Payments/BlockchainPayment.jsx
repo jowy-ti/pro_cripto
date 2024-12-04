@@ -108,18 +108,34 @@ const BlockchainPayment = ({costeTotal, onClose, onCancelPayment}) => {
 
     return (
         <div className='blockchain-payment'>
-            <h2>Blockchain Payment</h2>
-            {account ? (<p className='txt'>Cuenta conectada: {account}</p>) : (<p>Porfavor conecta tu cuenta de MetaMask wallet</p>)}
-            <form onSubmit={handlePayment}>
-                <div>
-                    <p className='txt'>Total a pagar: {(amount / Math.pow(10, 2)).toFixed(2)} UPC</p>
-                    <p className='txt'>Destinatario del pago: {recipient}</p>
+            <span className="logo-bp"></span>
+            <div className="title">Sistema de pagos UPCoin</div>
+    
+            {account ? (
+                <div className="wallet-container wallet-user">
+                    <span className="wallet-label">Wallet conectada:</span>
+                    <span className="wallet-address">{account}</span>
                 </div>
-                <button className='pay' type='submit' disabled={!account || loading}>
-                    {loading ? 'Procesando...' : 'Firma el Pago'}
-                </button>
-                <button className='cancel' type="button" onClick={() => {onClose(); onCancelPayment();}}>Cancelar</button>
+            ) : (
+                <p>Por favor conecta tu cuenta de MetaMask wallet</p>
+            )}
+    
+            <div className="wallet-container wallet-merchant">
+                <span className="wallet-label">Wallet del comercio:</span>
+                <span className="wallet-address">{recipient}</span>
+            </div>
+    
+            <div className="txt">Total a pagar: {(amount / Math.pow(10, 2)).toFixed(2)} UPC</div>
+    
+            <form onSubmit={handlePayment}>
+                <div className="button-container">
+                    <button className='pay' type='submit' disabled={!account || loading}>
+                        {loading ? 'Procesando...' : 'Firma el Pago'}
+                    </button>
+                    <button className='cancel' type="button" onClick={() => {onClose(); onCancelPayment();}}>Cancelar</button>
+                </div>
             </form>
+    
             {errorMessage && <p className='errorMessage'>{errorMessage}</p>}
             {successMessage && <p className='successMessage'>{successMessage}</p>}
         </div>
