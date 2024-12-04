@@ -55,8 +55,8 @@ const HomePage = () => {
       <div className="image-hp-pc">
         {/* Mensaje de bienvenida */}
         <div className="pc-text-hp">
-          <p className="pc-title-hp">Plataforma de comercio UPCoin</p>
-          <p className="pc-subtitle-hp">Un marketplace único para la comunidad UPC</p>
+          <p className="pc-title-hp">Plataforma de comercio</p>
+          <p className="pc-subtitle-hp">Un marketplace único para pagar con UPCoin</p>
           <p className="pc-description-hp">
           Explora una amplia variedad de productos y servicios ofrecidos por diferentes comercios. 
           Realiza tus compras de forma segura y rápida utilizando UPCoin, la criptomoneda que impulsa nuestra economía.

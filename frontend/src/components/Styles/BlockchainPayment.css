@@ -28,6 +28,7 @@
     margin-bottom: 20px;
     color: black; /* Texto oscuro para mejor contraste */
     text-align: center;
+    z-index: 3;
 }
 
 .txt {
@@ -114,6 +115,8 @@
     border-radius: 5px;
     transform: translateX(-50%); /* Centra la línea respecto al texto */
 }
+
+/************* WALLETS ***************/
 
 .wallet-container {
     padding: 10px;

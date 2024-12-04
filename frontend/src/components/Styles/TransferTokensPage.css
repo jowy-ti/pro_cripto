@@ -1,7 +1,178 @@
-.page-container {
-    background-color: #1e1e1e; /* Fondo consistente */
-    min-height: 100vh; /* Asegura que ocupa toda la altura de la pantalla */
-    display: flex; /* Centra el contenido */
+.transfer-tokens-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #333;
+}
+
+/* Estilo de la imagen de cabecera */
+.header-image-tt {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../../assets/images/getStart.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 40px 20px;
+    margin-bottom: 20px;
+}
+
+.header-image-tt::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Sombra más fuerte para mejor contraste */
+    z-index: 0;
+}
+
+/* Título de la página */
+.header-image-tt .title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1; /* Asegura que el texto esté por encima de la capa oscura */
+}
+
+/* Línea debajo del título */
+.header-image-tt .title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 200px;
+    height: 4px;
+    background-color: black;
+    border-radius: 2px;
+    transform: translateX(-50%);
+}
+
+/* Contenedor del formulario */
+.transfer-form-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    margin: 20px auto;
+    z-index: 2; /* Asegura que el formulario esté encima de la capa de fondo */
+}
+
+/* Estilo de los encabezados en el formulario */
+.transfer-form-container h2 {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los campos del formulario */
+.transfer-form-container label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.transfer-form-container input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.transfer-form-container input:focus {
+    outline: none;
+    border-color: #4CAF50; /* Color verde cuando está enfocado */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+}
+
+/* Botones */
+.submit-btn,
+.cancel-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Estilos para mensajes de error y éxito */
+.error-message,
+.success-message {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.success-message {
+    color: #4CAF50;
+}
+
+/* Estilo para el texto de cuenta conectada */
+.account-info {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.account-info p {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilos para el mensaje cuando MetaMask no está conectado */
+.account-info label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Diseño general para mejorar el espacio y la legibilidad */
+.page-container-tt {
+    margin-top: 50px;
+}
+
+/*
+.page-container-tt {
+    background-color: #1e1e1e; /* Fondo consistente 
+    min-height: 100vh; /* Asegura que ocupa toda la altura de la pantalla 
+    display: flex; /* Centra el contenido 
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
@@ -16,7 +187,7 @@
     max-width: 400px;
     width: 100%;
     box-sizing: border-box;
-    margin: auto; /* Asegura que no afecta el centrado en flexbox */
+    margin: auto; /* Asegura que no afecta el centrado en flexbox 
 }
 
 .transfer-form h2 {
@@ -101,19 +272,20 @@
 
 .account-info {
     margin-bottom: 15px;
-    color: #ffffff; /* Color del texto */
+    color: #ffffff; /* Color del texto 
 }
 
 .account-info label {
-    font-weight: bold; /* Resalta el texto de la etiqueta */
+    font-weight: bold; /* Resalta el texto de la etiqueta 
     margin-bottom: 5px;
     display: block;
 }
 
 .account-info .account-address {
-    white-space: nowrap; /* Hace que la dirección no se rompa en varias líneas */
-    overflow: hidden;    /* Oculta cualquier texto que se desborde */
-    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es demasiado largo */
-    font-size: 14px;     /* Ajusta el tamaño de la fuente */
-    color: #61dafb;      /* Cambia el color de la dirección (puedes personalizarlo) */
+    white-space: nowrap; /* Hace que la dirección no se rompa en varias líneas 
+    overflow: hidden;    /* Oculta cualquier texto que se desborde 
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto es demasiado largo 
+    font-size: 14px;     /* Ajusta el tamaño de la fuente 
+    color: #61dafb;      /* Cambia el color de la dirección (puedes personalizarlo) 
 }
+*/
