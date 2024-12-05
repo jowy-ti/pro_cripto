@@ -1,21 +1,50 @@
-
 .blockchain-payment {
-    padding: 20px;
-    background-color: #1e1e1e;
+    padding: 40px;
+    background-color: #ffffff; /* Fondo blanco */
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+}
+
+.logo-bp {
+    margin-top: 20px; /* Define el margen superior */
+    background-image: url('../../assets/images/Logo-B.png'); /* Ajusta la ruta a tu archivo */
+    width: 70px; /* Ajusta según el tamaño deseado */
+    height: 70px; /* Ajusta según el tamaño deseado */
+    background-size: contain; /* Asegura que la imagen se ajuste al contenedor */
+    background-repeat: no-repeat;
+    display: block; /* Asegura que sea visible */
+    margin-left: auto; /* Centra el logo horizontalmente */
+    margin-right: auto; /* Centra el logo horizontalmente */
+    z-index: 2;
+    margin-bottom: 20px;
 }
 
 .blockchain-payment h2 {
     margin-bottom: 20px;
-    color: #ffffff;
+    color: black; /* Texto oscuro para mejor contraste */
     text-align: center;
+    z-index: 3;
 }
 
 .txt {
     margin: 10px 0;
-    color: #ffffff;
+    color: #333333; /* Texto oscuro para mejorar legibilidad */
     text-align: center;
+    width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+    font-size: 20px; /* Tamaño de fuente fijo */
+}
+
+.blockchain-payment .button-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column; /* Coloca los botones en una columna */
+    gap: 10px; /* Espacio entre los botones */
+    align-items: center; /* Centra los botones horizontalmente */
 }
 
 .blockchain-payment .pay {
@@ -24,8 +53,9 @@
     color: #ffffff;
     background-color: #007bff;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    transition: background-color 0.3s ease; /* Suaviza el cambio de color */
 }
 
 .blockchain-payment .pay:hover {
@@ -35,15 +65,18 @@
 .blockchain-payment .cancel {
     padding: 10px 15px;
     font-size: 16px;
-    color: #ffffff;
-    background-color: #d9534f;
-    border: none;
-    border-radius: 5px;
+    color: #d9534f; /* Texto rojo */
+    background-color: transparent; /* Fondo transparente */
+    border: 2px solid #d9534f; /* Borde rojo */
+    border-radius: 25px; /* Esquinas redondas */
     cursor: pointer;
+    transition: background-color 0.3s ease; /* Suaviza el cambio de color */
+    margin-top: 10px; /* Espacio entre los botones */
 }
 
 .blockchain-payment .cancel:hover {
-    background-color: #c9302c;
+    background-color: #d9534f;
+    color: #ffffff; /* Cambio de color del texto cuando se pasa el mouse */
 }
 
 
@@ -59,4 +92,65 @@
     margin-top: 10px;
     font-size: 14px;
     text-align: center;
+}
+
+.blockchain-payment .title {
+    font-family: 'Poppins', sans-serif; /* Fuente moderna y limpia */
+    font-size: 30px; /* Tamaño adecuado, sin ser demasiado grande */
+    font-weight: 600; /* Negrita para resaltar */
+    color: #333333; /* Color oscuro para buena visibilidad */
+    text-align: center;
+    margin-bottom: 20px; /* Separación con el resto del contenido */
+    position: relative;
+}
+
+.blockchain-payment .title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px; /* Posiciona la línea debajo del texto */
+    width: 300px; /* Longitud moderada de la línea */
+    height: 3px; /* Grosor de la línea */
+    background-color: #333333; /* Línea de color sutil */
+    border-radius: 5px;
+    transform: translateX(-50%); /* Centra la línea respecto al texto */
+}
+
+/************* WALLETS ***************/
+
+.wallet-container {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; /* Apilar los elementos verticalmente */
+    align-items: center; /* Centra los elementos */
+    justify-content: center;
+    width: 100%; /* Hace que ocupe todo el ancho disponible del contenedor .blockchain-payment */
+}
+
+.wallet-user {
+    border: 2px solid #28a745; /* Borde verde para la wallet del usuario */
+    background-color: #e9f7e9; /* Fondo claro verde */
+}
+
+.wallet-merchant {
+    border: 2px solid #808080; /* Borde gris para la wallet del comercio */
+    background-color: #f1f1f1; /* Fondo gris más claro */
+}
+
+.wallet-address {
+    font-size: 14px;
+    color: #333333;
+    word-wrap: break-word;
+    width: 100%; 
+    overflow: hidden;
+    text-align: center; /* Alinea el texto al centro */
+}
+
+.wallet-label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333333;
+    text-align: center; /* Alinea el texto al centro */
 }

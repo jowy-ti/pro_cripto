@@ -1,4 +1,5 @@
-//import './App.css';
+import HomePage from './pages/HomePage';
+
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -9,7 +10,7 @@ import ModifyProductPage from './pages/ModifyProductPage';
 import AddProductPage from './pages/AddProductPage';
 import DeleteProductPage from './pages/DeleteProductPage';
 import ErrorPage from './pages/ErrorPage';
-import NetworkConfigurationPage from './pages/NetworkConfigurationPage';
+import GetStartedPage from './pages/GetStartedPage';
 import ClientMenuPage from './pages/ClientMenuPage';
 import ClaimTokensPage from './pages/ClaimTokensPage';
 import BlockchainTransfer from './pages/TransferTokensPage';
@@ -19,7 +20,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Routes>
-          <Route path="/" element={<ClientMenuPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} /> 
           <Route path="/shoppage" element={<ShopPage />} /> 
           <Route path="/errorpage" element={<ErrorPage />} /> 
@@ -29,7 +30,7 @@ function App() {
           <Route path="/addproduct" element={<AddProductPage/>} />
           <Route path="/deleteproduct" element={<DeleteProductPage/>} />
           <Route path="/modifyproduct" element={<ModifyProductPage/>} />
-          <Route path="/network-configuration" element={<NetworkConfigurationPage />} />
+          <Route path="/getstartedpage" element={<GetStartedPage />} />
           <Route path="/clientmenu" element={<ClientMenuPage/>}/>
           <Route path="/claim-tokens" element={<ClaimTokensPage />} />
           <Route path="/transfer-tokens" element={<BlockchainTransfer />} />

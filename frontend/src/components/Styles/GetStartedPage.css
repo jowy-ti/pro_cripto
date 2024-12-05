@@ -1,0 +1,335 @@
+/* General */
+.content-container-NC {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: #333;
+}
+
+/* Cabecera de la página */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #f8f9fa; /* Fondo claro */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin: 0; /* Elimina cualquier margen alrededor de la cabecera */
+  position: fixed; /* Hace que la cabecera se mantenga fija */
+  top: 0; /* Alinea la cabecera al borde superior */
+  left: 0; /* Asegura que esté alineada al inicio horizontal */
+  z-index: 1000; /* Mantiene la cabecera por encima de otros elementos */
+}
+
+.header-left {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff; /* Azul */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-right a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.header-right a:hover {
+  color: #0056b3; /* Azul más oscuro */
+}
+
+.logo {
+  background-image: url('../../assets/images/Logo-B.png'); /* Ajusta la ruta a tu archivo */
+  background-size: contain; /* Asegura que la imagen se ajuste completamente */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  width: 32px; /* Ajusta el ancho del logo */
+  height: 32px; /* Ajusta la altura del logo */
+  display: inline-block; /* Para comportarse como un elemento en línea */
+  margin-right: 10px; /* Espaciado entre el logo y el texto */
+}
+
+/* Cabecera de la página */
+.page-header {
+  display: flex;
+  align-items: center; /* Alinea verticalmente al centro */
+  justify-content: space-between; /* Alinea horizontalmente al inicio */
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #f8f9fa; /* Fondo claro */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Título del header */
+.page-header-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  display: flex; /* Asegura que el título se alinee correctamente */
+}
+
+/* Separador */
+.separator {
+  margin: 0 10px; /* Espaciado horizontal entre el título y el subtítulo */
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: normal;
+  display: inline-block; /* Asegura que el separador se alinee correctamente */
+}
+
+/* Subtítulo */
+.subtitle {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #555;
+  display: inline-block; /* Asegura que el subtítulo se alinee correctamente */
+}
+
+
+/********************+ Imagen de cabecera ********************+*/
+
+.header-image-gs {
+  position: relative;
+  width: 100%;
+  background-image: url('../../assets/images/getStart.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Distribuye espacio entre elementos */
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  padding: 20px 0; /* Opcional: Añade padding para controlar el espacio interior */
+}
+
+.header-image-gs::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Oscurecer la imagen con un color negro semi-transparente */
+  z-index: 0; /* Colocar la capa oscura debajo del texto */
+}
+
+.logo-gs {
+  margin-top: 40px; /* Define el margen superior */
+  background-image: url('../../assets/images/Logo-W.png'); /* Ajusta la ruta a tu archivo */
+  width: 120px; /* Ajusta según el tamaño deseado */
+  height: 120px; /* Ajusta según el tamaño deseado */
+  background-size: contain; /* Asegura que la imagen se ajuste al contenedor */
+  background-repeat: no-repeat;
+  display: block; /* Asegura que sea visible */
+  z-index: 2;
+}
+
+/* Mensaje de bienvenida */
+.intro-text-gs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  margin-top: 10px; /* Ajusta el espacio después de la cabecera fija */
+  position: relative;
+  z-index: 2; /* Asegura que el texto quede encima de la capa oscura */
+  margin-bottom: 40px; /* Define el margen inferior */
+}
+
+.intro-title-gs {
+  font-size: 4rem;
+  margin: 0;
+  font-weight: bold;
+  color: #ffffff;
+  z-index: 2;
+  max-width: none; /* Elimina cualquier límite de ancho */
+}
+
+.intro-subtitle-gs {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  max-width: none; /* Elimina cualquier límite de ancho */
+}
+
+/* Descripción */
+.intro-description {
+  font-size: 1.2rem;
+  color: white;
+  line-height: 1.5;
+  width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+  max-width: none; /* Elimina cualquier límite de ancho */
+  margin: 0 auto;
+  text-align: center; /* Alinea el texto */
+  padding: 0 150px; /* Añade un poco de padding a los lados para que no se vea tan pegado al borde */
+}
+
+/* Pestañas */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: relative;
+  margin: 0 15px;
+}
+
+.tab:hover {
+  color: #007bff;
+}
+
+/* Línea azul debajo de la pestaña activa */
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #007bff;
+}
+
+/* Contenido de las pestañas */
+.tab-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Asegura que el contenido de las pestañas ocupe todo el ancho */
+}
+
+/* Contenido específico de cada pestaña */
+.configuracion-contenido,
+.otra-pestana {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Botón */
+.button-configure-network-page {
+  padding: 15px 30px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.button-configure-network-page:hover {
+  background-color: #0056b3;
+}
+
+/* Mensaje de estado */
+.status-message {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #007bff;
+  text-align: center;
+  width: 100%;
+}
+
+
+
+
+
+
+
+/* Texto explicativo */
+.configuracion-texto {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px; /* Espaciado entre el texto y el botón */
+  line-height: 1.5;
+  padding: 0 20px; /* Espaciado lateral */
+  max-width: none; /* Elimina cualquier límite de ancho */
+}
+
+/* Estilo base para los mensajes de estado */
+.status-message {
+  margin-top: 20px;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Mensaje de éxito */
+.status-message.success {
+  background-color: #d4edda; /* Fondo verde claro */
+  color: #155724; /* Texto verde oscuro */
+  border: 1px solid #c3e6cb; /* Borde verde */
+}
+
+/* Mensaje de error */
+.status-message.error {
+  background-color: #f8d7da; /* Fondo rojo claro */
+  color: #721c24; /* Texto rojo oscuro */
+  border: 1px solid #f5c6cb; /* Borde rojo */
+}
+
+/* Mensaje de información */
+.status-message.info {
+  background-color: #cce5ff; /* Fondo azul claro */
+  color: #004085; /* Texto azul oscuro */
+  border: 1px solid #b8daff; /* Borde azul */
+}
+
+/* Mensaje de carga */
+.status-message.loading {
+  background-color: #fff3cd; /* Fondo amarillo claro */
+  color: #856404; /* Texto amarillo oscuro */
+  border: 1px solid #ffeeba; /* Borde amarillo */
+}
+
+/* Botón transparente con borde azul */
+.button-go-to-shop {
+  padding: 15px 30px;
+  font-size: 1rem;
+  background-color: transparent;
+  color: #007bff; /* Azul */
+  border: 2px solid #007bff; /* Borde azul */
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 50px;
+}
+
+.button-go-to-shop:hover {
+  background-color: #007bff; /* Azul de fondo al pasar el ratón */
+  color: white; /* Cambiar color de texto a blanco */
+}
+
+/* Estado cuando el botón está deshabilitado */
+.button-go-to-shop:disabled {
+  background-color: transparent;
+  color: #ccc; /* Gris para texto */
+  border: 2px solid #ccc; /* Gris para el borde */
+  cursor: not-allowed; /* Mostrar el cursor como no permitido */
+}

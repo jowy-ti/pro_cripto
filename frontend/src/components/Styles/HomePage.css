@@ -1,0 +1,292 @@
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%; /* Asegura que el body y html ocupen toda la altura de la pantalla */
+    font-family: Helvetica, sans-serif;
+}
+
+/* Imagen de cabecera */
+.header-image-hp {
+    position: relative;
+    width: 100%;
+    background-image: url('../../assets/images/HolaUPC.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribuye espacio entre elementos */
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    padding: 20px 0; /* Opcional: Añade padding para controlar el espacio interior */
+  }
+  
+  .header-image-hp::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Oscurecer la imagen con un color negro semi-transparente */
+    z-index: 0; /* Colocar la capa oscura debajo del texto */
+  }
+
+  .logo-hp {
+    margin-top: 40px; /* Define el margen superior */
+    background-image: url('../../assets/images/Logo-W.png'); /* Ajusta la ruta a tu archivo */
+    width: 120px; /* Ajusta según el tamaño deseado */
+    height: 120px; /* Ajusta según el tamaño deseado */
+    background-size: contain; /* Asegura que la imagen se ajuste al contenedor */
+    background-repeat: no-repeat;
+    display: block; /* Asegura que sea visible */
+    z-index: 2;
+  }
+
+  /* Mensaje de bienvenida */
+.intro-text-hp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    margin-top: 10px; /* Ajusta el espacio después de la cabecera fija */
+    position: relative;
+    z-index: 2; /* Asegura que el texto quede encima de la capa oscura */
+    margin-bottom: 40px; /* Define el margen inferior */
+  }
+  
+  .intro-title-hp {
+    font-size: 4rem;
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+    max-width: none; /* Elimina cualquier límite de ancho */
+  }
+  
+  .intro-subtitle-hp {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    max-width: none; /* Elimina cualquier límite de ancho */
+  }
+  
+  /* Descripción */
+  .intro-description-hp {
+    font-size: 1.2rem;
+    color: white;
+    line-height: 1.5;
+    width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+    max-width: none; /* Elimina cualquier límite de ancho */
+    margin: 0 auto;
+    text-align: center; /* Alinea el texto */
+    padding: 0 150px; /* Añade un poco de padding a los lados para que no se vea tan pegado al borde */
+  }
+
+  /* Nueva sección para la configuración del usuario */
+.user-setup {
+    margin-top: 40px; /* Espaciado superior para separar la sección */
+    text-align: center; /* Centra el texto en la sección */
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centra los elementos dentro de la sección */
+    justify-content: center; /* Asegura que el contenido se centre verticalmente */
+}
+
+.setup-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.setup-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Contenedor de botones */
+.button-container-setup {
+    display: flex;
+    justify-content: center;
+    margin-bottom: auto; 
+    margin-top: 10px;
+    padding-bottom: 40px;
+}
+
+.nav-button-setup {
+    padding: 15px 30px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+}
+
+.nav-button-setup:hover {
+    background-color: #0056b3;
+}
+
+/* Imagen de Plataforma de comercio */
+.image-hp-pc {
+    position: relative;
+    width: 100%;
+    background-image: url('../../assets/images/Plat-Comercio.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribuye espacio entre elementos */
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    padding: 20px 0; /* Opcional: Añade padding para controlar el espacio interior */
+  }
+  
+  .image-hp-pc::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Oscurecer la imagen con un color negro semi-transparente */
+    z-index: 0; /* Colocar la capa oscura debajo del texto */
+  }
+
+  .pc-text-hp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    margin-top: 30px; /* Ajusta el espacio después de la cabecera fija */
+    position: relative;
+    z-index: 2; /* Asegura que el texto quede encima de la capa oscura */
+    margin-bottom: 40px; /* Define el margen inferior */
+  }
+
+  .pc-title-hp {
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+    z-index: 2;
+    max-width: none; /* Elimina cualquier límite de ancho */
+  }
+  
+  .pc-subtitle-hp {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    max-width: none; /* Elimina cualquier límite de ancho */
+  }
+  
+  /* Descripción */
+  .pc-description-hp {
+    font-size: 1.2rem;
+    color: white;
+    line-height: 1.5;
+    width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+    max-width: none; /* Elimina cualquier límite de ancho */
+    margin: 0 auto;
+    text-align: center; /* Alinea el texto */
+    padding: 0 150px; /* Añade un poco de padding a los lados para que no se vea tan pegado al borde */
+  }
+
+  /* Contenedor de los botones (debajo del texto) */
+.button-container-pc {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;    /*Margen con el borde de la imagen de pc*/
+}
+
+/* Estilo de los botones */
+.nav-button-pc {
+    padding: 15px 30px;
+    font-size: 1rem;
+    background-color: transparent; /* Fondo transparente */
+    color: white; /* Texto blanco */
+    border: 2px solid white; /* Borde blanco */
+    border-radius: 50px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Efecto suave */
+    width: 100%;
+    max-width: 300px;
+}
+
+.nav-button-pc:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo blanco semi-transparente al pasar el mouse */
+    color: white; /* Mantiene el texto blanco */
+}
+
+/* Estilos generales del pie de página */
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    color: white;
+    padding: 10px 30px;
+    font-family: Helvetica, sans-serif;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.8rem;
+    height: 120px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 25%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.footer-column p {
+    margin: 2px 0;
+    font-size: 0.9rem;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.footer-right img {
+    width: 250px;
+    height: auto;
+    max-width: 250px;
+}
+
+/* Asegura que el pie de página se quede al final */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+

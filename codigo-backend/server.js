@@ -229,6 +229,11 @@ app.post("/modifyProduct", async(req,res) =>{
     const productName = req.body.productName;
     const price = req.body.price;
     const image = req.body.image;
+
+    console.log ("productName: ", productName);
+    console.log ("price: ", price);
+    console.log ("image: ", image);
+
     if (productName && (price || image)){
         const product_exists = await mongo_functions.findProduct(productName);
         if (product_exists == null){
