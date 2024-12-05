@@ -12,7 +12,6 @@ import DeleteProductPage from './pages/DeleteProductPage';
 import ErrorPage from './pages/ErrorPage';
 import GetStartedPage from './pages/GetStartedPage';
 import ClientMenuPage from './pages/ClientMenuPage';
-import ClaimTokensPage from './pages/ClaimTokensPage';
 import BlockchainTransfer from './pages/TransferTokensPage';
 
 function App() {
@@ -32,7 +31,6 @@ function App() {
           <Route path="/modifyproduct" element={<ModifyProductPage/>} />
           <Route path="/getstartedpage" element={<GetStartedPage />} />
           <Route path="/clientmenu" element={<ClientMenuPage/>}/>
-          <Route path="/claim-tokens" element={<ClaimTokensPage />} />
           <Route path="/transfer-tokens" element={<BlockchainTransfer />} />
         </Routes>
       </header>
