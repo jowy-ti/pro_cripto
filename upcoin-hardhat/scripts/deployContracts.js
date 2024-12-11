@@ -6,12 +6,11 @@
 const {Web3} = require("web3");
 const fs = require("fs");
 const path = require("path");
-require("dotenv").config(); // Carga el archivo .env en la raíz
+require("dotenv").config();
 
 console.log('RELAYER_PRIVATE_KEY:', process.env.RELAYER_PRIVATE_KEY);
 console.log('INFURA_API_URL:', process.env.INFURA_API_URL);
 
-// Conectar a la red (ajusta la URL de Sepolia según tu configuración)
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 
 async function main() {
@@ -39,7 +38,7 @@ async function main() {
 
     const deployUpcoinTx = UPCoin.deploy({
         data: upcoinBytecode,
-        arguments: [initialSupply]
+        arguments: [initialSupply, account.address],
     });
 
     const upcoinGas = await deployUpcoinTx.estimateGas({ from: account.address });
@@ -65,7 +64,6 @@ async function main() {
         gasPrice: await web3.eth.getGasPrice(),
     });
 
-    console.log("Relayer deployed to:", relayer.options.address);
 }
 
 main().catch((error) => {
