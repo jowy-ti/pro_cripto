@@ -1,9 +1,9 @@
+//upcoin-hardhat/scripts/local/balance.js
 const { Web3 } = require("web3");
 const fs = require("fs");
 const path = require("path");
 
-// Conectar a tu nodo local de Hardhat (reemplaza con la URL correcta si es diferente)
-const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545")); // Configuración de la red local: Hardhat local node
 
 // Direcciones de las wallets a consultar
 const wallets = [
@@ -14,10 +14,10 @@ const wallets = [
 ];
 
 // Dirección del contrato desplegado UPCoin
-const upcoinAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Cambia esta dirección si es necesario
+const upcoinAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // Cargar ABI del contrato UPCoin
-const abiPath = path.join(__dirname, "../artifacts/contracts/UPCoin.sol/UPCoin.json");
+const abiPath = path.join(__dirname, "../../artifacts/contracts/UPCoin.sol/UPCoin.json");
 const upcoinABI = JSON.parse(fs.readFileSync(abiPath, "utf-8")).abi;
 
 // Crear una instancia del contrato UPCoin

@@ -1,27 +1,33 @@
+//upcoin-hardhat/scripts/local/claimTokens.js
 const { Web3 } = require("web3");
 const fs = require("fs");
 const path = require("path");
 
 async function main() {
-    // Inicializar Web3 con un proveedor
-    const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
+  
+    const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545")); // Configuración de la red local: Hardhat local node
 
-    const relayerAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"; // Dirección del contrato Relayer
-    const relayerPrivateKey = "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"; // Clave privada del relayer cuenta #1
-    const userAddress = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"; // Usuario que reclama tokens cuenta #2
+    // Dirección del contrato UPCoin en local
+    const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
-    // Cargar ABI del contrato Relayer
-    const relayerABIPath = path.join(__dirname, "../artifacts/contracts/Relayer.sol/Relayer.json");
-    const relayerABI = JSON.parse(fs.readFileSync(relayerABIPath, "utf-8")).abi;
+    const relayerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"; // Dirección de la wallet del Relayer cuenta #0
+    const relayerPrivateKey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"; // Clave privada de la wallet del Relayer
+    
+    const userAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"; // Usuario que reclama tokens cuenta #1
 
-    // Crear una instancia del contrato Relayer
-    const relayerInstance = new web3.eth.Contract(relayerABI, relayerAddress);
+    // Cargar ABI del contrato UPCoin
+    const upcoinPath = path.resolve(__dirname, "../../artifacts/contracts/UPCoin.sol/UPCoin.json");
+    const upcoinJSON = JSON.parse(fs.readFileSync(upcoinPath, "utf8"));
+    const upcoinAbi = upcoinJSON.abi;
+
+    // Crear instancia del contrato
+    const upcoinContract = new web3.eth.Contract(upcoinAbi, contractAddress);
 
     try {
         console.log("Preparando la transacción para reclamar tokens...");
 
-        // Construir la transacción para llamar a claimTokensForUser
-        const claimTx = relayerInstance.methods.relayClaimTokens(userAddress);
+        // Construir la transacción para llamar a claimTokens
+        const claimTx = upcoinContract.methods.claimTokens(userAddress);
         const gasEstimate = await claimTx.estimateGas({ from: relayerAddress });
         const gasPrice = await web3.eth.getGasPrice();
 
@@ -29,12 +35,12 @@ async function main() {
         const nonce = await web3.eth.getTransactionCount(relayerAddress, 'latest');
 
         const txData = {
-            from: relayerAddress,
-            to: relayerAddress, // Dirección del contrato Relayer
+            from: relayerAddress, 
+            to: contractAddress, // Dirección del contrato UPcoin
             data: claimTx.encodeABI(),
             gas: gasEstimate,
             gasPrice,
-            nonce: 0, // Añadir el nonce correcto
+            nonce: nonce,
         };
 
         // Firmar la transacción con la clave privada del relayer

@@ -15,10 +15,10 @@ contract UPCoin is ERC20 {
     }
 
     constructor(uint256 initialSupply, address _relayer) ERC20("UPCoin", "UPC") {
-require(_relayer != address(0), "Relayer address cannot be zero");
-// Multiplicamos por 10 ** 2 para reflejar los 2 decimales
+        require(_relayer != address(0), "Relayer address cannot be zero");
+        // Multiplicamos por 10 ** 2 para reflejar los 2 decimales
         _mint(msg.sender, initialSupply * 10 ** decimals());
-        relayer = _relayer
+        relayer = _relayer;
     }
 
     // Override para establecer los decimales a 2
