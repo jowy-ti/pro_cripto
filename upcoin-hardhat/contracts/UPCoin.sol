@@ -14,14 +14,10 @@ contract UPCoin is ERC20 {
         _;
     }
 
-    constructor(uint256 initialSupply) ERC20("UPCoin", "UPC") {
+    constructor(uint256 initialSupply, address _relayer) ERC20("UPCoin", "UPC") {
+        require(_relayer != address(0), "Relayer address cannot be zero");
         // Multiplicamos por 10 ** 2 para reflejar los 2 decimales
         _mint(msg.sender, initialSupply * 10 ** decimals());
-    }
-
-    // Función para actualizar la dirección del relayer
-    function setRelayer(address _relayer) external {
-        require(relayer == address(0), "Relayer is already set");
         relayer = _relayer;
     }
 
@@ -37,7 +33,6 @@ contract UPCoin is ERC20 {
     }
 
     // Reclamar tokens iniciales
-    // "external" :  puede ser llamada desde fuera del contrato
     function claimTokens(address user) external onlyRelayer{
         require(!hasClaimedTokens[user], "Tokens already claimed by this address");
         hasClaimedTokens[user] = true;

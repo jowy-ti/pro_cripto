@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/sebas/Documents/q7/pti-pro/upcoin-hardhat/contracts/Relayer.sol": {
-      "lastModificationDate": 1732215256366,
+      "lastModificationDate": 1732376440218,
       "contentHash": "ec51a70779d43af05a90d9d54a1ac272",
       "sourceName": "contracts/Relayer.sol",
       "solcConfig": {
@@ -40,8 +40,8 @@
       ]
     },
     "/Users/sebas/Documents/q7/pti-pro/upcoin-hardhat/contracts/UPCoin.sol": {
-      "lastModificationDate": 1732214186292,
-      "contentHash": "2c090303c70ddb899adba4bac1c43218",
+      "lastModificationDate": 1733935972283,
+      "contentHash": "4b79034af87a2cf46e2b3a589689a0f6",
       "sourceName": "contracts/UPCoin.sol",
       "solcConfig": {
         "version": "0.8.27",
