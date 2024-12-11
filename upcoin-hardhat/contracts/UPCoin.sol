@@ -14,15 +14,11 @@ contract UPCoin is ERC20 {
         _;
     }
 
-    constructor(uint256 initialSupply) ERC20("UPCoin", "UPC") {
-        // Multiplicamos por 10 ** 2 para reflejar los 2 decimales
+    constructor(uint256 initialSupply, address _relayer) ERC20("UPCoin", "UPC") {
+require(_relayer != address(0), "Relayer address cannot be zero");
+// Multiplicamos por 10 ** 2 para reflejar los 2 decimales
         _mint(msg.sender, initialSupply * 10 ** decimals());
-    }
-
-    // Función para actualizar la dirección del relayer
-    function setRelayer(address _relayer) external {
-        require(relayer == address(0), "Relayer is already set");
-        relayer = _relayer;
+        relayer = _relayer
     }
 
     // Override para establecer los decimales a 2
