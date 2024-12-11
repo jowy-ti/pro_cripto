@@ -33,7 +33,6 @@ contract UPCoin is ERC20 {
     }
 
     // Reclamar tokens iniciales
-    // "external" :  puede ser llamada desde fuera del contrato
     function claimTokens(address user) external onlyRelayer{
         require(!hasClaimedTokens[user], "Tokens already claimed by this address");
         hasClaimedTokens[user] = true;

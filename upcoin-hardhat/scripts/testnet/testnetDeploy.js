@@ -1,6 +1,8 @@
+//upcoin-hardhat/scripts/testnet/testnetDeploy.js
+
 /**
- * Script para desplegar los contratos en la testnet de Sepolia
- * npx hardhat run scripts/testnet/deployContracts.js --network sepolia
+ * Script para desplegar el contrato de UPCoin en la testnet de Sepolia
+ * npx hardhat run scripts/testnet/testnetDeploy.js --network sepolia
  */
 
 const {Web3} = require("web3");
@@ -19,10 +21,10 @@ async function main() {
     const account = web3.eth.accounts.privateKeyToAccount(privateKey);
     web3.eth.accounts.wallet.add(account);
 
-    console.log("Deploying contracts with the account:", account.address);
+    console.log("Deploying contract with the account:", account.address);
 
     // Leer el bytecode y la ABI de UPCoin
-    const upcoinPath = path.resolve(__dirname, "../artifacts/contracts/UPCoin.sol/UPCoin.json");
+    const upcoinPath = path.resolve(__dirname, "../../artifacts/contracts/UPCoin.sol/UPCoin.json");
     const upcoinJSON = JSON.parse(fs.readFileSync(upcoinPath, "utf8"));
     const upcoinAbi = upcoinJSON.abi;
     const upcoinBytecode = upcoinJSON.bytecode;
@@ -52,10 +54,15 @@ main().catch((error) => {
 });
 
 /**
- * Último Deploy 21/11
+ * Deploy 21/11
  * 
  *  Deploying contracts with the account: 0x0e627480Fd689313967b81a85b40fAa131653F51
  *  UPCoin deployed to: 0xD3BcD23F1B6d0aDA3e83C84443e2285B75F2D008
  *  Relayer deployed to: 0x86F53C5aF034dC83083F7c935b132601D66AA8eb
- * 
+ */
+
+/**
+ * Deploy Dic 11
+ * Deploying contract with the account: 0x0e627480Fd689313967b81a85b40fAa131653F51
+ * UPCoin deployed to: 0xab4c4E5699202E2D7BB2d21E993eD2AC421b6570
  */

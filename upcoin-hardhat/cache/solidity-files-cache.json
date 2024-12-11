@@ -40,8 +40,8 @@
       ]
     },
     "/Users/sebas/Documents/q7/pti-pro/upcoin-hardhat/contracts/UPCoin.sol": {
-      "lastModificationDate": 1733923895448,
-      "contentHash": "f75b71cdbd1d577120b3138882bad917",
+      "lastModificationDate": 1733935972283,
+      "contentHash": "4b79034af87a2cf46e2b3a589689a0f6",
       "sourceName": "contracts/UPCoin.sol",
       "solcConfig": {
         "version": "0.8.27",
