@@ -78,7 +78,7 @@ const ProductDelete = () => {
                     {products.map((product) => (
                         <li key={product.productName} className='product-item'>
                                 <span>{product.productName}</span>
-                                <span>{product.price.toFixed(2)} UPCoin</span>
+                                <span>{product.price} UPCoin</span>
                                 <img className='imagen' src={product.imageURL} alt='' /><button onClick={() => handleDelete(product.productName)}>Borrar</button>
                         </li>
                     ))}
