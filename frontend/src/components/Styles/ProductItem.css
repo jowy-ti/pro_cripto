@@ -12,7 +12,8 @@
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
-    height: 100%; /* Ocupa el 100% de altura disponible */
+    /*height: 100%;  Ocupa el 100% de altura disponible */
+    height: 450px;
 }
 
 /* Nombre del producto (primera fila) */
@@ -20,6 +21,15 @@
     margin: 0;
     color: #333;
     text-align: center;
+}
+
+/* Contenedor para centrar la imagen */
+.product-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Ocupa el espacio disponible */
 }
 
 /* Imagen del producto (segunda fila) */
@@ -37,6 +47,8 @@
     flex-direction: column;
     align-items: center;
     margin-top: 15px;
+    flex-grow: 0;
+    justify-content: flex-end;
 }
 
 /* Estilo para texto, precio, cantidad (en la tercera fila) */

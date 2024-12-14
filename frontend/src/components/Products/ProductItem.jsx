@@ -25,7 +25,10 @@ const ProductItem = ({product, onAddToCarrito, showAddButton}) => {
     return(
         <div className='product-item'>
             <h3>{productName}</h3>
-            <img className='imagen' src={imageURL} alt={productName} />
+            {/* Contenedor para la imagen */}
+            <div className="product-image-container">
+                <img className="imagen" src={imageURL} alt={productName} />
+            </div>
             
             <div className='product-info'>
                 <p className='text'>Precio: {totalPrice.toFixed(2)} UPC</p>
