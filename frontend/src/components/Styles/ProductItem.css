@@ -75,13 +75,14 @@
 }
 
 button {
-    padding: 8px 12px; /* Reducir el padding para que el botón sea más bajo */
-    font-size: 16px; /* Reducir el tamaño del texto */
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 20px; /* Bordes redondeados moderados */
+    padding: 6px 20px; /* Reducir la altura y hacer los botones más alargados */
+    font-size: 18px; /* Tamaño de texto más grande */
+    color: #007bff; /* Texto azul */
+    background-color: transparent; /* Fondo transparente */
+    border: 2px solid #007bff; /* Bordes azules */
+    border-radius: 25px; /* Bordes redondeados más pronunciados */
     cursor: pointer;
+    transition: all 0.3s ease; /* Añadir transición para el hover */
 }
 
 /* Oscurecer el botón al pasar por encima */
@@ -89,9 +90,12 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Estilo para el botón deshabilitado */
+/* Botón deshabilitado */
 button[disabled] {
-    background-color: #ccc;
+    background-color: transparent;
+    border-color: #ccc; /* Borde gris cuando está deshabilitado */
+    color: #ccc; /* Texto gris cuando está deshabilitado */
+    cursor: not-allowed; /* Cambiar el cursor cuando el botón está deshabilitado */
 }
 
 /* Contenedor del botón de añadir al carrito (última fila) */
