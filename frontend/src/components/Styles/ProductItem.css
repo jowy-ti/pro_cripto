@@ -12,7 +12,8 @@
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
-    height: 100%; /* Ocupa el 100% de altura disponible */
+    /*height: 100%;  Ocupa el 100% de altura disponible */
+    height: 450px;
 }
 
 /* Nombre del producto (primera fila) */
@@ -20,6 +21,15 @@
     margin: 0;
     color: #333;
     text-align: center;
+}
+
+/* Contenedor para centrar la imagen */
+.product-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Ocupa el espacio disponible */
 }
 
 /* Imagen del producto (segunda fila) */
@@ -37,6 +47,8 @@
     flex-direction: column;
     align-items: center;
     margin-top: 15px;
+    flex-grow: 0;
+    justify-content: flex-end;
 }
 
 /* Estilo para texto, precio, cantidad (en la tercera fila) */
@@ -63,23 +75,28 @@
 }
 
 button {
-    padding: 8px 12px; /* Reducir el padding para que el botón sea más bajo */
-    font-size: 16px; /* Reducir el tamaño del texto */
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 20px; /* Bordes redondeados moderados */
+    padding: 3px 20px; /* Reducir la altura y hacer los botones más alargados */
+    font-size: 18px; /* Tamaño de texto más grande */
+    color: #007bff; /* Texto azul */
+    background-color: transparent; /* Fondo transparente */
+    border: 2px solid #007bff; /* Bordes azules */
+    border-radius: 25px; /* Bordes redondeados más pronunciados */
     cursor: pointer;
+    transition: all 0.3s ease; /* Añadir transición para el hover */
 }
 
 /* Oscurecer el botón al pasar por encima */
 button:hover {
-    background-color: #0056b3;
+    background-color: #007bff; /* Azul de fondo al pasar el ratón */
+    color: white; /* Cambiar color de texto a blanco */
 }
 
-/* Estilo para el botón deshabilitado */
+/* Botón deshabilitado */
 button[disabled] {
-    background-color: #ccc;
+    background-color: transparent;
+    border-color: #ccc; /* Borde gris cuando está deshabilitado */
+    color: #ccc; /* Texto gris cuando está deshabilitado */
+    cursor: not-allowed; /* Cambiar el cursor cuando el botón está deshabilitado */
 }
 
 /* Contenedor del botón de añadir al carrito (última fila) */
