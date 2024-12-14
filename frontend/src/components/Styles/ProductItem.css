@@ -75,7 +75,7 @@
 }
 
 button {
-    padding: 6px 20px; /* Reducir la altura y hacer los botones más alargados */
+    padding: 3px 20px; /* Reducir la altura y hacer los botones más alargados */
     font-size: 18px; /* Tamaño de texto más grande */
     color: #007bff; /* Texto azul */
     background-color: transparent; /* Fondo transparente */
@@ -87,7 +87,8 @@ button {
 
 /* Oscurecer el botón al pasar por encima */
 button:hover {
-    background-color: #0056b3;
+    background-color: #007bff; /* Azul de fondo al pasar el ratón */
+    color: white; /* Cambiar color de texto a blanco */
 }
 
 /* Botón deshabilitado */
