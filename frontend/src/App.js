@@ -13,6 +13,7 @@ import ErrorPage from './pages/ErrorPage';
 import GetStartedPage from './pages/GetStartedPage';
 import ClientMenuPage from './pages/ClientMenuPage';
 import BlockchainTransfer from './pages/TransferTokensPage';
+import MintPage from './pages/MintTokensPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/getstartedpage" element={<GetStartedPage />} />
           <Route path="/clientmenu" element={<ClientMenuPage/>}/>
           <Route path="/transfer-tokens" element={<BlockchainTransfer />} />
+          <Route path="/mint-tokens" element={<MintPage />} />
         </Routes>
       </header>
     </div>

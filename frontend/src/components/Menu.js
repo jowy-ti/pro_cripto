@@ -30,7 +30,8 @@ const Menu = () => {
 
             <li className="menu-separator">UPCoin</li>
             <li><Link to="/getstartedpage" className="menu-link">Empezar a utilizar UPCoin</Link></li>
-            <li><Link to="/transfer-tokens" className="menu-link">Transferir UPC</Link></li>
+            <li><Link to="/transfer-tokens" className="menu-link">Transferir UPCoin</Link></li>
+            <li><Link to="/mint-tokens" className="menu-link">Emitir UPCoin</Link></li>
             <li>
               <a 
                 href="https://sepolia.etherscan.io/address/0xab4c4E5699202E2D7BB2d21E993eD2AC421b6570" 
