@@ -2,11 +2,19 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require('body-parser');
+
+//express-rate-limit permite limitar en número de POST que se hacen a la página de inicio de sesión, así se evitan ataques de fuerza bruta
 const rateLimit = require('express-rate-limit');
+
+//helmet permite dejar de enviar el campo X-Powered-By a las respuestas HTTP, este puede ser usado para vulnerar la web
 const helmet = require('helmet');
 require('dotenv').config();
 const crypto = require('crypto');
+
+//express-mongo-sanitize permite hacer una sanitazión de los inputs del usuario en busca de inyecciones NOSQL
 const expressMongoSanitize = require ("express-mongo-sanitize");
+
+//XSS clean permite hacer una sanitazión de los inputs del usuario en busca de inyecciones XSS
 const xss = require('xss-clean');
 
 const app = express();
@@ -16,12 +24,22 @@ const mongo_functions = require("./MongoDB.js");
 const {Web3} = require('web3');
 const web3 = new Web3(new Web3.providers.HttpProvider(process.env.INFURA_API_URL));
 app.use(helmet());
+
+//Configurar CORS con la IP indicada para evitar problemas con los orígenes
 app.use(cors({
   origin: 'http://10.4.41.37:8080',
   credentials: true
 }));
+
+
 app.use(express.json());
 app.use(cookieParser());
+
+
+//Configuración de la cookie
+//Cambiar secure a true en caso que se quiera usar HTTPS 
+//La cookie es válida durante 1 día
+//Campo httpOnly para evitar que se pueda acceder a la cookie des de codigos JS en el navegador
 app.use(
     session({
         secret: '123456789',
@@ -29,9 +47,9 @@ app.use(
         name: 'cookie',
         saveUninitialized: false,
         cookie: {
-            httpOnly: true,
+            httpOnly: true, 
             secure: false,
-            maxAge: 1000 * 60 * 60 * 24, // 1 day
+            maxAge: 1000 * 60 * 60 * 24,
         },
     })
 );
@@ -42,6 +60,9 @@ app.use(expressMongoSanitize());
 
 app.set('trust proxy', 1);
 
+
+//Limitar el número de requisitos de una IP orígen
+//El máximo son 60 en 5 minutos 
 const loginRateLimiter = rateLimit({
     windowMs: 60*1000*5,
     max: 60,
@@ -55,17 +76,23 @@ const loginRateLimiter = rateLimit({
 app.post("/login", loginRateLimiter, async (req, res) => {
     const user = req.body.userName;
     const password = req.body.password;
+
     if (user && password) {
         const user_profile = await mongo_functions.findUser(user);
+        //Si el usuario no existe
         if (user_profile == null){
             return res.status(400).send('Invalid username or password');
         };
+
+        //Calcular el hash a través del salt de la base de datos y el input del usuaio
         const salt = user_profile.salt;
         const password_hashed = crypto.createHash("sha256").update(password + salt).digest("hex");
         
         if (password_hashed != user_profile.password){
             return res.status(400).send('Invalid username or password');
         };
+
+        //Enviar cookies con rol Administrador 
         req.session.role = "Admin";
         req.session.loggedIn = true
         req.session.user = req.body.userName;
@@ -81,7 +108,10 @@ app.post("/login", loginRateLimiter, async (req, res) => {
     return res.status(400).send('Invalid username or password');
 });
 
+
 app.post('/logout', (req, res) => {
+
+    //Destruir la cookie que ha passado el usuaio como input
     req.session.destroy((err) => {
         if (err) {
             return res.status(500).send('Failed to logout');
@@ -102,12 +132,19 @@ app.post("/register", async(req, res) => {
         const password = req.body.password;
         if (user && password){
             const user_profile = await mongo_functions.findUser(user);
+            //Si se encuentra el usuario en la base de dados este ya existe
             if (user_profile != null){
                 return res.status(400).send('Username already exists');
             };
+
+            //Calcular el hash a partir de la contraseña y un hash aleatorio
             const salt = crypto.randomBytes(16).toString('hex');
             const password_hashed = crypto.createHash("sha256").update(password + salt).digest("hex");
+
+            //añadir en nuevo usuario
             mongo_functions.addUser(user, password_hashed, salt);
+
+
             req.session.user = user;
             req.session.role = "Admin";
 
@@ -123,6 +160,7 @@ app.post("/register", async(req, res) => {
 })
 
 app.get("/register", async(req, res) => {
+    //Si tiene una cookie
     if (req.session && req.session.loggedIn){
         return   res.status(200).send("User added");
     }
@@ -133,6 +171,7 @@ app.get("/register", async(req, res) => {
 
 
 app.get("/productmanagement", async(req, res) => {
+  //Si tiene una cookie
     if (req.session && req.session.loggedIn){
         return   res.status(200).send("User added");
     }
@@ -142,6 +181,7 @@ app.get("/productmanagement", async(req, res) => {
 })
 
 app.get("/addproduct", async(req, res) => {
+  //Si tiene una cookie
     if (req.session && req.session.loggedIn){
         return   res.status(200).send("User added");
     }
@@ -151,6 +191,7 @@ app.get("/addproduct", async(req, res) => {
 })
 
 app.get("/deleteproduct", async(req, res) => {
+  //Si tiene una cookie
     if (req.session && req.session.loggedIn){
         return   res.status(200).send("User added");
     }
@@ -160,6 +201,7 @@ app.get("/deleteproduct", async(req, res) => {
 })
 
 app.get("/modifyproduct", async(req, res) => {
+  //Si tiene una cookie
     if (req.session && req.session.loggedIn){
         return   res.status(200).send("User added");
     }
@@ -168,17 +210,22 @@ app.get("/modifyproduct", async(req, res) => {
     } 
 })
 
+//se crea el servidor en el puerto 5000
 app.listen(5000, () => {
     console.log("Server started on port 5000");
 });
 
+
 app.get("/", async(req, res)  => {
+  //Se llama a la base de datos en busca de todos los productos
     const products = await mongo_functions.getAllProducts();
+    //Se devuelven los productos en formato json
     res.json(products)
 });
 
 (async () => {
     try {
+        //Se conecta a la base de datos y se inicializa
         await mongo_functions.connectToDatabase();
         await mongo_functions.initializeDatabase();
         console.log('Database connected and initialitzated successfully');
@@ -189,6 +236,7 @@ app.get("/", async(req, res)  => {
 
 
 app.get("/dashboard", async(req,res) =>{
+  //Si tiene una cookie
     if (req.session && req.session.loggedIn)
         return res.status(200).send("");
     else 
@@ -199,11 +247,14 @@ app.post("/addProduct", async(req,res) =>{
     const productName = req.body.productName;
     const price = req.body.price;
     const image = req.body.image;
+    //Solo en caso que se hayan pasado las 3 características
     if (productName && price && image){
         const product_exists = await mongo_functions.findProduct(productName);
+        //Si el producto ya existe en la base de datos
         if (product_exists != null){
             return res.status(400).send("Product already exists");
         }
+        //Se añade el producto a la base de datos
         mongo_functions.addProduct(productName, price, image);
         res.status(200).send("Product added");
     }
@@ -215,9 +266,11 @@ app.post("/deleteProduct", async(req,res) =>{
     const productName = req.body.product;
     if (productName){
         const product_exists = await mongo_functions.findProduct(productName);
-        if (product_exists == null){
+        //Si el producto no existe
+        if (product_exists != null){ // C
             return res.status(400).send("Product already exists");
         }
+        //Si el producto existe se borra de la base de datos
         mongo_functions.deleteProduct(productName);
         res.status(200).send("Product deleted");
     }
@@ -233,21 +286,28 @@ app.post("/modifyProduct", async(req,res) =>{
     console.log ("productName: ", productName);
     console.log ("price: ", price);
     console.log ("image: ", image);
-
+    //Si se indica el nombre del producto y el nuevo precio o la nueva imagen
     if (productName && (price || image)){
         const product_exists = await mongo_functions.findProduct(productName);
+        //si el producto no existe
         if (product_exists == null){
             return res.status(400).send("Product doesn't exists");
         }
+        //Si solo se quiere cambiar el precio
         if (price && !image){
             const imageURL = product_exists.imageURL;
+            //Llamadoa con nuevo precio, imagen antigua
             await mongo_functions.modifyProduct(productName, {price, imageURL})
         }
+        //Si solo se quiere cambiar la imagen
         if (image && !price){
             const price_BD = product_exists.price;
+            //Llamada con nueva imagen, precio antiguo
             await mongo_functions.modifyProduct(productName, {price_BD, image})
         }
+        //Si se quiere cambiar el precio y la imagen
         else {
+            //Llamada con nueva imagen y nuevo precio
             await mongo_functions.modifyProduct(productName, {price, image})
         }
         res.status(200).send("Product modified");
