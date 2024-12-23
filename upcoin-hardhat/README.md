@@ -1,13 +1,9 @@
-# Sample Hardhat Project
+# Proyecto Hardhat UPCoin
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+Este directorio contiene todo el proyecto de Hardhat para la creación del token UPCoin. Los archivos y directorios a destacar son los siguientes:
 
-Try running some of the following tasks:
+* **contratcs**: Contiene el contrato UPCoin.sol.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
+* **scripts**: Incluye los scripts utilizados para el despliegue del contrato inteligente en local y en la testnet de Sepolia. Además, dispone de los scripts empleados para verificar el funcionamiento del contrato en la red local antes de migrarlo a la testnet.
+
+* **.env**: En el archivo .env` se almacenan las variables de entorno necesarias para la configuración del proyecto, como RELAYER_PRIVATE_KEY y INFURA_API_URL, que son utilizadas durante el despliegue en la testnet. Este archivo permite mantener de forma segura y separada la configuración sensible del código fuente del proyecto.
