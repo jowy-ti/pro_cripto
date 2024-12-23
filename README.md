@@ -8,8 +8,8 @@
 
 **Sebastián Morante Bonilla**
 
-* Desarrollo, inplementación y despliegue de UPCoin
-* Implementación de la funciones y páginas relacionadas con el uso de UPCoin en el frontend.
+* Desarrollo, implementación y despliegue de UPCoin
+* Implementación de las funciones y páginas relacionadas con el uso de UPCoin en el frontend.
 * Implementación de los endpoints relacionados con UPCoin en el backend.
 
 **Sergio Jarque Salzedo**
